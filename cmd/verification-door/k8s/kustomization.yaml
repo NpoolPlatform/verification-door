@@ -1,0 +1,6 @@
+commonLabels:
+  # app: verification-door
+
+resources:
+- 01-verification-door.yaml
+- 02-ingress.yaml

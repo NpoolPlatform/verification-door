@@ -1,10 +1,10 @@
-module github.com/NpoolPlatform/go-service-app-template
+module github.com/NpoolPlatform/verification-door
 
 go 1.16
 
 require (
 	entgo.io/ent v0.9.1
-	github.com/NpoolPlatform/go-service-framework v0.0.0-20211031094530-5ab1b9965285
+	github.com/NpoolPlatform/go-service-framework v0.0.0-20211102122901-b687a4bf9b14
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.6.0
 	github.com/streadway/amqp v1.0.0

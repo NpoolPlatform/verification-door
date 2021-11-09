@@ -3,23 +3,23 @@
 
 ## Table of Contents
 
-- [npool/service-sample.proto](#npool/service-sample.proto)
-    - [VersionResponse](#service.sample.v1.VersionResponse)
+- [npool/verification-door.proto](#npool/verification-door.proto)
+    - [VersionResponse](#verification.door.v1.VersionResponse)
   
-    - [ServiceExample](#service.sample.v1.ServiceExample)
+    - [VerificationDoor](#verification.door.v1.VerificationDoor)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="npool/service-sample.proto"></a>
+<a name="npool/verification-door.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## npool/service-sample.proto
+## npool/verification-door.proto
 
 
 
-<a name="service.sample.v1.VersionResponse"></a>
+<a name="verification.door.v1.VersionResponse"></a>
 
 ### VersionResponse
 request body and response
@@ -40,14 +40,14 @@ request body and response
  
 
 
-<a name="service.sample.v1.ServiceExample"></a>
+<a name="verification.door.v1.VerificationDoor"></a>
 
-### ServiceExample
+### VerificationDoor
 Service Name
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| Version | [.google.protobuf.Empty](#google.protobuf.Empty) | [VersionResponse](#service.sample.v1.VersionResponse) | Method Version |
+| Version | [.google.protobuf.Empty](#google.protobuf.Empty) | [VersionResponse](#verification.door.v1.VersionResponse) | Method Version |
 
  
 
