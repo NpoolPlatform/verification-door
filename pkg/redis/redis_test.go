@@ -9,7 +9,6 @@ import (
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
-	"google.golang.org/protobuf/types/known/structpb"
 )
 
 func init() {
@@ -29,4 +28,8 @@ func TestRedis(t *testing.T) {
 	client := Client()
 	assert.Nil(t, client)
 
+	userID := uuid.New().String()
+
+	err := InsertKeyInfo(userID, "test", "this is a test", 0)
+	assert.Nil(t, err)
 }
