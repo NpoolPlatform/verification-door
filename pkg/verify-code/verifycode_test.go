@@ -1,4 +1,4 @@
-package redis
+package verifycode
 
 import (
 	"fmt"
@@ -21,27 +21,20 @@ func init() {
 	}
 }
 
-func TestRedis(t *testing.T) { // nolint
+func TestVerifyCode(t *testing.T) { // nolint
 	if runByGithubAction, err := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); err == nil && runByGithubAction {
 		return
 	}
 
-	client := Client()
-	assert.NotNil(t, client)
+	code := GenerateVerifyCode(6)
+	assert.NotNil(t, code)
 
 	userID := uuid.New().String()
-	verifyCode := VerifyUserCode{
-		Code:     "123456",
-		SendTime: time.Now().Unix(),
-	}
-
-	err := InsertKeyInfo(userID, "test", verifyCode, 0)
-	fmt.Println("test error is:", err)
+	sendType := "email"
+	sendTime := time.Now().Unix()
+	err := SaveVerifyCode(userID, code, sendType, sendTime)
 	assert.Nil(t, err)
 
-	info, err := QueryVerifyCodeKeyInfo(userID, "test")
-	if assert.Nil(t, err) {
-		assert.Equal(t, info.Code, verifyCode.Code)
-		assert.Equal(t, info.SendTime, verifyCode.SendTime)
-	}
+	err = VerifyCode(userID, code, sendType)
+	assert.Nil(t, err)
 }

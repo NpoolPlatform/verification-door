@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	myRedis "github.com/NpoolPlatform/go-service-framework/pkg/redis"
+	"github.com/NpoolPlatform/go-service-framework/pkg/app"
 	"github.com/go-redis/redis/v8"
 )
 
@@ -16,16 +16,18 @@ type VerifyUserCode struct {
 }
 
 func Client() *redis.Client {
-	return myRedis.Client{}.Client
+	return app.Redis().Client
 }
 
 func InsertKeyInfo(userID, keyWord string, info interface{}, ttl time.Duration) error {
 	b, err := json.Marshal(info)
 	if err != nil {
+		fmt.Println("json error is", err)
 		return err
 	}
 	err = Client().Set(context.Background(), fmt.Sprintf("%v::%v", keyWord, userID), string(b), ttl).Err()
 	if err != nil {
+		fmt.Println("set error is:", err)
 		return err
 	}
 	return nil
