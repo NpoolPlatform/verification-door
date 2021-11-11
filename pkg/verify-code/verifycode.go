@@ -5,6 +5,7 @@ import (
 	"time"
 
 	myRedis "github.com/NpoolPlatform/verification-door/pkg/redis"
+	"github.com/go-redis/redis/v8"
 	"golang.org/x/xerrors"
 )
 
@@ -43,6 +44,17 @@ func SaveVerifyCode(userID, code, sendtype string, sendTime int64) error {
 		return err
 	}
 
+	info, err := myRedis.QueryVerifyCodeKeyInfo(userID, EmailVerifyCodePrefix)
+	if err != nil && err != redis.Nil {
+		return xerrors.Errorf("fail to get user verify code key: %v", err)
+	}
+
+	if err == nil {
+		if (sendTime - info.SendTime) < 60*int64(time.Second) {
+			return xerrors.Errorf("please wait for 60 seconds.")
+		}
+	}
+
 	userCode := myRedis.VerifyUserCode{
 		Code:     code,
 		SendTime: sendTime,
@@ -52,6 +64,7 @@ func SaveVerifyCode(userID, code, sendtype string, sendTime int64) error {
 	if err != nil {
 		return xerrors.Errorf("insert verify code error: %v", err)
 	}
+
 	return nil
 }
 
