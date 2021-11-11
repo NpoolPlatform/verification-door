@@ -4,6 +4,18 @@
 ## Table of Contents
 
 - [npool/verification-door.proto](#npool/verification-door.proto)
+    - [DeleteUserGoogleAuthRequest](#verification.door.v1.DeleteUserGoogleAuthRequest)
+    - [DeleteUserGoogleAuthResponse](#verification.door.v1.DeleteUserGoogleAuthResponse)
+    - [GetQRcodeURLRequest](#verification.door.v1.GetQRcodeURLRequest)
+    - [GetQRcodeURLResponse](#verification.door.v1.GetQRcodeURLResponse)
+    - [SendEmailRequest](#verification.door.v1.SendEmailRequest)
+    - [SendEmailResponse](#verification.door.v1.SendEmailResponse)
+    - [SendSmsRequest](#verification.door.v1.SendSmsRequest)
+    - [SendSmsResponse](#verification.door.v1.SendSmsResponse)
+    - [VerifyCodeRequest](#verification.door.v1.VerifyCodeRequest)
+    - [VerifyCodeResponse](#verification.door.v1.VerifyCodeResponse)
+    - [VerifyGoogleAuthRequest](#verification.door.v1.VerifyGoogleAuthRequest)
+    - [VerifyGoogleAuthResponse](#verification.door.v1.VerifyGoogleAuthResponse)
     - [VersionResponse](#verification.door.v1.VersionResponse)
   
     - [VerificationDoor](#verification.door.v1.VerificationDoor)
@@ -16,6 +28,194 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## npool/verification-door.proto
+
+
+
+<a name="verification.door.v1.DeleteUserGoogleAuthRequest"></a>
+
+### DeleteUserGoogleAuthRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| UserID | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.DeleteUserGoogleAuthResponse"></a>
+
+### DeleteUserGoogleAuthResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Info | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.GetQRcodeURLRequest"></a>
+
+### GetQRcodeURLRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Username | [string](#string) |  |  |
+| UserID | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.GetQRcodeURLResponse"></a>
+
+### GetQRcodeURLResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Info | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.SendEmailRequest"></a>
+
+### SendEmailRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| UserID | [string](#string) |  |  |
+| Email | [string](#string) |  |  |
+| Intention | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.SendEmailResponse"></a>
+
+### SendEmailResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Info | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.SendSmsRequest"></a>
+
+### SendSmsRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| UserID | [string](#string) |  |  |
+| Phone | [string](#string) |  |  |
+| Intention | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.SendSmsResponse"></a>
+
+### SendSmsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Info | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.VerifyCodeRequest"></a>
+
+### VerifyCodeRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| UserID | [string](#string) |  |  |
+| Code | [string](#string) |  |  |
+| VerifyType | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.VerifyCodeResponse"></a>
+
+### VerifyCodeResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Info | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.VerifyGoogleAuthRequest"></a>
+
+### VerifyGoogleAuthRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| UserID | [string](#string) |  |  |
+| Code | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.VerifyGoogleAuthResponse"></a>
+
+### VerifyGoogleAuthResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Info | [string](#string) |  |  |
+
+
+
 
 
 
@@ -48,6 +248,12 @@ Service Name
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | Version | [.google.protobuf.Empty](#google.protobuf.Empty) | [VersionResponse](#verification.door.v1.VersionResponse) | Method Version |
+| GetQRcodeURL | [GetQRcodeURLRequest](#verification.door.v1.GetQRcodeURLRequest) | [GetQRcodeURLResponse](#verification.door.v1.GetQRcodeURLResponse) |  |
+| VerifyGoogleAuth | [VerifyGoogleAuthRequest](#verification.door.v1.VerifyGoogleAuthRequest) | [VerifyGoogleAuthResponse](#verification.door.v1.VerifyGoogleAuthResponse) |  |
+| DeleteUserGoogleAuth | [DeleteUserGoogleAuthRequest](#verification.door.v1.DeleteUserGoogleAuthRequest) | [DeleteUserGoogleAuthResponse](#verification.door.v1.DeleteUserGoogleAuthResponse) |  |
+| SendEmail | [SendEmailRequest](#verification.door.v1.SendEmailRequest) | [SendEmailResponse](#verification.door.v1.SendEmailResponse) |  |
+| SendSms | [SendSmsRequest](#verification.door.v1.SendSmsRequest) | [SendSmsResponse](#verification.door.v1.SendSmsResponse) |  |
+| VerifyCode | [VerifyCodeRequest](#verification.door.v1.VerifyCodeRequest) | [VerifyCodeResponse](#verification.door.v1.VerifyCodeResponse) |  |
 
  
 

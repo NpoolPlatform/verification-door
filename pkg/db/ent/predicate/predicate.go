@@ -6,5 +6,5 @@ import (
 	"entgo.io/ent/dialect/sql"
 )
 
-// Empty is the predicate function for empty builders.
-type Empty func(*sql.Selector)
+// UserSecret is the predicate function for usersecret builders.
+type UserSecret func(*sql.Selector)

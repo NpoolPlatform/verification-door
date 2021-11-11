@@ -15,10 +15,108 @@ service VerificationDoor {
             post: "/version"
             body: "*"
         };
-    }
+    };
+
+    rpc GetQRcodeURL (GetQRcodeURLRequest) returns (GetQRcodeURLResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/qrcode/url"
+            body: "*"
+        };
+    };
+
+    rpc VerifyGoogleAuth (VerifyGoogleAuthRequest) returns (VerifyGoogleAuthResponse) {
+        option (google.api.http) = {
+            post: "/v1/verify/google/auth"
+            body: "*"
+        };
+    };
+
+    rpc DeleteUserGoogleAuth (DeleteUserGoogleAuthRequest) returns (DeleteUserGoogleAuthResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/user/google/auth"
+            body: "*"
+        };
+    };
+
+    rpc SendEmail (SendEmailRequest) returns (SendEmailResponse) {
+        option (google.api.http) = {
+            post: "/v1/send/email"
+            body: "*"
+        };
+    };
+
+    rpc SendSms (SendSmsRequest) returns (SendSmsResponse) {
+        option (google.api.http) = {
+            post: "/v1/send/sms"
+            body: "*"
+        };
+    };
+
+    rpc VerifyCode (VerifyCodeRequest) returns (VerifyCodeResponse) {
+        option (google.api.http) = {
+            post: "/v1/verify/code"
+            body: "*"
+        };
+    };
 }
 
 // request body and response
 message VersionResponse {
     string Info = 100;
+}
+
+message GetQRcodeURLRequest {
+    string Username = 1;
+    string UserID = 2;
+}
+
+message GetQRcodeURLResponse {
+    string Info = 1;
+}
+
+message VerifyGoogleAuthRequest {
+    string UserID = 1;
+    string Code = 2;
+}
+
+message VerifyGoogleAuthResponse {
+    string Info = 1;
+}
+
+message DeleteUserGoogleAuthRequest {
+    string UserID = 1;
+}
+
+message DeleteUserGoogleAuthResponse {
+    string Info = 1;
+}
+
+message SendEmailRequest {
+    string UserID = 1;
+    string Email = 2;
+    string Intention = 3;
+}
+
+message SendEmailResponse {
+    string Info = 1;
+}
+
+message SendSmsRequest {
+    string UserID = 1;
+    string Phone = 2;
+    string Intention = 3;
+}
+
+message SendSmsResponse {
+    string Info = 1;
+}
+
+message VerifyCodeRequest {
+    string UserID = 1;
+    string Code = 2;
+    string VerifyType = 3;
+}
+
+message VerifyCodeResponse {
+    string Info = 1;
 }

@@ -22,3 +22,6 @@
 {"level":"info","ts":"2021-11-10T11:39:51.431Z","caller":"app/app.go:86","msg":"success to create mysql client"}
 {"level":"info","ts":"2021-11-10T11:39:51.432Z","caller":"app/app.go:92","msg":"success to create redis client"}
 {"level":"info","ts":"2021-11-10T11:39:51.438Z","caller":"app/app.go:99","msg":"success to create rabbitmq server"}
+{"level":"info","ts":"2021-11-11T07:27:32.275Z","caller":"app/app.go:86","msg":"success to create mysql client"}
+{"level":"info","ts":"2021-11-11T07:27:32.284Z","caller":"app/app.go:92","msg":"success to create redis client"}
+{"level":"info","ts":"2021-11-11T07:27:32.374Z","caller":"app/app.go:99","msg":"success to create rabbitmq server"}

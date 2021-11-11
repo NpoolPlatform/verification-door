@@ -21,6 +21,12 @@ const _ = grpc.SupportPackageIsVersion7
 type VerificationDoorClient interface {
 	// Method Version
 	Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*VersionResponse, error)
+	GetQRcodeURL(ctx context.Context, in *GetQRcodeURLRequest, opts ...grpc.CallOption) (*GetQRcodeURLResponse, error)
+	VerifyGoogleAuth(ctx context.Context, in *VerifyGoogleAuthRequest, opts ...grpc.CallOption) (*VerifyGoogleAuthResponse, error)
+	DeleteUserGoogleAuth(ctx context.Context, in *DeleteUserGoogleAuthRequest, opts ...grpc.CallOption) (*DeleteUserGoogleAuthResponse, error)
+	SendEmail(ctx context.Context, in *SendEmailRequest, opts ...grpc.CallOption) (*SendEmailResponse, error)
+	SendSms(ctx context.Context, in *SendSmsRequest, opts ...grpc.CallOption) (*SendSmsResponse, error)
+	VerifyCode(ctx context.Context, in *VerifyCodeRequest, opts ...grpc.CallOption) (*VerifyCodeResponse, error)
 }
 
 type verificationDoorClient struct {
@@ -40,12 +46,72 @@ func (c *verificationDoorClient) Version(ctx context.Context, in *emptypb.Empty,
 	return out, nil
 }
 
+func (c *verificationDoorClient) GetQRcodeURL(ctx context.Context, in *GetQRcodeURLRequest, opts ...grpc.CallOption) (*GetQRcodeURLResponse, error) {
+	out := new(GetQRcodeURLResponse)
+	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/GetQRcodeURL", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *verificationDoorClient) VerifyGoogleAuth(ctx context.Context, in *VerifyGoogleAuthRequest, opts ...grpc.CallOption) (*VerifyGoogleAuthResponse, error) {
+	out := new(VerifyGoogleAuthResponse)
+	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/VerifyGoogleAuth", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *verificationDoorClient) DeleteUserGoogleAuth(ctx context.Context, in *DeleteUserGoogleAuthRequest, opts ...grpc.CallOption) (*DeleteUserGoogleAuthResponse, error) {
+	out := new(DeleteUserGoogleAuthResponse)
+	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/DeleteUserGoogleAuth", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *verificationDoorClient) SendEmail(ctx context.Context, in *SendEmailRequest, opts ...grpc.CallOption) (*SendEmailResponse, error) {
+	out := new(SendEmailResponse)
+	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/SendEmail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *verificationDoorClient) SendSms(ctx context.Context, in *SendSmsRequest, opts ...grpc.CallOption) (*SendSmsResponse, error) {
+	out := new(SendSmsResponse)
+	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/SendSms", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *verificationDoorClient) VerifyCode(ctx context.Context, in *VerifyCodeRequest, opts ...grpc.CallOption) (*VerifyCodeResponse, error) {
+	out := new(VerifyCodeResponse)
+	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/VerifyCode", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // VerificationDoorServer is the server API for VerificationDoor service.
 // All implementations must embed UnimplementedVerificationDoorServer
 // for forward compatibility
 type VerificationDoorServer interface {
 	// Method Version
 	Version(context.Context, *emptypb.Empty) (*VersionResponse, error)
+	GetQRcodeURL(context.Context, *GetQRcodeURLRequest) (*GetQRcodeURLResponse, error)
+	VerifyGoogleAuth(context.Context, *VerifyGoogleAuthRequest) (*VerifyGoogleAuthResponse, error)
+	DeleteUserGoogleAuth(context.Context, *DeleteUserGoogleAuthRequest) (*DeleteUserGoogleAuthResponse, error)
+	SendEmail(context.Context, *SendEmailRequest) (*SendEmailResponse, error)
+	SendSms(context.Context, *SendSmsRequest) (*SendSmsResponse, error)
+	VerifyCode(context.Context, *VerifyCodeRequest) (*VerifyCodeResponse, error)
 	mustEmbedUnimplementedVerificationDoorServer()
 }
 
@@ -55,6 +121,24 @@ type UnimplementedVerificationDoorServer struct {
 
 func (UnimplementedVerificationDoorServer) Version(context.Context, *emptypb.Empty) (*VersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Version not implemented")
+}
+func (UnimplementedVerificationDoorServer) GetQRcodeURL(context.Context, *GetQRcodeURLRequest) (*GetQRcodeURLResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetQRcodeURL not implemented")
+}
+func (UnimplementedVerificationDoorServer) VerifyGoogleAuth(context.Context, *VerifyGoogleAuthRequest) (*VerifyGoogleAuthResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyGoogleAuth not implemented")
+}
+func (UnimplementedVerificationDoorServer) DeleteUserGoogleAuth(context.Context, *DeleteUserGoogleAuthRequest) (*DeleteUserGoogleAuthResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteUserGoogleAuth not implemented")
+}
+func (UnimplementedVerificationDoorServer) SendEmail(context.Context, *SendEmailRequest) (*SendEmailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendEmail not implemented")
+}
+func (UnimplementedVerificationDoorServer) SendSms(context.Context, *SendSmsRequest) (*SendSmsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendSms not implemented")
+}
+func (UnimplementedVerificationDoorServer) VerifyCode(context.Context, *VerifyCodeRequest) (*VerifyCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyCode not implemented")
 }
 func (UnimplementedVerificationDoorServer) mustEmbedUnimplementedVerificationDoorServer() {}
 
@@ -87,6 +171,114 @@ func _VerificationDoor_Version_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _VerificationDoor_GetQRcodeURL_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetQRcodeURLRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VerificationDoorServer).GetQRcodeURL(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/verification.door.v1.VerificationDoor/GetQRcodeURL",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VerificationDoorServer).GetQRcodeURL(ctx, req.(*GetQRcodeURLRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _VerificationDoor_VerifyGoogleAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyGoogleAuthRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VerificationDoorServer).VerifyGoogleAuth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/verification.door.v1.VerificationDoor/VerifyGoogleAuth",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VerificationDoorServer).VerifyGoogleAuth(ctx, req.(*VerifyGoogleAuthRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _VerificationDoor_DeleteUserGoogleAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteUserGoogleAuthRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VerificationDoorServer).DeleteUserGoogleAuth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/verification.door.v1.VerificationDoor/DeleteUserGoogleAuth",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VerificationDoorServer).DeleteUserGoogleAuth(ctx, req.(*DeleteUserGoogleAuthRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _VerificationDoor_SendEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendEmailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VerificationDoorServer).SendEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/verification.door.v1.VerificationDoor/SendEmail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VerificationDoorServer).SendEmail(ctx, req.(*SendEmailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _VerificationDoor_SendSms_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendSmsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VerificationDoorServer).SendSms(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/verification.door.v1.VerificationDoor/SendSms",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VerificationDoorServer).SendSms(ctx, req.(*SendSmsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _VerificationDoor_VerifyCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyCodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VerificationDoorServer).VerifyCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/verification.door.v1.VerificationDoor/VerifyCode",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VerificationDoorServer).VerifyCode(ctx, req.(*VerifyCodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // VerificationDoor_ServiceDesc is the grpc.ServiceDesc for VerificationDoor service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -97,6 +289,30 @@ var VerificationDoor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Version",
 			Handler:    _VerificationDoor_Version_Handler,
+		},
+		{
+			MethodName: "GetQRcodeURL",
+			Handler:    _VerificationDoor_GetQRcodeURL_Handler,
+		},
+		{
+			MethodName: "VerifyGoogleAuth",
+			Handler:    _VerificationDoor_VerifyGoogleAuth_Handler,
+		},
+		{
+			MethodName: "DeleteUserGoogleAuth",
+			Handler:    _VerificationDoor_DeleteUserGoogleAuth_Handler,
+		},
+		{
+			MethodName: "SendEmail",
+			Handler:    _VerificationDoor_SendEmail_Handler,
+		},
+		{
+			MethodName: "SendSms",
+			Handler:    _VerificationDoor_SendSms_Handler,
+		},
+		{
+			MethodName: "VerifyCode",
+			Handler:    _VerificationDoor_VerifyCode_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

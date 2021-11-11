@@ -7,8 +7,11 @@ import (
 	"fmt"
 	"sync"
 
-	"entgo.io/ent"
 	"github.com/NpoolPlatform/verification-door/pkg/db/ent/predicate"
+	"github.com/NpoolPlatform/verification-door/pkg/db/ent/usersecret"
+	"github.com/google/uuid"
+
+	"entgo.io/ent"
 )
 
 const (
@@ -20,32 +23,38 @@ const (
 	OpUpdateOne = ent.OpUpdateOne
 
 	// Node types.
-	TypeEmpty = "Empty"
+	TypeUserSecret = "UserSecret"
 )
 
-// EmptyMutation represents an operation that mutates the Empty nodes in the graph.
-type EmptyMutation struct {
+// UserSecretMutation represents an operation that mutates the UserSecret nodes in the graph.
+type UserSecretMutation struct {
 	config
 	op            Op
 	typ           string
-	id            *int
+	id            *uuid.UUID
+	user_id       *uuid.UUID
+	secret        *string
+	create_at     *uint32
+	addcreate_at  *uint32
+	delete_at     *uint32
+	adddelete_at  *uint32
 	clearedFields map[string]struct{}
 	done          bool
-	oldValue      func(context.Context) (*Empty, error)
-	predicates    []predicate.Empty
+	oldValue      func(context.Context) (*UserSecret, error)
+	predicates    []predicate.UserSecret
 }
 
-var _ ent.Mutation = (*EmptyMutation)(nil)
+var _ ent.Mutation = (*UserSecretMutation)(nil)
 
-// emptyOption allows management of the mutation configuration using functional options.
-type emptyOption func(*EmptyMutation)
+// usersecretOption allows management of the mutation configuration using functional options.
+type usersecretOption func(*UserSecretMutation)
 
-// newEmptyMutation creates new mutation for the Empty entity.
-func newEmptyMutation(c config, op Op, opts ...emptyOption) *EmptyMutation {
-	m := &EmptyMutation{
+// newUserSecretMutation creates new mutation for the UserSecret entity.
+func newUserSecretMutation(c config, op Op, opts ...usersecretOption) *UserSecretMutation {
+	m := &UserSecretMutation{
 		config:        c,
 		op:            op,
-		typ:           TypeEmpty,
+		typ:           TypeUserSecret,
 		clearedFields: make(map[string]struct{}),
 	}
 	for _, opt := range opts {
@@ -54,20 +63,20 @@ func newEmptyMutation(c config, op Op, opts ...emptyOption) *EmptyMutation {
 	return m
 }
 
-// withEmptyID sets the ID field of the mutation.
-func withEmptyID(id int) emptyOption {
-	return func(m *EmptyMutation) {
+// withUserSecretID sets the ID field of the mutation.
+func withUserSecretID(id uuid.UUID) usersecretOption {
+	return func(m *UserSecretMutation) {
 		var (
 			err   error
 			once  sync.Once
-			value *Empty
+			value *UserSecret
 		)
-		m.oldValue = func(ctx context.Context) (*Empty, error) {
+		m.oldValue = func(ctx context.Context) (*UserSecret, error) {
 			once.Do(func() {
 				if m.done {
 					err = fmt.Errorf("querying old values post mutation is not allowed")
 				} else {
-					value, err = m.Client().Empty.Get(ctx, id)
+					value, err = m.Client().UserSecret.Get(ctx, id)
 				}
 			})
 			return value, err
@@ -76,10 +85,10 @@ func withEmptyID(id int) emptyOption {
 	}
 }
 
-// withEmpty sets the old Empty of the mutation.
-func withEmpty(node *Empty) emptyOption {
-	return func(m *EmptyMutation) {
-		m.oldValue = func(context.Context) (*Empty, error) {
+// withUserSecret sets the old UserSecret of the mutation.
+func withUserSecret(node *UserSecret) usersecretOption {
+	return func(m *UserSecretMutation) {
+		m.oldValue = func(context.Context) (*UserSecret, error) {
 			return node, nil
 		}
 		m.id = &node.ID
@@ -88,7 +97,7 @@ func withEmpty(node *Empty) emptyOption {
 
 // Client returns a new `ent.Client` from the mutation. If the mutation was
 // executed in a transaction (ent.Tx), a transactional client is returned.
-func (m EmptyMutation) Client() *Client {
+func (m UserSecretMutation) Client() *Client {
 	client := &Client{config: m.config}
 	client.init()
 	return client
@@ -96,7 +105,7 @@ func (m EmptyMutation) Client() *Client {
 
 // Tx returns an `ent.Tx` for mutations that were executed in transactions;
 // it returns an error otherwise.
-func (m EmptyMutation) Tx() (*Tx, error) {
+func (m UserSecretMutation) Tx() (*Tx, error) {
 	if _, ok := m.driver.(*txDriver); !ok {
 		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
 	}
@@ -105,150 +114,443 @@ func (m EmptyMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of UserSecret entities.
+func (m *UserSecretMutation) SetID(id uuid.UUID) {
+	m.id = &id
+}
+
 // ID returns the ID value in the mutation. Note that the ID is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *EmptyMutation) ID() (id int, exists bool) {
+func (m *UserSecretMutation) ID() (id uuid.UUID, exists bool) {
 	if m.id == nil {
 		return
 	}
 	return *m.id, true
 }
 
-// Where appends a list predicates to the EmptyMutation builder.
-func (m *EmptyMutation) Where(ps ...predicate.Empty) {
+// SetUserID sets the "user_id" field.
+func (m *UserSecretMutation) SetUserID(u uuid.UUID) {
+	m.user_id = &u
+}
+
+// UserID returns the value of the "user_id" field in the mutation.
+func (m *UserSecretMutation) UserID() (r uuid.UUID, exists bool) {
+	v := m.user_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserID returns the old "user_id" field's value of the UserSecret entity.
+// If the UserSecret object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserSecretMutation) OldUserID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUserID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUserID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserID: %w", err)
+	}
+	return oldValue.UserID, nil
+}
+
+// ResetUserID resets all changes to the "user_id" field.
+func (m *UserSecretMutation) ResetUserID() {
+	m.user_id = nil
+}
+
+// SetSecret sets the "secret" field.
+func (m *UserSecretMutation) SetSecret(s string) {
+	m.secret = &s
+}
+
+// Secret returns the value of the "secret" field in the mutation.
+func (m *UserSecretMutation) Secret() (r string, exists bool) {
+	v := m.secret
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSecret returns the old "secret" field's value of the UserSecret entity.
+// If the UserSecret object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserSecretMutation) OldSecret(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldSecret is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldSecret requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSecret: %w", err)
+	}
+	return oldValue.Secret, nil
+}
+
+// ResetSecret resets all changes to the "secret" field.
+func (m *UserSecretMutation) ResetSecret() {
+	m.secret = nil
+}
+
+// SetCreateAt sets the "create_at" field.
+func (m *UserSecretMutation) SetCreateAt(u uint32) {
+	m.create_at = &u
+	m.addcreate_at = nil
+}
+
+// CreateAt returns the value of the "create_at" field in the mutation.
+func (m *UserSecretMutation) CreateAt() (r uint32, exists bool) {
+	v := m.create_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreateAt returns the old "create_at" field's value of the UserSecret entity.
+// If the UserSecret object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserSecretMutation) OldCreateAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreateAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreateAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreateAt: %w", err)
+	}
+	return oldValue.CreateAt, nil
+}
+
+// AddCreateAt adds u to the "create_at" field.
+func (m *UserSecretMutation) AddCreateAt(u uint32) {
+	if m.addcreate_at != nil {
+		*m.addcreate_at += u
+	} else {
+		m.addcreate_at = &u
+	}
+}
+
+// AddedCreateAt returns the value that was added to the "create_at" field in this mutation.
+func (m *UserSecretMutation) AddedCreateAt() (r uint32, exists bool) {
+	v := m.addcreate_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreateAt resets all changes to the "create_at" field.
+func (m *UserSecretMutation) ResetCreateAt() {
+	m.create_at = nil
+	m.addcreate_at = nil
+}
+
+// SetDeleteAt sets the "delete_at" field.
+func (m *UserSecretMutation) SetDeleteAt(u uint32) {
+	m.delete_at = &u
+	m.adddelete_at = nil
+}
+
+// DeleteAt returns the value of the "delete_at" field in the mutation.
+func (m *UserSecretMutation) DeleteAt() (r uint32, exists bool) {
+	v := m.delete_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleteAt returns the old "delete_at" field's value of the UserSecret entity.
+// If the UserSecret object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserSecretMutation) OldDeleteAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleteAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleteAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleteAt: %w", err)
+	}
+	return oldValue.DeleteAt, nil
+}
+
+// AddDeleteAt adds u to the "delete_at" field.
+func (m *UserSecretMutation) AddDeleteAt(u uint32) {
+	if m.adddelete_at != nil {
+		*m.adddelete_at += u
+	} else {
+		m.adddelete_at = &u
+	}
+}
+
+// AddedDeleteAt returns the value that was added to the "delete_at" field in this mutation.
+func (m *UserSecretMutation) AddedDeleteAt() (r uint32, exists bool) {
+	v := m.adddelete_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleteAt resets all changes to the "delete_at" field.
+func (m *UserSecretMutation) ResetDeleteAt() {
+	m.delete_at = nil
+	m.adddelete_at = nil
+}
+
+// Where appends a list predicates to the UserSecretMutation builder.
+func (m *UserSecretMutation) Where(ps ...predicate.UserSecret) {
 	m.predicates = append(m.predicates, ps...)
 }
 
 // Op returns the operation name.
-func (m *EmptyMutation) Op() Op {
+func (m *UserSecretMutation) Op() Op {
 	return m.op
 }
 
-// Type returns the node type of this mutation (Empty).
-func (m *EmptyMutation) Type() string {
+// Type returns the node type of this mutation (UserSecret).
+func (m *UserSecretMutation) Type() string {
 	return m.typ
 }
 
 // Fields returns all fields that were changed during this mutation. Note that in
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
-func (m *EmptyMutation) Fields() []string {
-	fields := make([]string, 0, 0)
+func (m *UserSecretMutation) Fields() []string {
+	fields := make([]string, 0, 4)
+	if m.user_id != nil {
+		fields = append(fields, usersecret.FieldUserID)
+	}
+	if m.secret != nil {
+		fields = append(fields, usersecret.FieldSecret)
+	}
+	if m.create_at != nil {
+		fields = append(fields, usersecret.FieldCreateAt)
+	}
+	if m.delete_at != nil {
+		fields = append(fields, usersecret.FieldDeleteAt)
+	}
 	return fields
 }
 
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
-func (m *EmptyMutation) Field(name string) (ent.Value, bool) {
+func (m *UserSecretMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case usersecret.FieldUserID:
+		return m.UserID()
+	case usersecret.FieldSecret:
+		return m.Secret()
+	case usersecret.FieldCreateAt:
+		return m.CreateAt()
+	case usersecret.FieldDeleteAt:
+		return m.DeleteAt()
+	}
 	return nil, false
 }
 
 // OldField returns the old value of the field from the database. An error is
 // returned if the mutation operation is not UpdateOne, or the query to the
 // database failed.
-func (m *EmptyMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
-	return nil, fmt.Errorf("unknown Empty field %s", name)
+func (m *UserSecretMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case usersecret.FieldUserID:
+		return m.OldUserID(ctx)
+	case usersecret.FieldSecret:
+		return m.OldSecret(ctx)
+	case usersecret.FieldCreateAt:
+		return m.OldCreateAt(ctx)
+	case usersecret.FieldDeleteAt:
+		return m.OldDeleteAt(ctx)
+	}
+	return nil, fmt.Errorf("unknown UserSecret field %s", name)
 }
 
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
-func (m *EmptyMutation) SetField(name string, value ent.Value) error {
+func (m *UserSecretMutation) SetField(name string, value ent.Value) error {
 	switch name {
+	case usersecret.FieldUserID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserID(v)
+		return nil
+	case usersecret.FieldSecret:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSecret(v)
+		return nil
+	case usersecret.FieldCreateAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreateAt(v)
+		return nil
+	case usersecret.FieldDeleteAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleteAt(v)
+		return nil
 	}
-	return fmt.Errorf("unknown Empty field %s", name)
+	return fmt.Errorf("unknown UserSecret field %s", name)
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
-func (m *EmptyMutation) AddedFields() []string {
-	return nil
+func (m *UserSecretMutation) AddedFields() []string {
+	var fields []string
+	if m.addcreate_at != nil {
+		fields = append(fields, usersecret.FieldCreateAt)
+	}
+	if m.adddelete_at != nil {
+		fields = append(fields, usersecret.FieldDeleteAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
-func (m *EmptyMutation) AddedField(name string) (ent.Value, bool) {
+func (m *UserSecretMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case usersecret.FieldCreateAt:
+		return m.AddedCreateAt()
+	case usersecret.FieldDeleteAt:
+		return m.AddedDeleteAt()
+	}
 	return nil, false
 }
 
 // AddField adds the value to the field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
-func (m *EmptyMutation) AddField(name string, value ent.Value) error {
-	return fmt.Errorf("unknown Empty numeric field %s", name)
+func (m *UserSecretMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case usersecret.FieldCreateAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreateAt(v)
+		return nil
+	case usersecret.FieldDeleteAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleteAt(v)
+		return nil
+	}
+	return fmt.Errorf("unknown UserSecret numeric field %s", name)
 }
 
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
-func (m *EmptyMutation) ClearedFields() []string {
+func (m *UserSecretMutation) ClearedFields() []string {
 	return nil
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
 // cleared in this mutation.
-func (m *EmptyMutation) FieldCleared(name string) bool {
+func (m *UserSecretMutation) FieldCleared(name string) bool {
 	_, ok := m.clearedFields[name]
 	return ok
 }
 
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
-func (m *EmptyMutation) ClearField(name string) error {
-	return fmt.Errorf("unknown Empty nullable field %s", name)
+func (m *UserSecretMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown UserSecret nullable field %s", name)
 }
 
 // ResetField resets all changes in the mutation for the field with the given name.
 // It returns an error if the field is not defined in the schema.
-func (m *EmptyMutation) ResetField(name string) error {
-	return fmt.Errorf("unknown Empty field %s", name)
+func (m *UserSecretMutation) ResetField(name string) error {
+	switch name {
+	case usersecret.FieldUserID:
+		m.ResetUserID()
+		return nil
+	case usersecret.FieldSecret:
+		m.ResetSecret()
+		return nil
+	case usersecret.FieldCreateAt:
+		m.ResetCreateAt()
+		return nil
+	case usersecret.FieldDeleteAt:
+		m.ResetDeleteAt()
+		return nil
+	}
+	return fmt.Errorf("unknown UserSecret field %s", name)
 }
 
 // AddedEdges returns all edge names that were set/added in this mutation.
-func (m *EmptyMutation) AddedEdges() []string {
+func (m *UserSecretMutation) AddedEdges() []string {
 	edges := make([]string, 0, 0)
 	return edges
 }
 
 // AddedIDs returns all IDs (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *EmptyMutation) AddedIDs(name string) []ent.Value {
+func (m *UserSecretMutation) AddedIDs(name string) []ent.Value {
 	return nil
 }
 
 // RemovedEdges returns all edge names that were removed in this mutation.
-func (m *EmptyMutation) RemovedEdges() []string {
+func (m *UserSecretMutation) RemovedEdges() []string {
 	edges := make([]string, 0, 0)
 	return edges
 }
 
 // RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *EmptyMutation) RemovedIDs(name string) []ent.Value {
+func (m *UserSecretMutation) RemovedIDs(name string) []ent.Value {
 	return nil
 }
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
-func (m *EmptyMutation) ClearedEdges() []string {
+func (m *UserSecretMutation) ClearedEdges() []string {
 	edges := make([]string, 0, 0)
 	return edges
 }
 
 // EdgeCleared returns a boolean which indicates if the edge with the given name
 // was cleared in this mutation.
-func (m *EmptyMutation) EdgeCleared(name string) bool {
+func (m *UserSecretMutation) EdgeCleared(name string) bool {
 	return false
 }
 
 // ClearEdge clears the value of the edge with the given name. It returns an error
 // if that edge is not defined in the schema.
-func (m *EmptyMutation) ClearEdge(name string) error {
-	return fmt.Errorf("unknown Empty unique edge %s", name)
+func (m *UserSecretMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown UserSecret unique edge %s", name)
 }
 
 // ResetEdge resets all changes to the edge with the given name in this mutation.
 // It returns an error if the edge is not defined in the schema.
-func (m *EmptyMutation) ResetEdge(name string) error {
-	return fmt.Errorf("unknown Empty edge %s", name)
+func (m *UserSecretMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown UserSecret edge %s", name)
 }

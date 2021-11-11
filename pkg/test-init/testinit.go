@@ -7,6 +7,7 @@ import (
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/app"
 
+	"github.com/NpoolPlatform/verification-door/pkg/db"
 	servicename "github.com/NpoolPlatform/verification-door/pkg/service-name" //nolint
 
 	"golang.org/x/xerrors"
@@ -24,6 +25,11 @@ func Init() error {
 	err := app.Init(servicename.ServiceName, "", "", "", configPath, nil, nil)
 	if err != nil {
 		return xerrors.Errorf("cannot init app stub: %v", err)
+	}
+
+	err = db.Init()
+	if err != nil {
+		return xerrors.Errorf("cannot init database: %v", err)
 	}
 	return nil
 }
