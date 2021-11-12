@@ -29,7 +29,7 @@ func VerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEma
 
 	err = email.SendEmail(`
 	<p>your email code is: </p>
-	` + code)
+	`+code, in.Email)
 	if err != nil {
 		return nil, xerrors.Errorf("fail to send email: %v", err)
 	}

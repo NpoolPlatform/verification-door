@@ -29,12 +29,18 @@ func TestSendEmailMiddleware(t *testing.T) { // nolint
 
 	userID := uuid.New().String()
 	email := "crazyzplzpl@163.com"
-
-	resp, err := VerifyCode(context.Background(), &npool.SendEmailRequest{
-		UserID: userID,
-		Email:  email,
+	resp, err := SendEmail(context.Background(), &npool.SendEmailRequest{
+		Intention: "verify",
+		UserID:    userID,
+		Email:     email,
 	})
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp)
 	}
+
+	_, err = VerifyCode(context.Background(), &npool.SendEmailRequest{
+		UserID: userID,
+		Email:  email,
+	})
+	assert.NotNil(t, err)
 }

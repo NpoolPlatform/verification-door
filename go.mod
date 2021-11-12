@@ -7,13 +7,13 @@ require (
 	github.com/BurntSushi/toml v0.4.1 // indirect
 	github.com/NpoolPlatform/go-service-framework v0.0.0-20211110113912-c4859934a03c
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
-	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
 	github.com/go-redis/redis/v8 v8.11.4
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.6.0
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/kr/pretty v0.3.0 // indirect
+	github.com/mailgun/mailgun-go/v3 v3.6.4
 	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rogpeppe/go-internal v1.8.1-0.20211023094830-115ce09fd6b4 // indirect
@@ -28,8 +28,6 @@ require (
 	google.golang.org/grpc v1.41.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1
-	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
-	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df // indirect
 )
 
 replace google.golang.org/grpc => github.com/grpc/grpc-go v1.41.0
