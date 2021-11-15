@@ -10,9 +10,8 @@ import (
 )
 
 const (
-	VerifyCodeDuration    = 5 * time.Minute
-	SmsVerifyCodePrefix   = "SmsVerifyCode"
-	EmailVerifyCodePrefix = "EmailVerifyCode"
+	VerifyCodeDuration      = 5 * time.Minute
+	VerificationCodeKeyword = "verify-code"
 )
 
 func GenerateVerifyCode(length int) string {
@@ -25,26 +24,8 @@ func GenerateVerifyCode(length int) string {
 	return string(result)
 }
 
-func getPrifix(mytype string) (string, error) {
-	var prefix string
-	switch mytype {
-	case "sms":
-		prefix = SmsVerifyCodePrefix
-	case "email":
-		prefix = EmailVerifyCodePrefix
-	default:
-		return "", xerrors.Errorf("invalid type")
-	}
-	return prefix, nil
-}
-
-func SaveVerifyCode(userID, code, sendtype string, sendTime int64) error {
-	prefix, err := getPrifix(sendtype)
-	if err != nil {
-		return err
-	}
-
-	info, err := myRedis.QueryVerifyCodeKeyInfo(userID, EmailVerifyCodePrefix)
+func SaveVerifyCode(param, code string, sendTime int64) error {
+	info, err := myRedis.QueryVerifyCodeKeyInfo(param, VerificationCodeKeyword)
 	if err != nil && err != redis.Nil {
 		return xerrors.Errorf("fail to get user verify code key: %v", err)
 	}
@@ -60,7 +41,7 @@ func SaveVerifyCode(userID, code, sendtype string, sendTime int64) error {
 		SendTime: sendTime,
 	}
 
-	err = myRedis.InsertKeyInfo(userID, prefix, userCode, VerifyCodeDuration)
+	err = myRedis.InsertKeyInfo(param, VerificationCodeKeyword, userCode, VerifyCodeDuration)
 	if err != nil {
 		return xerrors.Errorf("insert verify code error: %v", err)
 	}
@@ -68,17 +49,17 @@ func SaveVerifyCode(userID, code, sendtype string, sendTime int64) error {
 	return nil
 }
 
-func VerifyCode(userID, codeInput, receivetype string) error {
-	prefix, err := getPrifix(receivetype)
-	if err != nil {
-		return err
-	}
-	info, err := myRedis.QueryVerifyCodeKeyInfo(userID, prefix)
+func VerifyCode(param, codeInput string) error {
+	info, err := myRedis.QueryVerifyCodeKeyInfo(param, VerificationCodeKeyword)
 	if err != nil {
 		return err
 	}
 	if codeInput != info.Code {
 		return xerrors.Errorf("input code is wrong!")
+	}
+	err = myRedis.DelKey(param, VerificationCodeKeyword)
+	if err != nil {
+		return err
 	}
 	return nil
 }

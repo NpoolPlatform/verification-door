@@ -8,6 +8,7 @@ import (
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/app"
 	"github.com/go-redis/redis/v8"
+	"golang.org/x/xerrors"
 )
 
 type VerifyUserCode struct {
@@ -19,13 +20,13 @@ func Client() *redis.Client {
 	return app.Redis().Client
 }
 
-func InsertKeyInfo(userID, keyWord string, info interface{}, ttl time.Duration) error {
+func InsertKeyInfo(param, keyWord string, info interface{}, ttl time.Duration) error {
 	b, err := json.Marshal(info)
 	if err != nil {
 		fmt.Println("json error is", err)
 		return err
 	}
-	err = Client().Set(context.Background(), fmt.Sprintf("%v::%v", keyWord, userID), string(b), ttl).Err()
+	err = Client().Set(context.Background(), fmt.Sprintf("%v::%v", keyWord, param), string(b), ttl).Err()
 	if err != nil {
 		fmt.Println("set error is:", err)
 		return err
@@ -33,8 +34,8 @@ func InsertKeyInfo(userID, keyWord string, info interface{}, ttl time.Duration) 
 	return nil
 }
 
-func QueryVerifyCodeKeyInfo(userID, keyWord string) (*VerifyUserCode, error) {
-	val, err := Client().Get(context.Background(), fmt.Sprintf("%v::%v", keyWord, userID)).Result()
+func QueryVerifyCodeKeyInfo(param, keyWord string) (*VerifyUserCode, error) {
+	val, err := Client().Get(context.Background(), fmt.Sprintf("%v::%v", keyWord, param)).Result()
 	if err != nil {
 		return nil, err
 	}
@@ -44,4 +45,12 @@ func QueryVerifyCodeKeyInfo(userID, keyWord string) (*VerifyUserCode, error) {
 		return nil, err
 	}
 	return info, nil
+}
+
+func DelKey(param, keyword string) error {
+	err := Client().Del(context.Background(), fmt.Sprintf("%v::%v", keyword, param)).Err()
+	if err != nil {
+		return xerrors.Errorf("fail to del key: %v", err)
+	}
+	return nil
 }

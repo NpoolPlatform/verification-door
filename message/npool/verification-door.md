@@ -100,7 +100,6 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| UserID | [string](#string) |  |  |
 | Email | [string](#string) |  |  |
 | Intention | [string](#string) |  |  |
 
@@ -132,7 +131,6 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| UserID | [string](#string) |  |  |
 | Phone | [string](#string) |  |  |
 | Intention | [string](#string) |  |  |
 
@@ -164,7 +162,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| UserID | [string](#string) |  |  |
+| Param | [string](#string) |  |  |
 | Code | [string](#string) |  |  |
 | VerifyType | [string](#string) |  |  |
 

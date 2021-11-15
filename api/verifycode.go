@@ -11,7 +11,7 @@ import (
 )
 
 func (s *Server) VerifyCode(ctx context.Context, in *npool.VerifyCodeRequest) (*npool.VerifyCodeResponse, error) {
-	err := verifycode.VerifyCode(in.UserID, in.Code, in.VerifyType)
+	err := verifycode.VerifyCode(in.Param, in.Code)
 	if err != nil {
 		logger.Sugar().Errorf("fail to verify code: %v", err)
 		return &npool.VerifyCodeResponse{}, status.Errorf(codes.Internal, "Internal server error: %v", err)

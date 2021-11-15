@@ -26,7 +26,7 @@ func TestGoogleAuthAPI(t *testing.T) {
 		SetBody(&npool.GetQRcodeURLRequest{
 			Username: username,
 			UserID:   userID,
-		}).Post("http://localhost:32759/v1/get/qrcode/url")
+		}).Post("http://localhost:50090/v1/get/qrcode/url")
 	if assert.Nil(t, err) {
 		assert.Equal(t, 200, resp.StatusCode())
 	}
@@ -36,7 +36,7 @@ func TestGoogleAuthAPI(t *testing.T) {
 		SetBody(&npool.VerifyGoogleAuthRequest{
 			UserID: userID,
 			Code:   "11111",
-		}).Post("http://localhost:32759/v1/verify/google/auth")
+		}).Post("http://localhost:50090/v1/verify/google/auth")
 	if assert.Nil(t, err) {
 		assert.NotEqual(t, 200, resp1.StatusCode())
 	}
@@ -45,7 +45,7 @@ func TestGoogleAuthAPI(t *testing.T) {
 		SetHeader("Content-Type", "application/json").
 		SetBody(&npool.DeleteUserGoogleAuthRequest{
 			UserID: userID,
-		}).Post("http://localhost:32759/v1/delete/user/google/auth")
+		}).Post("http://localhost:50090/v1/delete/user/google/auth")
 	if assert.Nil(t, err) {
 		assert.Equal(t, 200, resp2.StatusCode())
 	}

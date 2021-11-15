@@ -44,4 +44,7 @@ func TestRedis(t *testing.T) { // nolint
 		assert.Equal(t, info.Code, verifyCode.Code)
 		assert.Equal(t, info.SendTime, verifyCode.SendTime)
 	}
+
+	err = DelKey(userID, "test")
+	assert.Nil(t, err)
 }

@@ -9,7 +9,6 @@ import (
 
 	"github.com/NpoolPlatform/verification-door/message/npool"
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -27,11 +26,9 @@ func TestSendEmailMiddleware(t *testing.T) { // nolint
 		return
 	}
 
-	userID := uuid.New().String()
-	email := "crazyzplzpl@163.com"
+	email := "crazyzplzpl@gmail.com"
 	resp, err := SendEmail(context.Background(), &npool.SendEmailRequest{
 		Intention: "verify",
-		UserID:    userID,
 		Email:     email,
 	})
 	if assert.Nil(t, err) {
@@ -39,8 +36,7 @@ func TestSendEmailMiddleware(t *testing.T) { // nolint
 	}
 
 	_, err = VerifyCode(context.Background(), &npool.SendEmailRequest{
-		UserID: userID,
-		Email:  email,
+		Email: email,
 	})
 	assert.NotNil(t, err)
 }

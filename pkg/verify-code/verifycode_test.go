@@ -8,7 +8,6 @@ import (
 	"time"
 
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -29,12 +28,11 @@ func TestVerifyCode(t *testing.T) { // nolint
 	code := GenerateVerifyCode(6)
 	assert.NotNil(t, code)
 
-	userID := uuid.New().String()
-	sendType := "email"
+	userEmail := "crazyzplzpl@qq.com"
 	sendTime := time.Now().Unix()
-	err := SaveVerifyCode(userID, code, sendType, sendTime)
+	err := SaveVerifyCode(userEmail, code, sendTime)
 	assert.Nil(t, err)
 
-	err = VerifyCode(userID, code, sendType)
+	err = VerifyCode(userEmail, code)
 	assert.Nil(t, err)
 }

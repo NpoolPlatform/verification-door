@@ -22,7 +22,7 @@ func SendEmail(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEmai
 
 func VerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEmailResponse, error) {
 	code := verifycode.GenerateVerifyCode(6)
-	err := verifycode.SaveVerifyCode(in.UserID, code, "email", time.Now().Unix())
+	err := verifycode.SaveVerifyCode(in.Email, code, time.Now().Unix())
 	if err != nil {
 		return nil, xerrors.Errorf("fail to save email verify code: %v", err)
 	}

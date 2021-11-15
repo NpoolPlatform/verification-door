@@ -92,7 +92,6 @@ message DeleteUserGoogleAuthResponse {
 }
 
 message SendEmailRequest {
-    string UserID = 1;
     string Email = 2;
     string Intention = 3;
 }
@@ -102,7 +101,6 @@ message SendEmailResponse {
 }
 
 message SendSmsRequest {
-    string UserID = 1;
     string Phone = 2;
     string Intention = 3;
 }
@@ -112,7 +110,7 @@ message SendSmsResponse {
 }
 
 message VerifyCodeRequest {
-    string UserID = 1;
+    string Param = 1;
     string Code = 2;
     string VerifyType = 3;
 }
