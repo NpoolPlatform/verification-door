@@ -76,7 +76,9 @@ pipeline {
             kubectl exec -it --namespace kube-system rabbitmq-0 -- rabbitmqctl set_permissions -p $vhost $username ".*" ".*" ".*"
             cd .apollo-base-config
             ./apollo-base-config.sh $APP_ID $TARGET_ENV $vhost
-            ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost database_name user_management mailgun_domain $MAILGUN_DOMAIN mailgun_apikey $MAILGUN_APIKEY
+            ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost database_name user_management
+            ./apollo-base-config.sh $APP_ID $TARGET_ENV $vhost mailgun_domain $MAILGUN_DOMAIN
+            ./apollo-base-config.sh $APP_ID $TARGET_ENV $vhost mailgun_apikey $MAILGUN_APIKEY
             cd -
           done
           kubectl exec --namespace kube-system $devboxpod -- make -C /tmp/$servicename deps before-test test after-test
@@ -128,7 +130,9 @@ pipeline {
             kubectl exec -it --namespace kube-system rabbitmq-0 -- rabbitmqctl set_permissions -p $vhost $username ".*" ".*" ".*"
             cd .apollo-base-config
             ./apollo-base-config.sh $APP_ID $TARGET_ENV $vhost
-            ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost database_name user_management mailgun_domain $MAILGUN_DOMAIN mailgun_apikey $MAILGUN_APIKEY
+            ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost database_name user_management
+            ./apollo-base-config.sh $APP_ID $TARGET_ENV $vhost mailgun_domain $MAILGUN_DOMAIN
+            ./apollo-base-config.sh $APP_ID $TARGET_ENV $vhost mailgun_apikey $MAILGUN_APIKEY
           done
         '''.stripIndent())
       }

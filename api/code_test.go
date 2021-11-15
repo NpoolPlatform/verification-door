@@ -27,20 +27,10 @@ func TestVerifyCodeAPI(t *testing.T) { // nolint
 	}
 
 	cli := resty.New()
-
-	resp, err := cli.R().
-		SetHeader("Content-Type", "application/json").
-		SetBody(npool.SendEmailRequest{
-			Email: "crazyzplzpl@163.com",
-		}).Post("http://localhost:50090/v1/send/email")
-	if assert.Nil(t, err) {
-		fmt.Println("resp is", resp)
-		assert.Equal(t, 200, resp.StatusCode())
-	}
-
 	resp1, err := cli.R().
 		SetHeader("Content-Type", "application/json").
 		SetBody(npool.VerifyCodeRequest{
+			Param:      "crazyzplzpl@163.com",
 			Code:       "111111",
 			VerifyType: "email",
 		}).Post("http://localhost:50090/v1/verify/code")
