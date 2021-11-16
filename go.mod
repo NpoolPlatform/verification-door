@@ -5,7 +5,7 @@ go 1.16
 require (
 	entgo.io/ent v0.9.1
 	github.com/BurntSushi/toml v0.4.1 // indirect
-	github.com/NpoolPlatform/go-service-framework v0.0.0-20211110113912-c4859934a03c
+	github.com/NpoolPlatform/go-service-framework v0.0.0-20211116033517-08d405150ec0
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/go-redis/redis/v8 v8.11.4
 	github.com/go-resty/resty/v2 v2.7.0
@@ -15,7 +15,6 @@ require (
 	github.com/kr/pretty v0.3.0 // indirect
 	github.com/mailgun/mailgun-go/v3 v3.6.4
 	github.com/mattn/go-colorable v0.1.11 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rogpeppe/go-internal v1.8.1-0.20211023094830-115ce09fd6b4 // indirect
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.7.0
