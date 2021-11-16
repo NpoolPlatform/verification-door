@@ -5,7 +5,7 @@ go 1.16
 require (
 	entgo.io/ent v0.9.1
 	github.com/BurntSushi/toml v0.4.1 // indirect
-	github.com/NpoolPlatform/go-service-framework v0.0.0-20211116033517-08d405150ec0
+	github.com/NpoolPlatform/go-service-framework v0.0.0-20211116114223-c078dc6a440d
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/go-redis/redis/v8 v8.11.4
 	github.com/go-resty/resty/v2 v2.7.0
