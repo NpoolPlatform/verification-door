@@ -19,11 +19,11 @@ require (
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.7.0
 	github.com/urfave/cli/v2 v2.3.0
-	golang.org/x/crypto v0.0.0-20211108221036-ceb1ce70b4fa // indirect
+	golang.org/x/crypto v0.0.0-20211115234514-b4de73f9ece8 // indirect
 	golang.org/x/sys v0.0.0-20211110154304-99a53858aa08 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
-	google.golang.org/genproto v0.0.0-20211104193956-4c6863e31247
+	google.golang.org/genproto v0.0.0-20211116182654-e63d96a377c4
 	google.golang.org/grpc v1.41.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1
