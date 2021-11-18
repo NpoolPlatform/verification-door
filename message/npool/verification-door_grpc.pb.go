@@ -21,11 +21,17 @@ const _ = grpc.SupportPackageIsVersion7
 type VerificationDoorClient interface {
 	// Method Version
 	Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*VersionResponse, error)
+	// get google authentication qr code url
 	GetQRcodeURL(ctx context.Context, in *GetQRcodeURLRequest, opts ...grpc.CallOption) (*GetQRcodeURLResponse, error)
+	// verify user google authentication(user's input code)
 	VerifyGoogleAuth(ctx context.Context, in *VerifyGoogleAuthRequest, opts ...grpc.CallOption) (*VerifyGoogleAuthResponse, error)
+	// delete user google authentication record
 	DeleteUserGoogleAuth(ctx context.Context, in *DeleteUserGoogleAuthRequest, opts ...grpc.CallOption) (*DeleteUserGoogleAuthResponse, error)
+	// send email to user
 	SendEmail(ctx context.Context, in *SendEmailRequest, opts ...grpc.CallOption) (*SendEmailResponse, error)
+	// send sms to user(todo......)
 	SendSms(ctx context.Context, in *SendSmsRequest, opts ...grpc.CallOption) (*SendSmsResponse, error)
+	// verify code user input. (can verify email code and sms code, verify sms code is todo......)
 	VerifyCode(ctx context.Context, in *VerifyCodeRequest, opts ...grpc.CallOption) (*VerifyCodeResponse, error)
 }
 
@@ -106,11 +112,17 @@ func (c *verificationDoorClient) VerifyCode(ctx context.Context, in *VerifyCodeR
 type VerificationDoorServer interface {
 	// Method Version
 	Version(context.Context, *emptypb.Empty) (*VersionResponse, error)
+	// get google authentication qr code url
 	GetQRcodeURL(context.Context, *GetQRcodeURLRequest) (*GetQRcodeURLResponse, error)
+	// verify user google authentication(user's input code)
 	VerifyGoogleAuth(context.Context, *VerifyGoogleAuthRequest) (*VerifyGoogleAuthResponse, error)
+	// delete user google authentication record
 	DeleteUserGoogleAuth(context.Context, *DeleteUserGoogleAuthRequest) (*DeleteUserGoogleAuthResponse, error)
+	// send email to user
 	SendEmail(context.Context, *SendEmailRequest) (*SendEmailResponse, error)
+	// send sms to user(todo......)
 	SendSms(context.Context, *SendSmsRequest) (*SendSmsResponse, error)
+	// verify code user input. (can verify email code and sms code, verify sms code is todo......)
 	VerifyCode(context.Context, *VerifyCodeRequest) (*VerifyCodeResponse, error)
 	mustEmbedUnimplementedVerificationDoorServer()
 }

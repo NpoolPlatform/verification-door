@@ -16,42 +16,42 @@ service VerificationDoor {
             body: "*"
         };
     };
-
+    // get google authentication qr code url
     rpc GetQRcodeURL (GetQRcodeURLRequest) returns (GetQRcodeURLResponse) {
         option (google.api.http) = {
             post: "/v1/get/qrcode/url"
             body: "*"
         };
     };
-
+    // verify user google authentication(user's input code)
     rpc VerifyGoogleAuth (VerifyGoogleAuthRequest) returns (VerifyGoogleAuthResponse) {
         option (google.api.http) = {
             post: "/v1/verify/google/auth"
             body: "*"
         };
     };
-
+    // delete user google authentication record
     rpc DeleteUserGoogleAuth (DeleteUserGoogleAuthRequest) returns (DeleteUserGoogleAuthResponse) {
         option (google.api.http) = {
             post: "/v1/delete/user/google/auth"
             body: "*"
         };
     };
-
+    // send email to user
     rpc SendEmail (SendEmailRequest) returns (SendEmailResponse) {
         option (google.api.http) = {
             post: "/v1/send/email"
             body: "*"
         };
     };
-
+    // send sms to user(todo......)
     rpc SendSms (SendSmsRequest) returns (SendSmsResponse) {
         option (google.api.http) = {
             post: "/v1/send/sms"
             body: "*"
         };
     };
-
+    // verify code user input. (can verify email code and sms code, verify sms code is todo......)
     rpc VerifyCode (VerifyCodeRequest) returns (VerifyCodeResponse) {
         option (google.api.http) = {
             post: "/v1/verify/code"

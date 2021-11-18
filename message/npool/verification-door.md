@@ -246,12 +246,12 @@ Service Name
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | Version | [.google.protobuf.Empty](#google.protobuf.Empty) | [VersionResponse](#verification.door.v1.VersionResponse) | Method Version |
-| GetQRcodeURL | [GetQRcodeURLRequest](#verification.door.v1.GetQRcodeURLRequest) | [GetQRcodeURLResponse](#verification.door.v1.GetQRcodeURLResponse) |  |
-| VerifyGoogleAuth | [VerifyGoogleAuthRequest](#verification.door.v1.VerifyGoogleAuthRequest) | [VerifyGoogleAuthResponse](#verification.door.v1.VerifyGoogleAuthResponse) |  |
-| DeleteUserGoogleAuth | [DeleteUserGoogleAuthRequest](#verification.door.v1.DeleteUserGoogleAuthRequest) | [DeleteUserGoogleAuthResponse](#verification.door.v1.DeleteUserGoogleAuthResponse) |  |
-| SendEmail | [SendEmailRequest](#verification.door.v1.SendEmailRequest) | [SendEmailResponse](#verification.door.v1.SendEmailResponse) |  |
-| SendSms | [SendSmsRequest](#verification.door.v1.SendSmsRequest) | [SendSmsResponse](#verification.door.v1.SendSmsResponse) |  |
-| VerifyCode | [VerifyCodeRequest](#verification.door.v1.VerifyCodeRequest) | [VerifyCodeResponse](#verification.door.v1.VerifyCodeResponse) |  |
+| GetQRcodeURL | [GetQRcodeURLRequest](#verification.door.v1.GetQRcodeURLRequest) | [GetQRcodeURLResponse](#verification.door.v1.GetQRcodeURLResponse) | get google authentication qr code url |
+| VerifyGoogleAuth | [VerifyGoogleAuthRequest](#verification.door.v1.VerifyGoogleAuthRequest) | [VerifyGoogleAuthResponse](#verification.door.v1.VerifyGoogleAuthResponse) | verify user google authentication(user&#39;s input code) |
+| DeleteUserGoogleAuth | [DeleteUserGoogleAuthRequest](#verification.door.v1.DeleteUserGoogleAuthRequest) | [DeleteUserGoogleAuthResponse](#verification.door.v1.DeleteUserGoogleAuthResponse) | delete user google authentication record |
+| SendEmail | [SendEmailRequest](#verification.door.v1.SendEmailRequest) | [SendEmailResponse](#verification.door.v1.SendEmailResponse) | send email to user |
+| SendSms | [SendSmsRequest](#verification.door.v1.SendSmsRequest) | [SendSmsResponse](#verification.door.v1.SendSmsResponse) | send sms to user(todo......) |
+| VerifyCode | [VerifyCodeRequest](#verification.door.v1.VerifyCodeRequest) | [VerifyCodeResponse](#verification.door.v1.VerifyCodeResponse) | verify code user input. (can verify email code and sms code, verify sms code is todo......) |
 
  
 
