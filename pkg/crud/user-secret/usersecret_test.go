@@ -28,19 +28,20 @@ func TestUserSecretCRUD(t *testing.T) { // nolint
 
 	secret := "123456"
 	user := uuid.New().String()
+	app := uuid.New().String()
 
-	resp, err := Create(context.Background(), secret, user)
+	resp, err := Create(context.Background(), secret, user, app)
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp)
 	}
 
-	resp, err = GetUserSecret(context.Background(), user)
+	resp, err = GetUserSecret(context.Background(), user, app)
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp)
 		assert.Equal(t, resp, secret)
 	}
 
-	resp, err = DeleteUserSecret(context.Background(), user)
+	resp, err = DeleteUserSecret(context.Background(), user, app)
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp)
 	}

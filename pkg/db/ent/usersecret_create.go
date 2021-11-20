@@ -26,6 +26,12 @@ func (usc *UserSecretCreate) SetUserID(u uuid.UUID) *UserSecretCreate {
 	return usc
 }
 
+// SetAppID sets the "app_id" field.
+func (usc *UserSecretCreate) SetAppID(u uuid.UUID) *UserSecretCreate {
+	usc.mutation.SetAppID(u)
+	return usc
+}
+
 // SetSecret sets the "secret" field.
 func (usc *UserSecretCreate) SetSecret(s string) *UserSecretCreate {
 	usc.mutation.SetSecret(s)
@@ -156,6 +162,9 @@ func (usc *UserSecretCreate) check() error {
 	if _, ok := usc.mutation.UserID(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`ent: missing required field "user_id"`)}
 	}
+	if _, ok := usc.mutation.AppID(); !ok {
+		return &ValidationError{Name: "app_id", err: errors.New(`ent: missing required field "app_id"`)}
+	}
 	if _, ok := usc.mutation.Secret(); !ok {
 		return &ValidationError{Name: "secret", err: errors.New(`ent: missing required field "secret"`)}
 	}
@@ -204,6 +213,14 @@ func (usc *UserSecretCreate) createSpec() (*UserSecret, *sqlgraph.CreateSpec) {
 			Column: usersecret.FieldUserID,
 		})
 		_node.UserID = value
+	}
+	if value, ok := usc.mutation.AppID(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
+			Value:  value,
+			Column: usersecret.FieldAppID,
+		})
+		_node.AppID = value
 	}
 	if value, ok := usc.mutation.Secret(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

@@ -68,6 +68,7 @@ message VersionResponse {
 message GetQRcodeURLRequest {
     string Username = 1;
     string UserID = 2;
+    string AppID = 3;
 }
 
 message GetQRcodeURLResponse {
@@ -77,6 +78,7 @@ message GetQRcodeURLResponse {
 message VerifyGoogleAuthRequest {
     string UserID = 1;
     string Code = 2;
+    string AppID = 3;
 }
 
 message VerifyGoogleAuthResponse {
@@ -85,6 +87,7 @@ message VerifyGoogleAuthResponse {
 
 message DeleteUserGoogleAuthRequest {
     string UserID = 1;
+    string AppID = 2;
 }
 
 message DeleteUserGoogleAuthResponse {
@@ -92,6 +95,7 @@ message DeleteUserGoogleAuthResponse {
 }
 
 message SendEmailRequest {
+    string AppID = 1;
     string Email = 2;
     string Intention = 3;
 }
@@ -101,6 +105,7 @@ message SendEmailResponse {
 }
 
 message SendSmsRequest {
+    string AppID = 1;
     string Phone = 2;
     string Intention = 3;
 }
@@ -113,6 +118,7 @@ message VerifyCodeRequest {
     string Param = 1;
     string Code = 2;
     string VerifyType = 3;
+    string AppID = 4;
 }
 
 message VerifyCodeResponse {

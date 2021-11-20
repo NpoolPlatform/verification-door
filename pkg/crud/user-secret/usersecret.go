@@ -10,10 +10,15 @@ import (
 	"golang.org/x/xerrors"
 )
 
-func Create(ctx context.Context, secret, userID string) (string, error) {
-	id, err := uuid.Parse(userID)
+func Create(ctx context.Context, secret, userID, appID string) (string, error) {
+	user, err := uuid.Parse(userID)
 	if err != nil {
 		return "", xerrors.Errorf("invalid user id: %v", err)
+	}
+
+	app, err := uuid.Parse(appID)
+	if err != nil {
+		return "", xerrors.Errorf("invalid app id: %v", err)
 	}
 
 	info, err := db.Client().
@@ -21,7 +26,8 @@ func Create(ctx context.Context, secret, userID string) (string, error) {
 		Query().
 		Where(
 			usersecret.And(
-				usersecret.UserID(id),
+				usersecret.UserID(user),
+				usersecret.AppID(app),
 				usersecret.DeleteAt(0),
 			),
 		).All(ctx)
@@ -36,7 +42,8 @@ func Create(ctx context.Context, secret, userID string) (string, error) {
 	_, err = db.Client().
 		UserSecret.
 		Create().
-		SetUserID(id).
+		SetUserID(user).
+		SetAppID(app).
 		SetSecret(secret).
 		Save(ctx)
 	if err != nil {
@@ -45,10 +52,15 @@ func Create(ctx context.Context, secret, userID string) (string, error) {
 	return "successfully", nil
 }
 
-func GetUserSecret(ctx context.Context, userID string) (string, error) {
-	id, err := uuid.Parse(userID)
+func GetUserSecret(ctx context.Context, userID, appID string) (string, error) {
+	user, err := uuid.Parse(userID)
 	if err != nil {
 		return "", xerrors.Errorf("invalid user id: %v", err)
+	}
+
+	app, err := uuid.Parse(appID)
+	if err != nil {
+		return "", xerrors.Errorf("invalid app id: %v", err)
 	}
 
 	info, err := db.Client().
@@ -56,7 +68,8 @@ func GetUserSecret(ctx context.Context, userID string) (string, error) {
 		Query().
 		Where(
 			usersecret.And(
-				usersecret.UserID(id),
+				usersecret.UserID(user),
+				usersecret.AppID(app),
 				usersecret.DeleteAt(0),
 			),
 		).Only(ctx)
@@ -67,10 +80,15 @@ func GetUserSecret(ctx context.Context, userID string) (string, error) {
 	return info.Secret, nil
 }
 
-func DeleteUserSecret(ctx context.Context, userID string) (string, error) {
-	id, err := uuid.Parse(userID)
+func DeleteUserSecret(ctx context.Context, userID, appID string) (string, error) {
+	user, err := uuid.Parse(userID)
 	if err != nil {
 		return "", xerrors.Errorf("invalid user id: %v", err)
+	}
+
+	app, err := uuid.Parse(appID)
+	if err != nil {
+		return "", xerrors.Errorf("invalid app id: %v", err)
 	}
 
 	_, err = db.Client().
@@ -78,7 +96,8 @@ func DeleteUserSecret(ctx context.Context, userID string) (string, error) {
 		Update().
 		Where(
 			usersecret.And(
-				usersecret.UserID(id),
+				usersecret.UserID(user),
+				usersecret.AppID(app),
 				usersecret.DeleteAt(0),
 			),
 		).

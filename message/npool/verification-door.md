@@ -40,6 +40,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | UserID | [string](#string) |  |  |
+| AppID | [string](#string) |  |  |
 
 
 
@@ -71,6 +72,7 @@
 | ----- | ---- | ----- | ----------- |
 | Username | [string](#string) |  |  |
 | UserID | [string](#string) |  |  |
+| AppID | [string](#string) |  |  |
 
 
 
@@ -100,6 +102,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| AppID | [string](#string) |  |  |
 | Email | [string](#string) |  |  |
 | Intention | [string](#string) |  |  |
 
@@ -131,6 +134,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| AppID | [string](#string) |  |  |
 | Phone | [string](#string) |  |  |
 | Intention | [string](#string) |  |  |
 
@@ -165,6 +169,7 @@
 | Param | [string](#string) |  |  |
 | Code | [string](#string) |  |  |
 | VerifyType | [string](#string) |  |  |
+| AppID | [string](#string) |  |  |
 
 
 
@@ -196,6 +201,7 @@
 | ----- | ---- | ----- | ----------- |
 | UserID | [string](#string) |  |  |
 | Code | [string](#string) |  |  |
+| AppID | [string](#string) |  |  |
 
 
 

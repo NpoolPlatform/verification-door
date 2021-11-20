@@ -5,6 +5,7 @@ go 1.16
 require (
 	entgo.io/ent v0.9.1
 	github.com/BurntSushi/toml v0.4.1 // indirect
+	github.com/NpoolPlatform/application-management v0.0.0-20211120125609-90cdc20087f0
 	github.com/NpoolPlatform/go-service-framework v0.0.0-20211117074545-bc1340849b08
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/go-redis/redis/v8 v8.11.4
@@ -19,9 +20,7 @@ require (
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.7.0
 	github.com/urfave/cli/v2 v2.3.0
-	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871 // indirect
 	golang.org/x/sys v0.0.0-20211110154304-99a53858aa08 // indirect
-	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
 	google.golang.org/genproto v0.0.0-20211117155847-120650a500bb
 	google.golang.org/grpc v1.41.0

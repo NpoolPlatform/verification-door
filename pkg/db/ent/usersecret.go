@@ -18,6 +18,8 @@ type UserSecret struct {
 	ID uuid.UUID `json:"id,omitempty"`
 	// UserID holds the value of the "user_id" field.
 	UserID uuid.UUID `json:"user_id,omitempty"`
+	// AppID holds the value of the "app_id" field.
+	AppID uuid.UUID `json:"app_id,omitempty"`
 	// Secret holds the value of the "secret" field.
 	Secret string `json:"secret,omitempty"`
 	// CreateAt holds the value of the "create_at" field.
@@ -35,7 +37,7 @@ func (*UserSecret) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(sql.NullInt64)
 		case usersecret.FieldSecret:
 			values[i] = new(sql.NullString)
-		case usersecret.FieldID, usersecret.FieldUserID:
+		case usersecret.FieldID, usersecret.FieldUserID, usersecret.FieldAppID:
 			values[i] = new(uuid.UUID)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type UserSecret", columns[i])
@@ -63,6 +65,12 @@ func (us *UserSecret) assignValues(columns []string, values []interface{}) error
 				return fmt.Errorf("unexpected type %T for field user_id", values[i])
 			} else if value != nil {
 				us.UserID = *value
+			}
+		case usersecret.FieldAppID:
+			if value, ok := values[i].(*uuid.UUID); !ok {
+				return fmt.Errorf("unexpected type %T for field app_id", values[i])
+			} else if value != nil {
+				us.AppID = *value
 			}
 		case usersecret.FieldSecret:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -112,6 +120,8 @@ func (us *UserSecret) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v", us.ID))
 	builder.WriteString(", user_id=")
 	builder.WriteString(fmt.Sprintf("%v", us.UserID))
+	builder.WriteString(", app_id=")
+	builder.WriteString(fmt.Sprintf("%v", us.AppID))
 	builder.WriteString(", secret=")
 	builder.WriteString(us.Secret)
 	builder.WriteString(", create_at=")

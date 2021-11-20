@@ -15,11 +15,11 @@ func init() {
 	usersecretFields := schema.UserSecret{}.Fields()
 	_ = usersecretFields
 	// usersecretDescCreateAt is the schema descriptor for create_at field.
-	usersecretDescCreateAt := usersecretFields[3].Descriptor()
+	usersecretDescCreateAt := usersecretFields[4].Descriptor()
 	// usersecret.DefaultCreateAt holds the default value on creation for the create_at field.
 	usersecret.DefaultCreateAt = usersecretDescCreateAt.Default.(func() uint32)
 	// usersecretDescDeleteAt is the schema descriptor for delete_at field.
-	usersecretDescDeleteAt := usersecretFields[4].Descriptor()
+	usersecretDescDeleteAt := usersecretFields[5].Descriptor()
 	// usersecret.DefaultDeleteAt holds the default value on creation for the delete_at field.
 	usersecret.DefaultDeleteAt = usersecretDescDeleteAt.Default.(func() uint32)
 	// usersecretDescID is the schema descriptor for id field.

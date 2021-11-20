@@ -12,6 +12,7 @@ var (
 	UserSecretsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID, Unique: true},
 		{Name: "user_id", Type: field.TypeUUID},
+		{Name: "app_id", Type: field.TypeUUID},
 		{Name: "secret", Type: field.TypeString},
 		{Name: "create_at", Type: field.TypeUint32},
 		{Name: "delete_at", Type: field.TypeUint32},
@@ -21,6 +22,13 @@ var (
 		Name:       "user_secrets",
 		Columns:    UserSecretsColumns,
 		PrimaryKey: []*schema.Column{UserSecretsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "usersecret_user_id_app_id",
+				Unique:  false,
+				Columns: []*schema.Column{UserSecretsColumns[1], UserSecretsColumns[2]},
+			},
+		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{

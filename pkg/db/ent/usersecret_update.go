@@ -33,6 +33,12 @@ func (usu *UserSecretUpdate) SetUserID(u uuid.UUID) *UserSecretUpdate {
 	return usu
 }
 
+// SetAppID sets the "app_id" field.
+func (usu *UserSecretUpdate) SetAppID(u uuid.UUID) *UserSecretUpdate {
+	usu.mutation.SetAppID(u)
+	return usu
+}
+
 // SetSecret sets the "secret" field.
 func (usu *UserSecretUpdate) SetSecret(s string) *UserSecretUpdate {
 	usu.mutation.SetSecret(s)
@@ -165,6 +171,13 @@ func (usu *UserSecretUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: usersecret.FieldUserID,
 		})
 	}
+	if value, ok := usu.mutation.AppID(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
+			Value:  value,
+			Column: usersecret.FieldAppID,
+		})
+	}
 	if value, ok := usu.mutation.Secret(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -222,6 +235,12 @@ type UserSecretUpdateOne struct {
 // SetUserID sets the "user_id" field.
 func (usuo *UserSecretUpdateOne) SetUserID(u uuid.UUID) *UserSecretUpdateOne {
 	usuo.mutation.SetUserID(u)
+	return usuo
+}
+
+// SetAppID sets the "app_id" field.
+func (usuo *UserSecretUpdateOne) SetAppID(u uuid.UUID) *UserSecretUpdateOne {
+	usuo.mutation.SetAppID(u)
 	return usuo
 }
 
@@ -379,6 +398,13 @@ func (usuo *UserSecretUpdateOne) sqlSave(ctx context.Context) (_node *UserSecret
 			Type:   field.TypeUUID,
 			Value:  value,
 			Column: usersecret.FieldUserID,
+		})
+	}
+	if value, ok := usuo.mutation.AppID(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
+			Value:  value,
+			Column: usersecret.FieldAppID,
 		})
 	}
 	if value, ok := usuo.mutation.Secret(); ok {

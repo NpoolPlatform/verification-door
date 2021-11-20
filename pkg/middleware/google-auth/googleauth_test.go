@@ -29,9 +29,11 @@ func TestGoogleAuthMiddleware(t *testing.T) { // nolint
 
 	username := "test"
 	userID := uuid.New().String()
+	appID := uuid.New().String()
 	resp, err := GetQRcodeURL(context.Background(), &npool.GetQRcodeURLRequest{
 		Username: username,
 		UserID:   userID,
+		AppID:    appID,
 	})
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp)
@@ -40,6 +42,7 @@ func TestGoogleAuthMiddleware(t *testing.T) { // nolint
 	_, err = VerifyGoogleAuth(context.Background(), &npool.VerifyGoogleAuthRequest{
 		UserID: userID,
 		Code:   "12345",
+		AppID:  appID,
 	})
 	assert.NotNil(t, err)
 }

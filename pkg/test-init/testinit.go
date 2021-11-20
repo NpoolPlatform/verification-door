@@ -5,6 +5,7 @@ import (
 	"path"
 	"runtime"
 
+	applicationconst "github.com/NpoolPlatform/application-management/pkg/message/const"
 	"github.com/NpoolPlatform/go-service-framework/pkg/app"
 	"github.com/NpoolPlatform/go-service-framework/pkg/config"
 	mysqlconst "github.com/NpoolPlatform/go-service-framework/pkg/mysql/const"
@@ -12,7 +13,6 @@ import (
 	redisconst "github.com/NpoolPlatform/go-service-framework/pkg/redis/const"
 	"github.com/NpoolPlatform/verification-door/pkg/db"
 	servicename "github.com/NpoolPlatform/verification-door/pkg/service-name" //nolint
-
 	"golang.org/x/xerrors"
 )
 
@@ -28,7 +28,9 @@ func Init() error {
 	err := app.Init(servicename.ServiceName, "", "", "", configPath, nil, nil,
 		config.ServiceNameToNamespace(mysqlconst.MysqlServiceName),
 		config.ServiceNameToNamespace(redisconst.RedisServiceName),
-		config.ServiceNameToNamespace(rabbitmqconst.RabbitMQServiceName))
+		config.ServiceNameToNamespace(rabbitmqconst.RabbitMQServiceName),
+		config.ServiceNameToNamespace(applicationconst.ServiceName),
+	)
 	if err != nil {
 		return xerrors.Errorf("cannot init app stub: %v", err)
 	}

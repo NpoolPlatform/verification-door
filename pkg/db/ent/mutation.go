@@ -33,6 +33,7 @@ type UserSecretMutation struct {
 	typ           string
 	id            *uuid.UUID
 	user_id       *uuid.UUID
+	app_id        *uuid.UUID
 	secret        *string
 	create_at     *uint32
 	addcreate_at  *uint32
@@ -163,6 +164,42 @@ func (m *UserSecretMutation) OldUserID(ctx context.Context) (v uuid.UUID, err er
 // ResetUserID resets all changes to the "user_id" field.
 func (m *UserSecretMutation) ResetUserID() {
 	m.user_id = nil
+}
+
+// SetAppID sets the "app_id" field.
+func (m *UserSecretMutation) SetAppID(u uuid.UUID) {
+	m.app_id = &u
+}
+
+// AppID returns the value of the "app_id" field in the mutation.
+func (m *UserSecretMutation) AppID() (r uuid.UUID, exists bool) {
+	v := m.app_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAppID returns the old "app_id" field's value of the UserSecret entity.
+// If the UserSecret object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserSecretMutation) OldAppID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldAppID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldAppID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAppID: %w", err)
+	}
+	return oldValue.AppID, nil
+}
+
+// ResetAppID resets all changes to the "app_id" field.
+func (m *UserSecretMutation) ResetAppID() {
+	m.app_id = nil
 }
 
 // SetSecret sets the "secret" field.
@@ -332,9 +369,12 @@ func (m *UserSecretMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *UserSecretMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 5)
 	if m.user_id != nil {
 		fields = append(fields, usersecret.FieldUserID)
+	}
+	if m.app_id != nil {
+		fields = append(fields, usersecret.FieldAppID)
 	}
 	if m.secret != nil {
 		fields = append(fields, usersecret.FieldSecret)
@@ -355,6 +395,8 @@ func (m *UserSecretMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case usersecret.FieldUserID:
 		return m.UserID()
+	case usersecret.FieldAppID:
+		return m.AppID()
 	case usersecret.FieldSecret:
 		return m.Secret()
 	case usersecret.FieldCreateAt:
@@ -372,6 +414,8 @@ func (m *UserSecretMutation) OldField(ctx context.Context, name string) (ent.Val
 	switch name {
 	case usersecret.FieldUserID:
 		return m.OldUserID(ctx)
+	case usersecret.FieldAppID:
+		return m.OldAppID(ctx)
 	case usersecret.FieldSecret:
 		return m.OldSecret(ctx)
 	case usersecret.FieldCreateAt:
@@ -393,6 +437,13 @@ func (m *UserSecretMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUserID(v)
+		return nil
+	case usersecret.FieldAppID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAppID(v)
 		return nil
 	case usersecret.FieldSecret:
 		v, ok := value.(string)
@@ -493,6 +544,9 @@ func (m *UserSecretMutation) ResetField(name string) error {
 	switch name {
 	case usersecret.FieldUserID:
 		m.ResetUserID()
+		return nil
+	case usersecret.FieldAppID:
+		m.ResetAppID()
 		return nil
 	case usersecret.FieldSecret:
 		m.ResetSecret()

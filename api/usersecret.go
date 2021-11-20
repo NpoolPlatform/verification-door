@@ -30,7 +30,7 @@ func (s *Server) VerifyGoogleAuth(ctx context.Context, in *npool.VerifyGoogleAut
 }
 
 func (s *Server) DeleteUserGoogleAuth(ctx context.Context, in *npool.DeleteUserGoogleAuthRequest) (*npool.DeleteUserGoogleAuthResponse, error) {
-	resp, err := usersecret.DeleteUserSecret(ctx, in.UserID)
+	resp, err := usersecret.DeleteUserSecret(ctx, in.UserID, in.AppID)
 	if err != nil {
 		logger.Sugar().Errorf("fail to delete google auth: %v", err)
 		return nil, status.Errorf(codes.Internal, "Internal server error: %v", err)
