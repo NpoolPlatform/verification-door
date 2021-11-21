@@ -12,6 +12,7 @@ import (
 const (
 	VerifyCodeDuration      = 5 * time.Minute
 	VerificationCodeKeyword = "verify-code"
+	WaitTime                = 60
 )
 
 func GenerateVerifyCode(length int) string {
@@ -31,7 +32,7 @@ func SaveVerifyCode(param, code string, sendTime int64) error {
 	}
 
 	if err == nil {
-		if (sendTime - info.SendTime) < 60*int64(time.Second) {
+		if (sendTime - info.SendTime) < WaitTime {
 			return xerrors.Errorf("please wait for 60 seconds.")
 		}
 	}
