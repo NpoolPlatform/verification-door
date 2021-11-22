@@ -16,6 +16,8 @@
     - [VerifyCodeResponse](#verification.door.v1.VerifyCodeResponse)
     - [VerifyGoogleAuthRequest](#verification.door.v1.VerifyGoogleAuthRequest)
     - [VerifyGoogleAuthResponse](#verification.door.v1.VerifyGoogleAuthResponse)
+    - [VerifyGoogleRecaptchaRequest](#verification.door.v1.VerifyGoogleRecaptchaRequest)
+    - [VerifyGoogleRecaptchaResponse](#verification.door.v1.VerifyGoogleRecaptchaResponse)
     - [VersionResponse](#verification.door.v1.VersionResponse)
   
     - [VerificationDoor](#verification.door.v1.VerificationDoor)
@@ -223,6 +225,36 @@
 
 
 
+<a name="verification.door.v1.VerifyGoogleRecaptchaRequest"></a>
+
+### VerifyGoogleRecaptchaRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Response | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.VerifyGoogleRecaptchaResponse"></a>
+
+### VerifyGoogleRecaptchaResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Info | [bool](#bool) |  |  |
+
+
+
+
+
+
 <a name="verification.door.v1.VersionResponse"></a>
 
 ### VersionResponse
@@ -258,6 +290,7 @@ Service Name
 | SendEmail | [SendEmailRequest](#verification.door.v1.SendEmailRequest) | [SendEmailResponse](#verification.door.v1.SendEmailResponse) | send email to user |
 | SendSms | [SendSmsRequest](#verification.door.v1.SendSmsRequest) | [SendSmsResponse](#verification.door.v1.SendSmsResponse) | send sms to user(todo......) |
 | VerifyCode | [VerifyCodeRequest](#verification.door.v1.VerifyCodeRequest) | [VerifyCodeResponse](#verification.door.v1.VerifyCodeResponse) | verify code user input. (can verify email code and sms code, verify sms code is todo......) |
+| VerifyGoogleRecaptcha | [VerifyGoogleRecaptchaRequest](#verification.door.v1.VerifyGoogleRecaptchaRequest) | [VerifyGoogleRecaptchaResponse](#verification.door.v1.VerifyGoogleRecaptchaResponse) | verify google recaptcha. |
 
  
 

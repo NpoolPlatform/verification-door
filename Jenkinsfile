@@ -79,6 +79,8 @@ pipeline {
             ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost database_name user_management
             ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost mailgun_domain $MAILGUN_DOMAIN
             ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost mailgun_apikey $MAILGUN_APIKEY
+            ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost recaptcha_url $RECAPTCHA_URL
+            ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost recaptcha_secret $RECAPTCHA_SECRET
             cd -
           done
           kubectl exec --namespace kube-system $devboxpod -- make -C /tmp/$servicename deps before-test test after-test
@@ -133,6 +135,8 @@ pipeline {
             ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost database_name user_management
             ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost mailgun_domain $MAILGUN_DOMAIN
             ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost mailgun_apikey $MAILGUN_APIKEY
+            ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost recaptcha_url $RECAPTCHA_URL
+            ./apollo-item-config.sh $APP_ID $TARGET_ENV $vhost recaptcha_secret $RECAPTCHA_SECRET
           done
         '''.stripIndent())
       }

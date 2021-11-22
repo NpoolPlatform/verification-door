@@ -33,6 +33,8 @@ type VerificationDoorClient interface {
 	SendSms(ctx context.Context, in *SendSmsRequest, opts ...grpc.CallOption) (*SendSmsResponse, error)
 	// verify code user input. (can verify email code and sms code, verify sms code is todo......)
 	VerifyCode(ctx context.Context, in *VerifyCodeRequest, opts ...grpc.CallOption) (*VerifyCodeResponse, error)
+	// verify google recaptcha.
+	VerifyGoogleRecaptcha(ctx context.Context, in *VerifyGoogleRecaptchaRequest, opts ...grpc.CallOption) (*VerifyGoogleRecaptchaResponse, error)
 }
 
 type verificationDoorClient struct {
@@ -106,6 +108,15 @@ func (c *verificationDoorClient) VerifyCode(ctx context.Context, in *VerifyCodeR
 	return out, nil
 }
 
+func (c *verificationDoorClient) VerifyGoogleRecaptcha(ctx context.Context, in *VerifyGoogleRecaptchaRequest, opts ...grpc.CallOption) (*VerifyGoogleRecaptchaResponse, error) {
+	out := new(VerifyGoogleRecaptchaResponse)
+	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/VerifyGoogleRecaptcha", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // VerificationDoorServer is the server API for VerificationDoor service.
 // All implementations must embed UnimplementedVerificationDoorServer
 // for forward compatibility
@@ -124,6 +135,8 @@ type VerificationDoorServer interface {
 	SendSms(context.Context, *SendSmsRequest) (*SendSmsResponse, error)
 	// verify code user input. (can verify email code and sms code, verify sms code is todo......)
 	VerifyCode(context.Context, *VerifyCodeRequest) (*VerifyCodeResponse, error)
+	// verify google recaptcha.
+	VerifyGoogleRecaptcha(context.Context, *VerifyGoogleRecaptchaRequest) (*VerifyGoogleRecaptchaResponse, error)
 	mustEmbedUnimplementedVerificationDoorServer()
 }
 
@@ -151,6 +164,9 @@ func (UnimplementedVerificationDoorServer) SendSms(context.Context, *SendSmsRequ
 }
 func (UnimplementedVerificationDoorServer) VerifyCode(context.Context, *VerifyCodeRequest) (*VerifyCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyCode not implemented")
+}
+func (UnimplementedVerificationDoorServer) VerifyGoogleRecaptcha(context.Context, *VerifyGoogleRecaptchaRequest) (*VerifyGoogleRecaptchaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyGoogleRecaptcha not implemented")
 }
 func (UnimplementedVerificationDoorServer) mustEmbedUnimplementedVerificationDoorServer() {}
 
@@ -291,6 +307,24 @@ func _VerificationDoor_VerifyCode_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _VerificationDoor_VerifyGoogleRecaptcha_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyGoogleRecaptchaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VerificationDoorServer).VerifyGoogleRecaptcha(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/verification.door.v1.VerificationDoor/VerifyGoogleRecaptcha",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VerificationDoorServer).VerifyGoogleRecaptcha(ctx, req.(*VerifyGoogleRecaptchaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // VerificationDoor_ServiceDesc is the grpc.ServiceDesc for VerificationDoor service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -325,6 +359,10 @@ var VerificationDoor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VerifyCode",
 			Handler:    _VerificationDoor_VerifyCode_Handler,
+		},
+		{
+			MethodName: "VerifyGoogleRecaptcha",
+			Handler:    _VerificationDoor_VerifyGoogleRecaptcha_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

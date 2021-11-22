@@ -58,6 +58,13 @@ service VerificationDoor {
             body: "*"
         };
     };
+    // verify google recaptcha.
+    rpc VerifyGoogleRecaptcha (VerifyGoogleRecaptchaRequest) returns (VerifyGoogleRecaptchaResponse) {
+        option (google.api.http) = {
+            post: "/v1/verify/google/recaptcha"
+            body: "*"
+        };
+    };
 }
 
 // request body and response
@@ -123,4 +130,12 @@ message VerifyCodeRequest {
 
 message VerifyCodeResponse {
     string Info = 1;
+}
+
+message VerifyGoogleRecaptchaRequest {
+    string Response = 1;
+}
+
+message VerifyGoogleRecaptchaResponse {
+    bool Info = 1;
 }
