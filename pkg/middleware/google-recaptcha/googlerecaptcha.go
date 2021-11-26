@@ -1,6 +1,7 @@
 package googlerecaptcha
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -17,15 +18,17 @@ const (
 )
 
 func VerifyGoogleRecaptcha(in *npool.VerifyGoogleRecaptchaRequest) (*npool.VerifyGoogleRecaptchaResponse, error) {
-	recaptchaURL := config.GetStringValueWithNameSpace("", KeyRecaptchaURL)
-	recaptchaSecret := config.GetStringValueWithNameSpace("", KeyRecaptchaSecret)
-
+	hostname := config.GetStringValueWithNameSpace("", config.KeyHostname)
+	recaptchaURL := config.GetStringValueWithNameSpace(hostname, KeyRecaptchaURL)
+	recaptchaSecret := config.GetStringValueWithNameSpace(hostname, KeyRecaptchaSecret)
+	fmt.Println("url is: ", recaptchaURL, "secret is: ", recaptchaSecret)
 	httpClient := &http.Client{
 		Timeout: 60 * time.Second,
 	}
 	request := url.Values{"secret": {recaptchaSecret}, "response": {in.Response}}
 	resp, err := httpClient.PostForm(recaptchaURL, request)
 	if err != nil {
+		fmt.Println("http error is", err)
 		return &npool.VerifyGoogleRecaptchaResponse{
 			Info: false,
 		}, xerrors.Errorf("fail to verify: %v", err)
