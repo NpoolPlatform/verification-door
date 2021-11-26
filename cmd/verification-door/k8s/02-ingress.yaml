@@ -15,7 +15,7 @@ spec:
     - host: api.npool.top
       http: &http_appid_userid_rules
         paths:
-          - path: /verification-door
+          - path: /api/verification-door
             backend:
               serviceName: verification-door
               servicePort: 50090
@@ -41,15 +41,15 @@ spec:
     - host: api.npool.top
       http: &http_appid_rules
         paths:
-          - path: /verification-door/v1/send/email
+          - path: /api/verification-door/v1/send/email
             backend:
               serviceName: verification-door
               servicePort: 50090
-          - path: /verification-door/v1/send/sms
+          - path: /api/verification-door/v1/send/sms
             backend:
               serviceName: verification-door
               servicePort: 50090
-          - path: /verification-door/v1/verify/code
+          - path: /api/verification-door/v1/verify/code
             backend:
               serviceName: verification-door
               servicePort: 50090
@@ -75,11 +75,11 @@ spec:
     - host: api.npool.top
       http: &http_rules
         paths:
-          - path: /verification-door/version
+          - path: /api/verification-door/version
             backend:
               serviceName: verification-door
               servicePort: 50090
-          - path: /verification-door/v1/verify/google/recaptcha
+          - path: /api/verification-door/v1/verify/google/recaptcha
             backend:
               serviceName: verification-door
               servicePort: 50090
@@ -96,4 +96,4 @@ metadata:
 spec:
   stripPrefix:
     prefixes:
-      - /verification-door
+      - /api/verification-door
