@@ -36,11 +36,11 @@ func Create(ctx context.Context, secret, userID, appID string) (string, error) {
 			),
 		).All(ctx)
 	if err != nil {
-		return info[0].Secret, xerrors.Errorf("fail to get user secret record: %v", err)
+		return "", xerrors.Errorf("fail to get user secret record: %v", err)
 	}
 
 	if len(info) != 0 {
-		return "", xerrors.Errorf(SecretExistError)
+		return info[0].Secret, xerrors.Errorf(SecretExistError)
 	}
 
 	_, err = db.Client().
