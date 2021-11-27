@@ -16,11 +16,12 @@ func GetQRcodeURL(ctx context.Context, in *npool.GetQRcodeURLRequest) (*npool.Ge
 		return nil, xerrors.Errorf("fail to generate secret: %v", err)
 	}
 
-	qrcodeURL := google.GetQrcodeURL(in.Username, secret)
-	_, err = usersecret.Create(ctx, secret, in.UserID, in.AppID)
-	if err != nil {
+	secret, err = usersecret.Create(ctx, secret, in.UserID, in.AppID)
+	if err != nil && err.Error() != usersecret.SecretExistError {
 		return nil, xerrors.Errorf("fail to add user secret: %v", err)
 	}
+
+	qrcodeURL := google.GetQrcodeURL(in.Username, secret)
 
 	return &npool.GetQRcodeURLResponse{
 		Info: qrcodeURL,

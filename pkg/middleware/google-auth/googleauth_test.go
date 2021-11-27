@@ -38,6 +38,7 @@ func TestGoogleAuthMiddleware(t *testing.T) { // nolint
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp)
 	}
+	fmt.Println(userID)
 
 	_, err = VerifyGoogleAuth(context.Background(), &npool.VerifyGoogleAuthRequest{
 		UserID: userID,

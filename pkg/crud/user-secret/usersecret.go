@@ -10,6 +10,10 @@ import (
 	"golang.org/x/xerrors"
 )
 
+const (
+	SecretExistError = "user already has a google auth secret"
+)
+
 func Create(ctx context.Context, secret, userID, appID string) (string, error) {
 	user, err := uuid.Parse(userID)
 	if err != nil {
@@ -32,11 +36,11 @@ func Create(ctx context.Context, secret, userID, appID string) (string, error) {
 			),
 		).All(ctx)
 	if err != nil {
-		return "", xerrors.Errorf("fail to get user secret record: %v", err)
+		return info[0].Secret, xerrors.Errorf("fail to get user secret record: %v", err)
 	}
 
 	if len(info) != 0 {
-		return "", xerrors.Errorf("user already has a google auth secret")
+		return "", xerrors.Errorf(SecretExistError)
 	}
 
 	_, err = db.Client().
