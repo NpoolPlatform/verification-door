@@ -6,7 +6,6 @@ import (
 	"github.com/NpoolPlatform/verification-door/message/npool"
 	usersecret "github.com/NpoolPlatform/verification-door/pkg/crud/user-secret"
 	"github.com/NpoolPlatform/verification-door/pkg/google"
-	"github.com/NpoolPlatform/verification-door/pkg/grpc"
 	"golang.org/x/xerrors"
 )
 
@@ -38,17 +37,6 @@ func VerifyGoogleAuth(ctx context.Context, in *npool.VerifyGoogleAuthRequest) (*
 		return nil, xerrors.Errorf("fail to verify code: %v", err)
 	}
 
-	query, err := grpc.QueryAppUser(in.AppID, in.UserID)
-	if err != nil {
-		return nil, xerrors.Errorf("fail to get user app info: %v", err)
-	}
-
-	if !query.Info.GAVerify {
-		err := grpc.UpdateUserGaStatus(in.UserID, in.AppID)
-		if err != nil {
-			return nil, xerrors.Errorf("fail to update user ga status: %v", err)
-		}
-	}
 	return &npool.VerifyGoogleAuthResponse{
 		Info: "google authentication verify successfully",
 	}, nil
