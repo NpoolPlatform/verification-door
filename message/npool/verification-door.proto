@@ -105,6 +105,7 @@ message SendEmailRequest {
     string AppID = 1;
     string Email = 2;
     string Intention = 3;
+    string Lang = 4;
 }
 
 message SendEmailResponse {

@@ -107,6 +107,7 @@
 | AppID | [string](#string) |  |  |
 | Email | [string](#string) |  |  |
 | Intention | [string](#string) |  |  |
+| Lang | [string](#string) |  |  |
 
 
 

@@ -24,7 +24,7 @@ func TestEmail(t *testing.T) { // nolint
 		return
 	}
 
-	err := SendEmail(`
+	err := SendEmail("test", "test", `
 	<p>your email code is: </p>
 	`+"12345", "crazyzplpzl@163.com")
 	assert.Nil(t, err)
