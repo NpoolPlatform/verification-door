@@ -98,16 +98,16 @@ func SendEmail(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEmai
 }
 
 func VerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEmailResponse, error) {
-	var content, subtitle string
+	var html, subtitle string
 	switch in.Lang {
 	case Ch:
-		content = ChHTML
+		html = ChHTML
 		subtitle = ChSubtitle
 	case En:
-		content = EnHTML
+		html = EnHTML
 		subtitle = EnSubtitle
 	case Jp:
-		content = JpHTML
+		html = JpHTML
 		subtitle = JpSubtitle
 	default:
 		return nil, xerrors.Errorf("input lang <%v> doesn't exist!!!", in.Lang)
@@ -119,7 +119,7 @@ func VerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEma
 		return nil, xerrors.Errorf("fail to save email verify code: %v", err)
 	}
 
-	err = email.SendEmail(From, subtitle, fmt.Sprintf(content, code), in.Email)
+	err = email.SendEmail(From, subtitle, "", fmt.Sprintf(html, code), in.Email)
 	if err != nil {
 		return nil, xerrors.Errorf("fail to send email: %v", err)
 	}

@@ -15,7 +15,7 @@ const (
 	MailgunApikey = "mailgun_apikey"
 )
 
-func SendEmail(from, subtitle, content, to string) error {
+func SendEmail(from, subtitle, content, html, to string) error {
 	_, err := mail.ParseAddress(to)
 	if err != nil {
 		return xerrors.Errorf("invalid email address: %v", err)
@@ -27,11 +27,13 @@ func SendEmail(from, subtitle, content, to string) error {
 	msg := mg.NewMessage(
 		from,
 		subtitle,
-		"",
+		content,
 		to,
 	)
 
-	msg.SetHtml(content)
+	if html != "" {
+		msg.SetHtml(html)
+	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute*60)
 	defer cancel()
