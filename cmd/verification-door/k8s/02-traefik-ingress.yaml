@@ -15,7 +15,11 @@ spec:
     - host: api.npool.top
       http: &http_appid_userid_rules
         paths:
-          - path: /api/verification-door
+          - path: /api/verification-door/v1/get/qrcode/url
+            backend:
+              serviceName: verification-door
+              servicePort: 50090
+          - path: /api/verification-door/v1/verify/google/auth
             backend:
               serviceName: verification-door
               servicePort: 50090
@@ -27,7 +31,6 @@ spec:
       http: *http_appid_userid_rules
 
 ---
-
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
@@ -65,7 +68,6 @@ spec:
       http: *http_appid_rules
 
 ---
-
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
@@ -99,7 +101,6 @@ spec:
       http: *http_rules
 
 ---
-
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
