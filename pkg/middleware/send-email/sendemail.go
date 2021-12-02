@@ -27,16 +27,79 @@ const (
 
   <body>
     <div>
-			<img src = 'https://s3.bmp.ovh/imgs/2021/11/d628183d307ac487.jpg' />
+			<img src = 'https://s3.bmp.ovh/imgs/2021/12/6d8fbb9f12f2b978.jpg' />
       <p>Procyonユーザーへ</p>
       <p>日頃より弊社サービスをご愛顧頂き誠にありがとうございます。</p>
       <h3>Email認証コード: <span style="color: #1ec498;">%v</span></h3>
       <p>ご不明な点がございましたら、カスタマーサポートへまでお問い合わせください。</p>
       <p>今後ともどうぞ宜しくお願い申し上げます。</p>
       <p>----------------</p>
-      <p>Procyon カスタマーサポートセンター</p>
-      <p>Email: <a href="mailto:support@procyon.vip">support@procyon.vip</a></p>
-      <p>営業時間: 10時00分 〜 22時00分 (日本時間)</p>
+      <p></p>
+    </div>
+
+		<div>
+      <table style="padding: 0px; margin: 10px 0; border: none">
+        <tbody>
+          <tr>
+            <td style="vertical-align: middle; padding: 10px 7px 0 0">
+              <img
+                alt="Img"
+                src="https://storage.googleapis.com/signaturesatori/customer-C01934n52/images/companyLogo/IITLT.png"
+                style="border: 0px"
+                width="80"
+                height="80"
+              />
+            </td>
+            <td
+              style="
+                border-left: 3px solid #b3bdd0;
+                padding: 7px 0px 0px 10px;
+                font-family: 'calibri', 'candara', 'segoe', 'segoe ui', 'optima',
+                  'arial', sans-serif;
+                font-size: 12px;
+                line-height: 14px;
+                color: #3a3a41;
+              "
+            >
+              <div style="margin-bottom: 10px">
+                <strong>
+                  <span style="color: #3a3a41">
+                    <span style="font-size: 14px; line-height: 17px"
+                      >Procyon カスタマーサポートセンター</span
+                    >
+                  </span>
+                </strong>
+                <br />
+              </div>
+              <div style="margin-bottom: 10px">
+                <span style="color: #3a3a41; text-decoration: none">
+                  <a
+                    href="mailto:support@procyon.vip"
+                    style="color: #3a3a41; text-decoration: none"
+                    target="_blank"
+                    >support@procyon.vip</a
+                  >
+                </span>
+              </div>
+              <div style="margin-bottom: 10px">
+                <strong>Procyon</strong>
+                <br />
+                営業時間: 10時00分 〜 22時00分 (日本時間)
+                <br />
+                <span style="color: #3a3a41; text-decoration: none">
+                  <a
+                    href="https://www.procyon.vip"
+                    style="color: #3a3a41; text-decoration: none"
+                    target="_blank"
+                    >www.procyon.vip</a
+                  >
+                </span>
+              </div>
+              <div></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </body>
 </html>
@@ -49,16 +112,79 @@ const (
 
   <body>
     <div>
-			<img src = 'https://s3.bmp.ovh/imgs/2021/11/d628183d307ac487.jpg' />
-      <p>To Procyon users</p>
+			<img src = 'https://s3.bmp.ovh/imgs/2021/12/6d8fbb9f12f2b978.jpg' />
+      <p>Dear Procyon User,</p>
       <p>Thank you very much for your continued patronage of our services.</p>
       <h3>Email Verification Code: <span style="color: #1ec498;">%v</span></h3>
-      <p>If you have any questions, please contact our customer support.</p>
+      <p>If you have any questions, please contact our customer support team.</p>
       <p>We are looking forward to working with you in the future.</p>
       <p>----------------</p>
-      <p>Procyon Customer Support Center</p>
-      <p>Email: <a href="mailto:support@procyon.vip">support@procyon.vip</a></p>
-      <p>Business hours: 10:00 am - 10:00 pm (Japan time)</p>
+      <p></p>
+    </div>
+
+		<div>
+      <table style="padding: 0px; margin: 10px 0; border: none">
+        <tbody>
+          <tr>
+            <td style="vertical-align: middle; padding: 10px 7px 0 0">
+              <img
+                alt="Img"
+                src="https://storage.googleapis.com/signaturesatori/customer-C01934n52/images/companyLogo/IITLT.png"
+                style="border: 0px"
+                width="80"
+                height="80"
+              />
+            </td>
+            <td
+              style="
+                border-left: 3px solid #b3bdd0;
+                padding: 7px 0px 0px 10px;
+                font-family: 'calibri', 'candara', 'segoe', 'segoe ui', 'optima',
+                  'arial', sans-serif;
+                font-size: 12px;
+                line-height: 14px;
+                color: #3a3a41;
+              "
+            >
+              <div style="margin-bottom: 10px">
+                <strong>
+                  <span style="color: #3a3a41">
+                    <span style="font-size: 14px; line-height: 17px"
+                      >Procyon Customer Support Center</span
+                    >
+                  </span>
+                </strong>
+                <br />
+              </div>
+              <div style="margin-bottom: 10px">
+                <span style="color: #3a3a41; text-decoration: none">
+                  <a
+                    href="mailto:support@procyon.vip"
+                    style="color: #3a3a41; text-decoration: none"
+                    target="_blank"
+                    >support@procyon.vip</a
+                  >
+                </span>
+              </div>
+              <div style="margin-bottom: 10px">
+                <strong>Procyon</strong>
+                <br />
+                Business hours: 10:00 am - 10:00 pm (Japan time)
+                <br />
+                <span style="color: #3a3a41; text-decoration: none">
+                  <a
+                    href="https://www.procyon.vip"
+                    style="color: #3a3a41; text-decoration: none"
+                    target="_blank"
+                    >www.procyon.vip</a
+                  >
+                </span>
+              </div>
+              <div></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </body>
 </html>
@@ -78,9 +204,72 @@ const (
       <p>如果你有任何问题，请联系我们的客户支持团队。</p>
       <p>我们期待着在未来与您合作。</p>
       <p>----------------</p>
-      <p>Procyon客户支持中心</p>
-      <p>Email: <a href="mailto:support@procyon.vip">support@procyon.vip</a></p>
-      <p>营业时间：上午10点至晚上10点（GMT）</p>
+      <p></p>
+    </div>
+
+		<div>
+      <table style="padding: 0px; margin: 10px 0; border: none">
+        <tbody>
+          <tr>
+            <td style="vertical-align: middle; padding: 10px 7px 0 0">
+              <img
+                alt="Img"
+                src="https://storage.googleapis.com/signaturesatori/customer-C01934n52/images/companyLogo/IITLT.png"
+                style="border: 0px"
+                width="80"
+                height="80"
+              />
+            </td>
+            <td
+              style="
+                border-left: 3px solid #b3bdd0;
+                padding: 7px 0px 0px 10px;
+                font-family: 'calibri', 'candara', 'segoe', 'segoe ui', 'optima',
+                  'arial', sans-serif;
+                font-size: 12px;
+                line-height: 14px;
+                color: #3a3a41;
+              "
+            >
+              <div style="margin-bottom: 10px">
+                <strong>
+                  <span style="color: #3a3a41">
+                    <span style="font-size: 14px; line-height: 17px"
+                      >Procyon客户支持中心</span
+                    >
+                  </span>
+                </strong>
+                <br />
+              </div>
+              <div style="margin-bottom: 10px">
+                <span style="color: #3a3a41; text-decoration: none">
+                  <a
+                    href="mailto:support@procyon.vip"
+                    style="color: #3a3a41; text-decoration: none"
+                    target="_blank"
+                    >support@procyon.vip</a
+                  >
+                </span>
+              </div>
+              <div style="margin-bottom: 10px">
+                <strong>Procyon</strong>
+                <br />
+                营业时间：上午10点至晚上10点（GMT）
+                <br />
+                <span style="color: #3a3a41; text-decoration: none">
+                  <a
+                    href="https://www.procyon.vip"
+                    style="color: #3a3a41; text-decoration: none"
+                    target="_blank"
+                    >www.procyon.vip</a
+                  >
+                </span>
+              </div>
+              <div></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </body>
 </html>

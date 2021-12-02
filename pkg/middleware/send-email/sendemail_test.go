@@ -26,11 +26,11 @@ func TestSendEmailMiddleware(t *testing.T) { // nolint
 		return
 	}
 
-	email := "crazyzplzpl@163.com"
+	email := "crazyzplzpl@gmail.com"
 	resp, err := SendEmail(context.Background(), &npool.SendEmailRequest{
 		Intention: "verify",
 		Email:     email,
-		Lang:      Jp,
+		Lang:      En,
 	})
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp)
