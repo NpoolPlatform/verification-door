@@ -26,4 +26,6 @@ func TestEmail(t *testing.T) { // nolint
 
 	err := SendEmail("crazyzplzpl@qq.com", "test", "test", "", "crazyzplpzl@163.com")
 	assert.Nil(t, err)
+	err = SendEmailByAWS("test", "test", "", "crazyzplzpl@gmail.com")
+	assert.Nil(t, err)
 }
