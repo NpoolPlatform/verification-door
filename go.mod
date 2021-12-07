@@ -17,6 +17,7 @@ require (
 	github.com/kr/pretty v0.3.0 // indirect
 	github.com/mailgun/mailgun-go/v3 v3.6.4
 	github.com/mattn/go-colorable v0.1.11 // indirect
+	github.com/mojocn/base64Captcha v1.3.5
 	github.com/rogpeppe/go-internal v1.8.1-0.20211023094830-115ce09fd6b4 // indirect
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.7.0

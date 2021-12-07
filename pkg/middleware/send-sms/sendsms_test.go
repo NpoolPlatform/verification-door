@@ -1,4 +1,4 @@
-package sendemail
+package sendsms
 
 import (
 	"context"
@@ -21,24 +21,15 @@ func init() {
 	}
 }
 
-func TestSendEmailMiddleware(t *testing.T) { // nolint
+func TestSendSms(t *testing.T) {
 	if runByGithubAction, err := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); err == nil && runByGithubAction {
 		return
 	}
 
-	email := "crazyzplzpl@163.com"
-	resp, err := SendEmail(context.Background(), &npool.SendEmailRequest{
-		Intention: "verify",
-		Email:     email,
-		Lang:      En,
-		Username:  "Crazyzpl",
+	phone := "+65 80484585"
+	_, err := SendVerifyCode(context.Background(), &npool.SendSmsRequest{
+		Phone: phone,
+		Lang:  En,
 	})
-	if assert.Nil(t, err) {
-		assert.NotNil(t, resp)
-	}
-
-	_, err = VerifyCode(context.Background(), &npool.SendEmailRequest{
-		Email: email,
-	})
-	assert.NotNil(t, err)
+	assert.Nil(t, err)
 }

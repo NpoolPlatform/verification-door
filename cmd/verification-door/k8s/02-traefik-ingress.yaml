@@ -107,6 +107,14 @@ spec:
             backend:
               serviceName: verification-door
               servicePort: 50090
+          - path: /api/verification-door/v1/get/captcher/img
+            backend:
+              serviceName: verification-door
+              servicePort: 50090
+          - path: /api/verification-door/v1/verify/captcher
+            backend:
+              serviceName: verification-door
+              servicePort: 50090
     - host: api.xpool.top
       http: *http_rules
     - host: www.npool.top

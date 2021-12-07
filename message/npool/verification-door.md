@@ -4,14 +4,19 @@
 ## Table of Contents
 
 - [npool/verification-door.proto](#npool/verification-door.proto)
+    - [CaptcherResp](#verification.door.v1.CaptcherResp)
     - [DeleteUserGoogleAuthRequest](#verification.door.v1.DeleteUserGoogleAuthRequest)
     - [DeleteUserGoogleAuthResponse](#verification.door.v1.DeleteUserGoogleAuthResponse)
+    - [GetCaptcherImgRequest](#verification.door.v1.GetCaptcherImgRequest)
+    - [GetCaptcherImgResponse](#verification.door.v1.GetCaptcherImgResponse)
     - [GetQRcodeURLRequest](#verification.door.v1.GetQRcodeURLRequest)
     - [GetQRcodeURLResponse](#verification.door.v1.GetQRcodeURLResponse)
     - [SendEmailRequest](#verification.door.v1.SendEmailRequest)
     - [SendEmailResponse](#verification.door.v1.SendEmailResponse)
     - [SendSmsRequest](#verification.door.v1.SendSmsRequest)
     - [SendSmsResponse](#verification.door.v1.SendSmsResponse)
+    - [VerifyCaptcherRequest](#verification.door.v1.VerifyCaptcherRequest)
+    - [VerifyCaptcherResponse](#verification.door.v1.VerifyCaptcherResponse)
     - [VerifyCodeRequest](#verification.door.v1.VerifyCodeRequest)
     - [VerifyCodeResponse](#verification.door.v1.VerifyCodeResponse)
     - [VerifyGoogleAuthRequest](#verification.door.v1.VerifyGoogleAuthRequest)
@@ -30,6 +35,22 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## npool/verification-door.proto
+
+
+
+<a name="verification.door.v1.CaptcherResp"></a>
+
+### CaptcherResp
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| ID | [string](#string) |  |  |
+| Base64URL | [string](#string) |  |  |
+
+
+
 
 
 
@@ -58,6 +79,37 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | Info | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.GetCaptcherImgRequest"></a>
+
+### GetCaptcherImgRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| AppID | [string](#string) |  |  |
+| UserID | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.GetCaptcherImgResponse"></a>
+
+### GetCaptcherImgResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Info | [CaptcherResp](#verification.door.v1.CaptcherResp) |  |  |
 
 
 
@@ -108,6 +160,7 @@
 | Email | [string](#string) |  |  |
 | Intention | [string](#string) |  |  |
 | Lang | [string](#string) |  |  |
+| Username | [string](#string) |  |  |
 
 
 
@@ -139,7 +192,9 @@
 | ----- | ---- | ----- | ----------- |
 | AppID | [string](#string) |  |  |
 | Phone | [string](#string) |  |  |
+| Lang | [string](#string) |  |  |
 | Intention | [string](#string) |  |  |
+| Username | [string](#string) |  |  |
 
 
 
@@ -149,6 +204,37 @@
 <a name="verification.door.v1.SendSmsResponse"></a>
 
 ### SendSmsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Info | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.VerifyCaptcherRequest"></a>
+
+### VerifyCaptcherRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| ID | [string](#string) |  |  |
+| Input | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.VerifyCaptcherResponse"></a>
+
+### VerifyCaptcherResponse
 
 
 
@@ -292,6 +378,8 @@ Service Name
 | SendSms | [SendSmsRequest](#verification.door.v1.SendSmsRequest) | [SendSmsResponse](#verification.door.v1.SendSmsResponse) | send sms to user(todo......) |
 | VerifyCode | [VerifyCodeRequest](#verification.door.v1.VerifyCodeRequest) | [VerifyCodeResponse](#verification.door.v1.VerifyCodeResponse) | verify code user input. (can verify email code and sms code, verify sms code is todo......) |
 | VerifyGoogleRecaptcha | [VerifyGoogleRecaptchaRequest](#verification.door.v1.VerifyGoogleRecaptchaRequest) | [VerifyGoogleRecaptchaResponse](#verification.door.v1.VerifyGoogleRecaptchaResponse) | verify google recaptcha. |
+| GetCaptcherImg | [GetCaptcherImgRequest](#verification.door.v1.GetCaptcherImgRequest) | [GetCaptcherImgResponse](#verification.door.v1.GetCaptcherImgResponse) | get captcher imgine url |
+| VerifyCaptcher | [VerifyCaptcherRequest](#verification.door.v1.VerifyCaptcherRequest) | [VerifyCaptcherResponse](#verification.door.v1.VerifyCaptcherResponse) | verify captcher input |
 
  
 

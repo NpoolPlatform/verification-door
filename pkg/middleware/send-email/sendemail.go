@@ -12,13 +12,15 @@ import (
 )
 
 const (
-	En         = "en_US"
-	Jp         = "ja_JP"
-	Ch         = "zh_CN"
-	From       = "Procyon <support@procyon.vip>"
+	En         = "en-US"
+	Jp         = "ja-JP"
+	Ch         = "zh-CN"
 	JpSubtitle = "【Procyon】Email認証コード"
 	EnSubtitle = "【Procyon】Email verification code"
 	ChSubtitle = "【Procyon】邮件验证码"
+	JpUser     = "Procyonユーザーへ"
+	EnUser     = "Dear Procyon User,"
+	CnUser     = "Procyon的用户"
 	JpHTML     = `
 	<html>
   <head>
@@ -28,7 +30,7 @@ const (
   <body>
     <div>
 			<img src = 'https://s3.bmp.ovh/imgs/2021/12/6d8fbb9f12f2b978.jpg' />
-      <p>Procyonユーザーへ</p>
+      <p>%v</p>
       <p>日頃より弊社サービスをご愛顧頂き誠にありがとうございます。</p>
       <h3>Email認証コード: <span style="color: #1ec498;">%v</span></h3>
       <p>ご不明な点がございましたら、カスタマーサポートへまでお問い合わせください。</p>
@@ -113,7 +115,7 @@ const (
   <body>
     <div>
 			<img src = 'https://s3.bmp.ovh/imgs/2021/12/6d8fbb9f12f2b978.jpg' />
-      <p>Dear Procyon User,</p>
+      <p>%v</p>
       <p>Thank you very much for your continued patronage of our services.</p>
       <h3>Email Verification Code: <span style="color: #1ec498;">%v</span></h3>
       <p>If you have any questions, please contact our customer support team.</p>
@@ -198,7 +200,7 @@ const (
   <body>
     <div>
 			<img src = 'https://s3.bmp.ovh/imgs/2021/11/d628183d307ac487.jpg' />
-      <p>Procyon的用户</p>
+      <p>%v</p>
       <p>非常感谢您对我们的服务感兴趣。</p>
       <h3>Email验证码: <span style="color: #1ec498;">%v</span></h3>
       <p>如果你有任何问题，请联系我们的客户支持团队。</p>
@@ -287,19 +289,30 @@ func SendEmail(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEmai
 }
 
 func VerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEmailResponse, error) {
-	var html, subtitle string
+	var html, subtitle, user string
 	switch in.Lang {
 	case Ch:
 		html = ChHTML
 		subtitle = ChSubtitle
+		user = CnUser
 	case En:
 		html = EnHTML
 		subtitle = EnSubtitle
+		user = EnUser
 	case Jp:
 		html = JpHTML
 		subtitle = JpSubtitle
+		user = JpUser
 	default:
-		return nil, xerrors.Errorf("input lang <%v> doesn't exist!!!", in.Lang)
+		html = JpHTML
+		subtitle = JpSubtitle
+		user = JpUser
+	}
+
+	if in.Username == "" {
+		in.Username = user
+	} else {
+		in.Username = "Dear " + in.Username
 	}
 
 	code := verifycode.GenerateVerifyCode(6)
@@ -308,7 +321,7 @@ func VerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEma
 		return nil, xerrors.Errorf("fail to save email verify code: %v", err)
 	}
 
-	err = email.SendEmail(From, subtitle, "", fmt.Sprintf(html, code), in.Email)
+	err = email.SendEmailByAWS(subtitle, fmt.Sprintf(html, in.Username, code), in.Email)
 	if err != nil {
 		return nil, xerrors.Errorf("fail to send email: %v", err)
 	}

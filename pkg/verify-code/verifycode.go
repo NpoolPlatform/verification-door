@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	VerifyCodeDuration      = 5 * time.Minute
+	VerifyCodeDuration      = 10 * time.Minute
 	VerificationCodeKeyword = "verify-code"
 	WaitTime                = 60
 )

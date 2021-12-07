@@ -35,6 +35,10 @@ type VerificationDoorClient interface {
 	VerifyCode(ctx context.Context, in *VerifyCodeRequest, opts ...grpc.CallOption) (*VerifyCodeResponse, error)
 	// verify google recaptcha.
 	VerifyGoogleRecaptcha(ctx context.Context, in *VerifyGoogleRecaptchaRequest, opts ...grpc.CallOption) (*VerifyGoogleRecaptchaResponse, error)
+	// get captcher imgine url
+	GetCaptcherImg(ctx context.Context, in *GetCaptcherImgRequest, opts ...grpc.CallOption) (*GetCaptcherImgResponse, error)
+	// verify captcher input
+	VerifyCaptcher(ctx context.Context, in *VerifyCaptcherRequest, opts ...grpc.CallOption) (*VerifyCaptcherResponse, error)
 }
 
 type verificationDoorClient struct {
@@ -117,6 +121,24 @@ func (c *verificationDoorClient) VerifyGoogleRecaptcha(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *verificationDoorClient) GetCaptcherImg(ctx context.Context, in *GetCaptcherImgRequest, opts ...grpc.CallOption) (*GetCaptcherImgResponse, error) {
+	out := new(GetCaptcherImgResponse)
+	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/GetCaptcherImg", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *verificationDoorClient) VerifyCaptcher(ctx context.Context, in *VerifyCaptcherRequest, opts ...grpc.CallOption) (*VerifyCaptcherResponse, error) {
+	out := new(VerifyCaptcherResponse)
+	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/VerifyCaptcher", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // VerificationDoorServer is the server API for VerificationDoor service.
 // All implementations must embed UnimplementedVerificationDoorServer
 // for forward compatibility
@@ -137,6 +159,10 @@ type VerificationDoorServer interface {
 	VerifyCode(context.Context, *VerifyCodeRequest) (*VerifyCodeResponse, error)
 	// verify google recaptcha.
 	VerifyGoogleRecaptcha(context.Context, *VerifyGoogleRecaptchaRequest) (*VerifyGoogleRecaptchaResponse, error)
+	// get captcher imgine url
+	GetCaptcherImg(context.Context, *GetCaptcherImgRequest) (*GetCaptcherImgResponse, error)
+	// verify captcher input
+	VerifyCaptcher(context.Context, *VerifyCaptcherRequest) (*VerifyCaptcherResponse, error)
 	mustEmbedUnimplementedVerificationDoorServer()
 }
 
@@ -167,6 +193,12 @@ func (UnimplementedVerificationDoorServer) VerifyCode(context.Context, *VerifyCo
 }
 func (UnimplementedVerificationDoorServer) VerifyGoogleRecaptcha(context.Context, *VerifyGoogleRecaptchaRequest) (*VerifyGoogleRecaptchaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyGoogleRecaptcha not implemented")
+}
+func (UnimplementedVerificationDoorServer) GetCaptcherImg(context.Context, *GetCaptcherImgRequest) (*GetCaptcherImgResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCaptcherImg not implemented")
+}
+func (UnimplementedVerificationDoorServer) VerifyCaptcher(context.Context, *VerifyCaptcherRequest) (*VerifyCaptcherResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyCaptcher not implemented")
 }
 func (UnimplementedVerificationDoorServer) mustEmbedUnimplementedVerificationDoorServer() {}
 
@@ -325,6 +357,42 @@ func _VerificationDoor_VerifyGoogleRecaptcha_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _VerificationDoor_GetCaptcherImg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCaptcherImgRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VerificationDoorServer).GetCaptcherImg(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/verification.door.v1.VerificationDoor/GetCaptcherImg",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VerificationDoorServer).GetCaptcherImg(ctx, req.(*GetCaptcherImgRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _VerificationDoor_VerifyCaptcher_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyCaptcherRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VerificationDoorServer).VerifyCaptcher(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/verification.door.v1.VerificationDoor/VerifyCaptcher",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VerificationDoorServer).VerifyCaptcher(ctx, req.(*VerifyCaptcherRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // VerificationDoor_ServiceDesc is the grpc.ServiceDesc for VerificationDoor service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -363,6 +431,14 @@ var VerificationDoor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VerifyGoogleRecaptcha",
 			Handler:    _VerificationDoor_VerifyGoogleRecaptcha_Handler,
+		},
+		{
+			MethodName: "GetCaptcherImg",
+			Handler:    _VerificationDoor_GetCaptcherImg_Handler,
+		},
+		{
+			MethodName: "VerifyCaptcher",
+			Handler:    _VerificationDoor_VerifyCaptcher_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

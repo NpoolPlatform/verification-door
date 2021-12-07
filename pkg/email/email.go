@@ -51,7 +51,7 @@ func SendEmail(from, subtitle, content, html, to string) error {
 	return err
 }
 
-func SendEmailByAWS(subtitle, content, html, to string) error {
+func SendEmailByAWS(subtitle, html, to string) error {
 	_, err := mail.ParseAddress(to)
 	if err != nil {
 		return xerrors.Errorf("invalid email address: %v", err)
