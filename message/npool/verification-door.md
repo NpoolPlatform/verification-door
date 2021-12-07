@@ -194,7 +194,6 @@
 | Phone | [string](#string) |  |  |
 | Lang | [string](#string) |  |  |
 | Intention | [string](#string) |  |  |
-| Username | [string](#string) |  |  |
 
 
 

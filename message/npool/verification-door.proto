@@ -132,7 +132,6 @@ message SendSmsRequest {
     string Phone = 2;
     string Lang = 3;
     string Intention = 4;
-    string Username = 5;
 }
 
 message SendSmsResponse {
