@@ -256,7 +256,7 @@ pipeline {
         expression { RELEASE_TARGET == 'true' }
       }
       steps {
-        sh 'DEVELOPMENT=development make release-docker-images'
+        sh 'TAG=latest make release-docker-images'
         sh(returnStdout: true, script: '''
           images=`docker images | grep entropypool | grep verification-door | grep none | awk '{ print $3 }'`
           for image in $images; do
