@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"os"
 	"strconv"
 	"testing"
@@ -22,7 +21,6 @@ func TestGoogleRecaptchaAPI(t *testing.T) {
 		SetBody(&npool.VerifyGoogleRecaptchaRequest{
 			Response: "test",
 		}).Post("http://localhost:50090/v1/verify/google/recaptcha")
-	fmt.Println(resp, "err is", err)
 	if assert.Nil(t, err) {
 		assert.NotEqual(t, 200, resp.StatusCode())
 	}
