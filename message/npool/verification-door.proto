@@ -51,6 +51,13 @@ service VerificationDoor {
             body: "*"
         };
     };
+    // verify code with user id.
+    rpc VerifyCodeWithUserID (VerifyCodeWithUserIDRequest) returns (VerifyCodeWithUserIDResponse) {
+        option (google.api.http) = {
+            post: "/v1/verify/code/with/userid"
+            body: "*"
+        };
+    };
     // verify code user input. (can verify email code and sms code, verify sms code is todo......)
     rpc VerifyCode (VerifyCodeRequest) returns (VerifyCodeResponse) {
         option (google.api.http) = {
@@ -146,6 +153,18 @@ message VerifyCodeRequest {
 }
 
 message VerifyCodeResponse {
+    string Info = 1;
+}
+
+message VerifyCodeWithUserIDRequest {
+    string UserID = 1;
+    string Param = 2;
+    string Code = 3;
+    string VerifyType = 4;
+    string AppID = 5;
+}
+
+message VerifyCodeWithUserIDResponse {
     string Info = 1;
 }
 

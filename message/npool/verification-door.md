@@ -19,6 +19,8 @@
     - [VerifyCaptcherResponse](#verification.door.v1.VerifyCaptcherResponse)
     - [VerifyCodeRequest](#verification.door.v1.VerifyCodeRequest)
     - [VerifyCodeResponse](#verification.door.v1.VerifyCodeResponse)
+    - [VerifyCodeWithUserIDRequest](#verification.door.v1.VerifyCodeWithUserIDRequest)
+    - [VerifyCodeWithUserIDResponse](#verification.door.v1.VerifyCodeWithUserIDResponse)
     - [VerifyGoogleAuthRequest](#verification.door.v1.VerifyGoogleAuthRequest)
     - [VerifyGoogleAuthResponse](#verification.door.v1.VerifyGoogleAuthResponse)
     - [VerifyGoogleRecaptchaRequest](#verification.door.v1.VerifyGoogleRecaptchaRequest)
@@ -279,6 +281,40 @@
 
 
 
+<a name="verification.door.v1.VerifyCodeWithUserIDRequest"></a>
+
+### VerifyCodeWithUserIDRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| UserID | [string](#string) |  |  |
+| Param | [string](#string) |  |  |
+| Code | [string](#string) |  |  |
+| VerifyType | [string](#string) |  |  |
+| AppID | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.VerifyCodeWithUserIDResponse"></a>
+
+### VerifyCodeWithUserIDResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Info | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="verification.door.v1.VerifyGoogleAuthRequest"></a>
 
 ### VerifyGoogleAuthRequest
@@ -375,6 +411,7 @@ Service Name
 | DeleteUserGoogleAuth | [DeleteUserGoogleAuthRequest](#verification.door.v1.DeleteUserGoogleAuthRequest) | [DeleteUserGoogleAuthResponse](#verification.door.v1.DeleteUserGoogleAuthResponse) | delete user google authentication record |
 | SendEmail | [SendEmailRequest](#verification.door.v1.SendEmailRequest) | [SendEmailResponse](#verification.door.v1.SendEmailResponse) | send email to user |
 | SendSms | [SendSmsRequest](#verification.door.v1.SendSmsRequest) | [SendSmsResponse](#verification.door.v1.SendSmsResponse) | send sms to user(todo......) |
+| VerifyCodeWithUserID | [VerifyCodeWithUserIDRequest](#verification.door.v1.VerifyCodeWithUserIDRequest) | [VerifyCodeWithUserIDResponse](#verification.door.v1.VerifyCodeWithUserIDResponse) | verify code with user id. |
 | VerifyCode | [VerifyCodeRequest](#verification.door.v1.VerifyCodeRequest) | [VerifyCodeResponse](#verification.door.v1.VerifyCodeResponse) | verify code user input. (can verify email code and sms code, verify sms code is todo......) |
 | VerifyGoogleRecaptcha | [VerifyGoogleRecaptchaRequest](#verification.door.v1.VerifyGoogleRecaptchaRequest) | [VerifyGoogleRecaptchaResponse](#verification.door.v1.VerifyGoogleRecaptchaResponse) | verify google recaptcha. |
 | GetCaptcherImg | [GetCaptcherImgRequest](#verification.door.v1.GetCaptcherImgRequest) | [GetCaptcherImgResponse](#verification.door.v1.GetCaptcherImgResponse) | get captcher imgine url |

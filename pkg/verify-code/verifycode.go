@@ -4,6 +4,7 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/NpoolPlatform/verification-door/message/npool"
 	myRedis "github.com/NpoolPlatform/verification-door/pkg/redis"
 	"github.com/go-redis/redis/v8"
 	"golang.org/x/xerrors"
@@ -50,17 +51,20 @@ func SaveVerifyCode(param, code string, sendTime int64) error {
 	return nil
 }
 
-func VerifyCode(param, codeInput string) error {
-	info, err := myRedis.QueryVerifyCodeKeyInfo(param, VerificationCodeKeyword)
+func VerifyCode(in *npool.VerifyCodeRequest) (*npool.VerifyCodeResponse, error) {
+	info, err := myRedis.QueryVerifyCodeKeyInfo(in.Param, VerificationCodeKeyword)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	if codeInput != info.Code {
-		return xerrors.Errorf("input code is wrong!")
+
+	if in.Code != info.Code {
+		return nil, xerrors.Errorf("input code is wrong!")
 	}
-	err = myRedis.DelKey(param, VerificationCodeKeyword)
+	err = myRedis.DelKey(in.Param, VerificationCodeKeyword)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return &npool.VerifyCodeResponse{
+		Info: "verify code successfully",
+	}, nil
 }

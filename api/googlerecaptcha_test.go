@@ -22,6 +22,6 @@ func TestGoogleRecaptchaAPI(t *testing.T) {
 			Response: "test",
 		}).Post("http://localhost:50090/v1/verify/google/recaptcha")
 	if assert.Nil(t, err) {
-		assert.Equal(t, 200, resp.StatusCode())
+		assert.NotEqual(t, 200, resp.StatusCode())
 	}
 }

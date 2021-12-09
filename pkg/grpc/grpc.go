@@ -6,22 +6,14 @@ import (
 	pbApplication "github.com/NpoolPlatform/application-management/message/npool"
 	applicationconst "github.com/NpoolPlatform/application-management/pkg/message/const"
 	mygrpc "github.com/NpoolPlatform/go-service-framework/pkg/grpc"
-	"google.golang.org/grpc"
+	pbuser "github.com/NpoolPlatform/user-management/message/npool"
+	userconst "github.com/NpoolPlatform/user-management/pkg/message/const"
 )
 
-func newApplicationGrpcConn() (*grpc.ClientConn, error) {
+func QueryAppUser(appID, userID string) (*pbApplication.GetUserFromApplicationResponse, error) {
 	conn, err := mygrpc.GetGRPCConn(applicationconst.ServiceName, mygrpc.GRPCTAG)
 	if err != nil {
 		return nil, err
-	}
-
-	return conn, nil
-}
-
-func QueryAppUser(appID, userID string) (*pbApplication.GetUserFromApplicationResponse, error) {
-	conn, err := newApplicationGrpcConn()
-	if err != nil {
-		return &pbApplication.GetUserFromApplicationResponse{}, err
 	}
 
 	client := pbApplication.NewApplicationManagementClient(conn)
@@ -37,7 +29,7 @@ func QueryAppUser(appID, userID string) (*pbApplication.GetUserFromApplicationRe
 }
 
 func UpdateUserGaStatus(userID, appID string) error {
-	conn, err := newApplicationGrpcConn()
+	conn, err := mygrpc.GetGRPCConn(applicationconst.ServiceName, mygrpc.GRPCTAG)
 	if err != nil {
 		return err
 	}
@@ -53,4 +45,21 @@ func UpdateUserGaStatus(userID, appID string) error {
 	}
 
 	return nil
+}
+
+func QueryUserInfo(userID string) (*pbuser.UserBasicInfo, error) {
+	conn, err := mygrpc.GetGRPCConn(userconst.ServiceName, mygrpc.GRPCTAG)
+	if err != nil {
+		return nil, err
+	}
+
+	client := pbuser.NewUserClient(conn)
+	resp, err := client.GetUser(context.Background(), &pbuser.GetUserRequest{
+		UserID: userID,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return resp.Info, nil
 }

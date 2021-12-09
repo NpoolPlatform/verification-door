@@ -7,6 +7,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/NpoolPlatform/verification-door/message/npool"
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
 	"github.com/stretchr/testify/assert"
 )
@@ -33,6 +34,9 @@ func TestVerifyCode(t *testing.T) { // nolint
 	err := SaveVerifyCode(userEmail, code, sendTime)
 	assert.Nil(t, err)
 
-	err = VerifyCode(userEmail, code)
+	_, err = VerifyCode(&npool.VerifyCodeRequest{
+		Code:  code,
+		Param: userEmail,
+	})
 	assert.Nil(t, err)
 }

@@ -31,6 +31,8 @@ type VerificationDoorClient interface {
 	SendEmail(ctx context.Context, in *SendEmailRequest, opts ...grpc.CallOption) (*SendEmailResponse, error)
 	// send sms to user(todo......)
 	SendSms(ctx context.Context, in *SendSmsRequest, opts ...grpc.CallOption) (*SendSmsResponse, error)
+	// verify code with user id.
+	VerifyCodeWithUserID(ctx context.Context, in *VerifyCodeWithUserIDRequest, opts ...grpc.CallOption) (*VerifyCodeWithUserIDResponse, error)
 	// verify code user input. (can verify email code and sms code, verify sms code is todo......)
 	VerifyCode(ctx context.Context, in *VerifyCodeRequest, opts ...grpc.CallOption) (*VerifyCodeResponse, error)
 	// verify google recaptcha.
@@ -103,6 +105,15 @@ func (c *verificationDoorClient) SendSms(ctx context.Context, in *SendSmsRequest
 	return out, nil
 }
 
+func (c *verificationDoorClient) VerifyCodeWithUserID(ctx context.Context, in *VerifyCodeWithUserIDRequest, opts ...grpc.CallOption) (*VerifyCodeWithUserIDResponse, error) {
+	out := new(VerifyCodeWithUserIDResponse)
+	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/VerifyCodeWithUserID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *verificationDoorClient) VerifyCode(ctx context.Context, in *VerifyCodeRequest, opts ...grpc.CallOption) (*VerifyCodeResponse, error) {
 	out := new(VerifyCodeResponse)
 	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/VerifyCode", in, out, opts...)
@@ -155,6 +166,8 @@ type VerificationDoorServer interface {
 	SendEmail(context.Context, *SendEmailRequest) (*SendEmailResponse, error)
 	// send sms to user(todo......)
 	SendSms(context.Context, *SendSmsRequest) (*SendSmsResponse, error)
+	// verify code with user id.
+	VerifyCodeWithUserID(context.Context, *VerifyCodeWithUserIDRequest) (*VerifyCodeWithUserIDResponse, error)
 	// verify code user input. (can verify email code and sms code, verify sms code is todo......)
 	VerifyCode(context.Context, *VerifyCodeRequest) (*VerifyCodeResponse, error)
 	// verify google recaptcha.
@@ -187,6 +200,9 @@ func (UnimplementedVerificationDoorServer) SendEmail(context.Context, *SendEmail
 }
 func (UnimplementedVerificationDoorServer) SendSms(context.Context, *SendSmsRequest) (*SendSmsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendSms not implemented")
+}
+func (UnimplementedVerificationDoorServer) VerifyCodeWithUserID(context.Context, *VerifyCodeWithUserIDRequest) (*VerifyCodeWithUserIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyCodeWithUserID not implemented")
 }
 func (UnimplementedVerificationDoorServer) VerifyCode(context.Context, *VerifyCodeRequest) (*VerifyCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyCode not implemented")
@@ -321,6 +337,24 @@ func _VerificationDoor_SendSms_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _VerificationDoor_VerifyCodeWithUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyCodeWithUserIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VerificationDoorServer).VerifyCodeWithUserID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/verification.door.v1.VerificationDoor/VerifyCodeWithUserID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VerificationDoorServer).VerifyCodeWithUserID(ctx, req.(*VerifyCodeWithUserIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _VerificationDoor_VerifyCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(VerifyCodeRequest)
 	if err := dec(in); err != nil {
@@ -423,6 +457,10 @@ var VerificationDoor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendSms",
 			Handler:    _VerificationDoor_SendSms_Handler,
+		},
+		{
+			MethodName: "VerifyCodeWithUserID",
+			Handler:    _VerificationDoor_VerifyCodeWithUserID_Handler,
 		},
 		{
 			MethodName: "VerifyCode",
