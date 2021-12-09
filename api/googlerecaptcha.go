@@ -14,7 +14,7 @@ func (s *Server) VerifyGoogleRecaptcha(ctx context.Context, in *npool.VerifyGoog
 	resp, err := googlerecaptcha.VerifyGoogleRecaptcha(in)
 	if err != nil {
 		logger.Sugar().Errorf("fail to verify google recaptcha: %v", err)
-		return resp, status.Errorf(codes.Internal, "internale server error: %v", err)
+		return nil, status.Errorf(codes.FailedPrecondition, "internale server error: %v", err)
 	}
-	return resp, err
+	return resp, nil
 }

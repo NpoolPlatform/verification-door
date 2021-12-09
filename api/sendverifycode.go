@@ -15,7 +15,7 @@ func (s *Server) SendEmail(ctx context.Context, in *npool.SendEmailRequest) (*np
 	resp, err := sendemail.SendEmail(ctx, in)
 	if err != nil {
 		logger.Sugar().Errorf("fail to send email: %v", err)
-		return nil, status.Errorf(codes.Internal, "Internal server error: %v", err)
+		return nil, status.Errorf(codes.FailedPrecondition, "Internal server error: %v", err)
 	}
 
 	return resp, nil
@@ -25,7 +25,7 @@ func (s *Server) SendSms(ctx context.Context, in *npool.SendSmsRequest) (*npool.
 	resp, err := sendsms.SendVerifyCode(ctx, in)
 	if err != nil {
 		logger.Sugar().Errorf("fail to send sms message: %v", err)
-		return nil, status.Errorf(codes.Unavailable, "fail to send sms message: %v", err)
+		return nil, status.Errorf(codes.FailedPrecondition, "fail to send sms message: %v", err)
 	}
 	return resp, nil
 }

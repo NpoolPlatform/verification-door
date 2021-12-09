@@ -14,7 +14,7 @@ func (s *Server) GetCaptcherImg(ctx context.Context, in *npool.GetCaptcherImgReq
 	resp, err := captcher.GetCaptcherImg()
 	if err != nil {
 		logger.Sugar().Errorf("fail to get captcher img: %v", err)
-		return &npool.GetCaptcherImgResponse{}, status.Errorf(codes.Aborted, "failed: %v", err)
+		return &npool.GetCaptcherImgResponse{}, status.Errorf(codes.FailedPrecondition, "failed: %v", err)
 	}
 	return resp, nil
 }
@@ -23,7 +23,7 @@ func (s *Server) VerifyCaptcher(ctx context.Context, in *npool.VerifyCaptcherReq
 	err := captcher.VerifyCaptcher(in)
 	if err != nil {
 		logger.Sugar().Errorf("fail to verify captcher: %v", err)
-		return &npool.VerifyCaptcherResponse{}, status.Errorf(codes.Aborted, "failed: %v", err)
+		return &npool.VerifyCaptcherResponse{}, status.Errorf(codes.FailedPrecondition, "failed: %v", err)
 	}
 	return &npool.VerifyCaptcherResponse{
 		Info: "verify successfully",

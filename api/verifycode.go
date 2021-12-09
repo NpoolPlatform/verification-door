@@ -15,7 +15,7 @@ func (s *Server) VerifyCode(ctx context.Context, in *npool.VerifyCodeRequest) (*
 	resp, err := verifycode.VerifyCode(in)
 	if err != nil {
 		logger.Sugar().Errorf("fail to verify code: %v", err)
-		return &npool.VerifyCodeResponse{}, status.Errorf(codes.Internal, "Internal server error: %v", err)
+		return &npool.VerifyCodeResponse{}, status.Errorf(codes.FailedPrecondition, "Internal server error: %v", err)
 	}
 	return resp, nil
 }
@@ -24,7 +24,7 @@ func (s *Server) VerifyCodeWithUserID(ctx context.Context, in *npool.VerifyCodeW
 	resp, err := middleware.VerifyCodeWithUserID(in)
 	if err != nil {
 		logger.Sugar().Errorf("fail to verify code: %v", err)
-		return &npool.VerifyCodeWithUserIDResponse{}, status.Errorf(codes.Internal, "Internal server error: %v", err)
+		return &npool.VerifyCodeWithUserIDResponse{}, status.Errorf(codes.FailedPrecondition, "Internal server error: %v", err)
 	}
 	return resp, nil
 }
