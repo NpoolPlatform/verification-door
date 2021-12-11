@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: verification-door
-        image: entropypool/verification-door:latest
+        image: uhub.service.ucloud.cn/entropypool/verification-door:latest
         imagePullPolicy: Always
         env:
         - name: ENV_ENVIRONMENT_TARGET
