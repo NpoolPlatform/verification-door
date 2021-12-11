@@ -13,7 +13,7 @@ func VerifyCodeWithUserID(in *npool.VerifyCodeWithUserIDRequest) (*npool.VerifyC
 		return nil, err
 	}
 
-	if resp.EmailAddress != in.Param || resp.PhoneNumber != in.Param {
+	if resp.EmailAddress != in.Param && resp.PhoneNumber != in.Param {
 		return nil, xerrors.Errorf("phone or email is not binded to this user")
 	}
 
