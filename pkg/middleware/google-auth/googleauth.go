@@ -23,7 +23,10 @@ func GetQRcodeURL(ctx context.Context, in *npool.GetQRcodeURLRequest) (*npool.Ge
 	qrcodeURL := google.GetQrcodeURL(in.Username, secret)
 
 	return &npool.GetQRcodeURLResponse{
-		Info: qrcodeURL,
+		Info: &npool.QRCodeInfo{
+			CodeURL: qrcodeURL,
+			Secret:  secret,
+		},
 	}, nil
 }
 

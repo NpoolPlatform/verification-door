@@ -99,8 +99,13 @@ message GetQRcodeURLRequest {
     string AppID = 3;
 }
 
+message QRCodeInfo {
+    string CodeURL = 1;
+    string Secret = 2;
+}
+
 message GetQRcodeURLResponse {
-    string Info = 1;
+    QRCodeInfo Info = 1;
 }
 
 message VerifyGoogleAuthRequest {

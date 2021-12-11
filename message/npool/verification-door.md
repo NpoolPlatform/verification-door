@@ -11,6 +11,7 @@
     - [GetCaptcherImgResponse](#verification.door.v1.GetCaptcherImgResponse)
     - [GetQRcodeURLRequest](#verification.door.v1.GetQRcodeURLRequest)
     - [GetQRcodeURLResponse](#verification.door.v1.GetQRcodeURLResponse)
+    - [QRCodeInfo](#verification.door.v1.QRCodeInfo)
     - [SendEmailRequest](#verification.door.v1.SendEmailRequest)
     - [SendEmailResponse](#verification.door.v1.SendEmailResponse)
     - [SendSmsRequest](#verification.door.v1.SendSmsRequest)
@@ -143,7 +144,23 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| Info | [string](#string) |  |  |
+| Info | [QRCodeInfo](#verification.door.v1.QRCodeInfo) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.QRCodeInfo"></a>
+
+### QRCodeInfo
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| CodeURL | [string](#string) |  |  |
+| Secret | [string](#string) |  |  |
 
 
 
