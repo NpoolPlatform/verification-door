@@ -43,7 +43,7 @@ func Create(ctx context.Context, secret, userID, appID string) (string, error) {
 		return info[0].Secret, xerrors.Errorf(SecretExistError)
 	}
 
-	_, err = db.Client().
+	myInfo, err := db.Client().
 		UserSecret.
 		Create().
 		SetUserID(user).
@@ -53,7 +53,7 @@ func Create(ctx context.Context, secret, userID, appID string) (string, error) {
 	if err != nil {
 		return "", xerrors.Errorf("fail to create user secret to mysql: %v", err)
 	}
-	return "successfully", nil
+	return myInfo.Secret, nil
 }
 
 func GetUserSecret(ctx context.Context, userID, appID string) (string, error) {

@@ -33,6 +33,7 @@ func TestUserSecretCRUD(t *testing.T) { // nolint
 	resp, err := Create(context.Background(), secret, user, app)
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp)
+		assert.Equal(t, resp, secret)
 	}
 
 	resp, err = GetUserSecret(context.Background(), user, app)

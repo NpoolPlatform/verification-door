@@ -32,6 +32,7 @@ const (
 			<img src = 'https://s3.bmp.ovh/imgs/2021/12/6d8fbb9f12f2b978.jpg' />
       <p>%v</p>
       <p>日頃より弊社サービスをご愛顧頂き誠にありがとうございます。</p>
+      <p>以下、認証コードをログインの際にご利用ください。</p>
       <h3>Email認証コード: <span style="color: #1ec498;">%v</span></h3>
       <p>ご不明な点がございましたら、カスタマーサポートへまでお問い合わせください。</p>
       <p>今後ともどうぞ宜しくお願い申し上げます。</p>
@@ -116,10 +117,11 @@ const (
     <div>
 			<img src = 'https://s3.bmp.ovh/imgs/2021/12/6d8fbb9f12f2b978.jpg' />
       <p>%v</p>
-      <p>Thank you very much for your continued patronage of our services.</p>
+      <p>Thank you very much for using our services.</p>
+      <p>Please use this code to log in</p>
       <h3>Email Verification Code: <span style="color: #1ec498;">%v</span></h3>
-      <p>If you have any questions, please contact our customer support team.</p>
-      <p>We are looking forward to working with you in the future.</p>
+      <p>If you have any questions about logging in, please reply to this email.</p>
+      <p>Respectfully, we are looking forward to working with you in the future.</p>
       <p>----------------</p>
       <p></p>
     </div>

@@ -35,6 +35,7 @@ func TestGoogleAuthMiddleware(t *testing.T) { // nolint
 		UserID:   userID,
 		AppID:    appID,
 	})
+	fmt.Println("resp is ", resp.Info)
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp)
 	}
