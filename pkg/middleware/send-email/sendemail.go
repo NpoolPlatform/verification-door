@@ -320,7 +320,7 @@ func VerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEma
 		if in.Lang == En {
 			in.Username = "Dear " + in.Username + ","
 		} else {
-			in.Username = in.Username + " 様、"
+			in.Username += " 様、"
 		}
 	}
 
