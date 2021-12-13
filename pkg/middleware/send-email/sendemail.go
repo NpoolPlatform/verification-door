@@ -281,6 +281,9 @@ const (
 )
 
 func SendEmail(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEmailResponse, error) {
+	if in.Email == "" {
+		return nil, xerrors.Errorf("please input your email address")
+	}
 	switch in.Intention {
 	case "verify":
 		return VerifyCode(ctx, in)

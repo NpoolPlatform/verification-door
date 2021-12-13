@@ -19,6 +19,9 @@ const (
 )
 
 func SendVerifyCode(ctx context.Context, in *npool.SendSmsRequest) (*npool.SendSmsResponse, error) {
+	if in.Phone == "" {
+		return nil, xerrors.Errorf("please input your phone number")
+	}
 	var message string
 
 	switch in.Lang {

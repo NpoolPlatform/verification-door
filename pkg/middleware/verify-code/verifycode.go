@@ -8,6 +8,9 @@ import (
 )
 
 func VerifyCodeWithUserID(in *npool.VerifyCodeWithUserIDRequest) (*npool.VerifyCodeWithUserIDResponse, error) { // nolint
+	if in.Param == "" {
+		return nil, xerrors.Errorf("please input your email address or phone number")
+	}
 	resp, err := myGrpc.QueryUserInfo(in.UserID)
 	if err != nil {
 		return nil, err
