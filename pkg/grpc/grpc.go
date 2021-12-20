@@ -16,6 +16,8 @@ func QueryAppUser(appID, userID string) (*pbApplication.GetUserFromApplicationRe
 		return nil, err
 	}
 
+	defer conn.Close()
+
 	client := pbApplication.NewApplicationManagementClient(conn)
 	resp, err := client.GetUserFromApplication(context.Background(), &pbApplication.GetUserFromApplicationRequest{
 		AppID:  appID,
@@ -33,6 +35,8 @@ func UpdateUserGaStatus(userID, appID string) error {
 	if err != nil {
 		return err
 	}
+
+	defer conn.Close()
 
 	client := pbApplication.NewApplicationManagementClient(conn)
 	_, err = client.UpdateUserGAStatus(context.Background(), &pbApplication.UpdateUserGAStatusRequest{
@@ -52,6 +56,8 @@ func QueryUserInfo(userID string) (*pbuser.UserBasicInfo, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	defer conn.Close()
 
 	client := pbuser.NewUserClient(conn)
 	resp, err := client.GetUser(context.Background(), &pbuser.GetUserRequest{
