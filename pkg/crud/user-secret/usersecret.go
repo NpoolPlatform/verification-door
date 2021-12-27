@@ -25,7 +25,12 @@ func Create(ctx context.Context, secret, userID, appID string) (string, error) {
 		return "", xerrors.Errorf("invalid app id: %v", err)
 	}
 
-	info, err := db.Client().
+	cli, err := db.Client()
+	if err != nil {
+		return "", xerrors.Errorf("fail get db client: %v", err)
+	}
+
+	info, err := cli.
 		UserSecret.
 		Query().
 		Where(
@@ -43,7 +48,7 @@ func Create(ctx context.Context, secret, userID, appID string) (string, error) {
 		return info[0].Secret, xerrors.Errorf(SecretExistError)
 	}
 
-	myInfo, err := db.Client().
+	myInfo, err := cli.
 		UserSecret.
 		Create().
 		SetUserID(user).
@@ -67,7 +72,12 @@ func GetUserSecret(ctx context.Context, userID, appID string) (string, error) {
 		return "", xerrors.Errorf("invalid app id: %v", err)
 	}
 
-	info, err := db.Client().
+	cli, err := db.Client()
+	if err != nil {
+		return "", xerrors.Errorf("fail get db client: %v", err)
+	}
+
+	info, err := cli.
 		UserSecret.
 		Query().
 		Where(
@@ -95,7 +105,12 @@ func DeleteUserSecret(ctx context.Context, userID, appID string) (string, error)
 		return "", xerrors.Errorf("invalid app id: %v", err)
 	}
 
-	_, err = db.Client().
+	cli, err := db.Client()
+	if err != nil {
+		return "", xerrors.Errorf("fail get db client: %v", err)
+	}
+
+	_, err = cli.
 		UserSecret.
 		Update().
 		Where(

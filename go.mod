@@ -5,7 +5,7 @@ go 1.16
 require (
 	entgo.io/ent v0.9.1
 	github.com/NpoolPlatform/application-management v0.0.0-20211208081653-46e93c4154df
-	github.com/NpoolPlatform/go-service-framework v0.0.0-20211207121121-adb2402676f0
+	github.com/NpoolPlatform/go-service-framework v0.0.0-20211222114515-4928e6cf3f1f
 	github.com/NpoolPlatform/user-management v0.0.0-20211209064002-32ab23f7777b
 	github.com/aws/aws-sdk-go v1.42.19
 	github.com/go-redis/redis/v8 v8.11.4
