@@ -1,6 +1,7 @@
 package verifycode
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"strconv"
@@ -24,7 +25,7 @@ func TestVerify(t *testing.T) {
 		return
 	}
 
-	resp, err := VerifyCodeWithUserID(&npool.VerifyCodeWithUserIDRequest{
+	resp, err := VerifyCodeWithUserID(context.Background(), &npool.VerifyCodeWithUserIDRequest{
 		UserID: "fcba02d3-c98e-47d1-b98f-879d5f8e005c",
 		Param:  "crazyzplzpl@163.com",
 		Code:   "123456",

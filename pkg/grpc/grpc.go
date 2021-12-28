@@ -2,6 +2,7 @@ package grpc
 
 import (
 	"context"
+	"time"
 
 	pbApplication "github.com/NpoolPlatform/application-management/message/npool"
 	applicationconst "github.com/NpoolPlatform/application-management/pkg/message/const"
@@ -10,7 +11,11 @@ import (
 	userconst "github.com/NpoolPlatform/user-management/pkg/message/const"
 )
 
-func QueryAppUser(appID, userID string) (*pbApplication.GetUserFromApplicationResponse, error) {
+const (
+	grpcTimeout = 5 * time.Second
+)
+
+func QueryAppUser(ctx context.Context, appID, userID string) (*pbApplication.GetUserFromApplicationResponse, error) {
 	conn, err := mygrpc.GetGRPCConn(applicationconst.ServiceName, mygrpc.GRPCTAG)
 	if err != nil {
 		return nil, err
@@ -19,7 +24,11 @@ func QueryAppUser(appID, userID string) (*pbApplication.GetUserFromApplicationRe
 	defer conn.Close()
 
 	client := pbApplication.NewApplicationManagementClient(conn)
-	resp, err := client.GetUserFromApplication(context.Background(), &pbApplication.GetUserFromApplicationRequest{
+
+	ctx, cancel := context.WithTimeout(ctx, grpcTimeout)
+	defer cancel()
+
+	resp, err := client.GetUserFromApplication(ctx, &pbApplication.GetUserFromApplicationRequest{
 		AppID:  appID,
 		UserID: userID,
 	})
@@ -30,7 +39,7 @@ func QueryAppUser(appID, userID string) (*pbApplication.GetUserFromApplicationRe
 	return resp, nil
 }
 
-func UpdateUserGaStatus(userID, appID string) error {
+func UpdateUserGaStatus(ctx context.Context, userID, appID string) error {
 	conn, err := mygrpc.GetGRPCConn(applicationconst.ServiceName, mygrpc.GRPCTAG)
 	if err != nil {
 		return err
@@ -39,7 +48,10 @@ func UpdateUserGaStatus(userID, appID string) error {
 	defer conn.Close()
 
 	client := pbApplication.NewApplicationManagementClient(conn)
-	_, err = client.UpdateUserGAStatus(context.Background(), &pbApplication.UpdateUserGAStatusRequest{
+	ctx, cancel := context.WithTimeout(ctx, grpcTimeout)
+	defer cancel()
+
+	_, err = client.UpdateUserGAStatus(ctx, &pbApplication.UpdateUserGAStatusRequest{
 		UserID: userID,
 		AppID:  appID,
 		Status: true,
@@ -51,7 +63,7 @@ func UpdateUserGaStatus(userID, appID string) error {
 	return nil
 }
 
-func QueryUserInfo(userID string) (*pbuser.UserBasicInfo, error) {
+func QueryUserInfo(ctx context.Context, userID string) (*pbuser.UserBasicInfo, error) {
 	conn, err := mygrpc.GetGRPCConn(userconst.ServiceName, mygrpc.GRPCTAG)
 	if err != nil {
 		return nil, err
@@ -60,7 +72,10 @@ func QueryUserInfo(userID string) (*pbuser.UserBasicInfo, error) {
 	defer conn.Close()
 
 	client := pbuser.NewUserClient(conn)
-	resp, err := client.GetUser(context.Background(), &pbuser.GetUserRequest{
+	ctx, cancel := context.WithTimeout(ctx, grpcTimeout)
+	defer cancel()
+
+	resp, err := client.GetUser(ctx, &pbuser.GetUserRequest{
 		UserID: userID,
 	})
 	if err != nil {
