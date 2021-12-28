@@ -15,6 +15,9 @@ const (
 )
 
 func Create(ctx context.Context, secret, userID, appID string) (string, error) {
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
 	user, err := uuid.Parse(userID)
 	if err != nil {
 		return "", xerrors.Errorf("invalid user id: %v", err)
@@ -62,6 +65,9 @@ func Create(ctx context.Context, secret, userID, appID string) (string, error) {
 }
 
 func GetUserSecret(ctx context.Context, userID, appID string) (string, error) {
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
 	user, err := uuid.Parse(userID)
 	if err != nil {
 		return "", xerrors.Errorf("invalid user id: %v", err)
@@ -95,6 +101,9 @@ func GetUserSecret(ctx context.Context, userID, appID string) (string, error) {
 }
 
 func DeleteUserSecret(ctx context.Context, userID, appID string) (string, error) {
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
 	user, err := uuid.Parse(userID)
 	if err != nil {
 		return "", xerrors.Errorf("invalid user id: %v", err)

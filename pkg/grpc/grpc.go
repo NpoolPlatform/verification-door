@@ -48,7 +48,6 @@ func UpdateUserGaStatus(ctx context.Context, userID, appID string) error {
 	defer conn.Close()
 
 	client := pbApplication.NewApplicationManagementClient(conn)
-
 	ctx, cancel := context.WithTimeout(ctx, grpcTimeout)
 	defer cancel()
 
