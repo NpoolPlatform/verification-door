@@ -1,6 +1,7 @@
 package verifycode
 
 import (
+	"context"
 	"math/rand"
 	"time"
 
@@ -26,8 +27,8 @@ func GenerateVerifyCode(length int) string {
 	return string(result)
 }
 
-func SaveVerifyCode(param, code string, sendTime int64) error {
-	info, err := myRedis.QueryVerifyCodeKeyInfo(param, VerificationCodeKeyword)
+func SaveVerifyCode(ctx context.Context, param, code string, sendTime int64) error {
+	info, err := myRedis.QueryVerifyCodeKeyInfo(ctx, param, VerificationCodeKeyword)
 	if err != nil && err != redis.Nil {
 		return xerrors.Errorf("fail to get user verify code key: %v", err)
 	}
@@ -43,7 +44,7 @@ func SaveVerifyCode(param, code string, sendTime int64) error {
 		SendTime: sendTime,
 	}
 
-	err = myRedis.InsertKeyInfo(param, VerificationCodeKeyword, userCode, VerifyCodeDuration)
+	err = myRedis.InsertKeyInfo(ctx, param, VerificationCodeKeyword, userCode, VerifyCodeDuration)
 	if err != nil {
 		return xerrors.Errorf("insert verify code error: %v", err)
 	}
@@ -51,8 +52,8 @@ func SaveVerifyCode(param, code string, sendTime int64) error {
 	return nil
 }
 
-func VerifyCode(in *npool.VerifyCodeRequest) (*npool.VerifyCodeResponse, error) {
-	info, err := myRedis.QueryVerifyCodeKeyInfo(in.Param, VerificationCodeKeyword)
+func VerifyCode(ctx context.Context, in *npool.VerifyCodeRequest) (*npool.VerifyCodeResponse, error) {
+	info, err := myRedis.QueryVerifyCodeKeyInfo(ctx, in.Param, VerificationCodeKeyword)
 	if err != nil {
 		return nil, err
 	}

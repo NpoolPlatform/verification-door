@@ -12,7 +12,7 @@ import (
 )
 
 func (s *Server) VerifyCode(ctx context.Context, in *npool.VerifyCodeRequest) (*npool.VerifyCodeResponse, error) {
-	resp, err := verifycode.VerifyCode(in)
+	resp, err := verifycode.VerifyCode(ctx, in)
 	if err != nil {
 		logger.Sugar().Errorf("fail to verify code: %v", err)
 		return &npool.VerifyCodeResponse{}, status.Errorf(codes.FailedPrecondition, "Internal server error: %v", err)

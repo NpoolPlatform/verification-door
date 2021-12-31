@@ -1,6 +1,7 @@
 package verifycode
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"strconv"
@@ -31,10 +32,10 @@ func TestVerifyCode(t *testing.T) { // nolint
 
 	userEmail := "crazyzplzpl@qq.com"
 	sendTime := time.Now().Unix()
-	err := SaveVerifyCode(userEmail, code, sendTime)
+	err := SaveVerifyCode(context.Background(), userEmail, code, sendTime)
 	assert.Nil(t, err)
 
-	_, err = VerifyCode(&npool.VerifyCodeRequest{
+	_, err = VerifyCode(context.Background(), &npool.VerifyCodeRequest{
 		Code:  code,
 		Param: userEmail,
 	})

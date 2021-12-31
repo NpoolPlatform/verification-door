@@ -22,7 +22,7 @@ func VerifyCodeWithUserID(ctx context.Context, in *npool.VerifyCodeWithUserIDReq
 		return nil, xerrors.Errorf("phone or email is not binded to this user")
 	}
 
-	_, err = verifycode.VerifyCode(&npool.VerifyCodeRequest{
+	_, err = verifycode.VerifyCode(ctx, &npool.VerifyCodeRequest{
 		Param: in.Param,
 		Code:  in.Code,
 	})
