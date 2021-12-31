@@ -7,6 +7,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
@@ -17,7 +18,7 @@ func init() {
 		return
 	}
 	if err := testinit.Init(); err != nil {
-		fmt.Printf("cannot init test stub: %v\n", err)
+		logger.Sugar().Error(err)
 	}
 }
 
@@ -35,11 +36,11 @@ func TestRedis(t *testing.T) { // nolint
 		SendTime: time.Now().Unix(),
 	}
 
-	err := InsertKeyInfo(userID, "test", verifyCode, 0)
+	err := InsertKeyInfo(client.Context(), userID, "test", verifyCode, 0)
 	fmt.Println("test error is:", err)
 	assert.Nil(t, err)
 
-	info, err := QueryVerifyCodeKeyInfo(userID, "test")
+	info, err := QueryVerifyCodeKeyInfo(client.Context(), userID, "test")
 	if assert.Nil(t, err) {
 		assert.Equal(t, info.Code, verifyCode.Code)
 		assert.Equal(t, info.SendTime, verifyCode.SendTime)

@@ -325,7 +325,7 @@ func VerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEma
 	}
 
 	code := verifycode.GenerateVerifyCode(6)
-	err := verifycode.SaveVerifyCode(in.Email, code, time.Now().Unix())
+	err := verifycode.SaveVerifyCode(ctx, in.Email, code, time.Now().Unix())
 	if err != nil {
 		return nil, xerrors.Errorf("fail to save email verify code: %v", err)
 	}

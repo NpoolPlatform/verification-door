@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"time"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 	"github.com/NpoolPlatform/verification-door/message/npool"
@@ -12,7 +13,9 @@ import (
 )
 
 func (s *Server) VerifyCode(ctx context.Context, in *npool.VerifyCodeRequest) (*npool.VerifyCodeResponse, error) {
-	resp, err := verifycode.VerifyCode(in)
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+	resp, err := verifycode.VerifyCode(ctx, in)
 	if err != nil {
 		logger.Sugar().Errorf("fail to verify code: %v", err)
 		return &npool.VerifyCodeResponse{}, status.Errorf(codes.FailedPrecondition, "Internal server error: %v", err)
@@ -21,6 +24,8 @@ func (s *Server) VerifyCode(ctx context.Context, in *npool.VerifyCodeRequest) (*
 }
 
 func (s *Server) VerifyCodeWithUserID(ctx context.Context, in *npool.VerifyCodeWithUserIDRequest) (*npool.VerifyCodeWithUserIDResponse, error) {
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
 	resp, err := middleware.VerifyCodeWithUserID(ctx, in)
 	if err != nil {
 		logger.Sugar().Errorf("fail to verify code: %v", err)

@@ -20,22 +20,20 @@ func Client() *redis.Client {
 	return app.Redis().Client
 }
 
-func InsertKeyInfo(param, keyWord string, info interface{}, ttl time.Duration) error {
+func InsertKeyInfo(ctx context.Context, param, keyWord string, info interface{}, ttl time.Duration) error {
 	b, err := json.Marshal(info)
 	if err != nil {
-		fmt.Println("json error is", err)
 		return err
 	}
-	err = Client().Set(context.Background(), fmt.Sprintf("%v::%v", keyWord, param), string(b), ttl).Err()
+	err = Client().Set(ctx, fmt.Sprintf("%v::%v", keyWord, param), string(b), ttl).Err()
 	if err != nil {
-		fmt.Println("set error is:", err)
 		return err
 	}
 	return nil
 }
 
-func QueryVerifyCodeKeyInfo(param, keyWord string) (*VerifyUserCode, error) {
-	val, err := Client().Get(context.Background(), fmt.Sprintf("%v::%v", keyWord, param)).Result()
+func QueryVerifyCodeKeyInfo(ctx context.Context, param, keyWord string) (*VerifyUserCode, error) {
+	val, err := Client().Get(ctx, fmt.Sprintf("%v::%v", keyWord, param)).Result()
 	if err != nil {
 		return nil, err
 	}

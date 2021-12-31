@@ -2,11 +2,11 @@ package googleauth
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"strconv"
 	"testing"
 
+	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 	"github.com/NpoolPlatform/verification-door/message/npool"
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
 	"github.com/google/uuid"
@@ -18,7 +18,7 @@ func init() {
 		return
 	}
 	if err := testinit.Init(); err != nil {
-		fmt.Printf("cannot init test stub: %v\n", err)
+		logger.Sugar().Error(err)
 	}
 }
 
@@ -35,11 +35,9 @@ func TestGoogleAuthMiddleware(t *testing.T) { // nolint
 		UserID:   userID,
 		AppID:    appID,
 	})
-	fmt.Println("resp is ", resp.Info)
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp)
 	}
-	fmt.Println(userID)
 
 	_, err = VerifyGoogleAuth(context.Background(), &npool.VerifyGoogleAuthRequest{
 		UserID: userID,

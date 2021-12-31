@@ -2,13 +2,14 @@ package verifycode
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"strconv"
 	"testing"
 
+	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 	"github.com/NpoolPlatform/verification-door/message/npool"
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
+	"github.com/stretchr/testify/assert"
 )
 
 func init() {
@@ -16,7 +17,7 @@ func init() {
 		return
 	}
 	if err := testinit.Init(); err != nil {
-		fmt.Printf("cannot init test stub: %v\n", err)
+		logger.Sugar().Error(err)
 	}
 }
 
@@ -25,10 +26,10 @@ func TestVerify(t *testing.T) {
 		return
 	}
 
-	resp, err := VerifyCodeWithUserID(context.Background(), &npool.VerifyCodeWithUserIDRequest{
+	_, err := VerifyCodeWithUserID(context.Background(), &npool.VerifyCodeWithUserIDRequest{
 		UserID: "fcba02d3-c98e-47d1-b98f-879d5f8e005c",
 		Param:  "crazyzplzpl@163.com",
 		Code:   "123456",
 	})
-	fmt.Println(resp, err)
+	assert.NotNil(t, err)
 }
