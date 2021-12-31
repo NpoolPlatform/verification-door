@@ -36,6 +36,9 @@ func InsertKeyInfo(param, keyWord string, info interface{}, ttl time.Duration) e
 
 func QueryVerifyCodeKeyInfo(param, keyWord string) (*VerifyUserCode, error) {
 	val, err := Client().Get(context.Background(), fmt.Sprintf("%v::%v", keyWord, param)).Result()
+	if err == redis.Nil {
+		return nil, xerrors.Errorf("input code is wrong or expired")
+	}
 	if err != nil {
 		return nil, err
 	}
