@@ -26,9 +26,6 @@ func InsertKeyInfo(ctx context.Context, param, keyWord string, info interface{},
 		fmt.Println("json error is", err)
 		return err
 	}
-	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
-	defer cancel()
-
 	err = Client().Set(ctx, fmt.Sprintf("%v::%v", keyWord, param), string(b), ttl).Err()
 	if err != nil {
 		fmt.Println("set error is:", err)
@@ -38,9 +35,6 @@ func InsertKeyInfo(ctx context.Context, param, keyWord string, info interface{},
 }
 
 func QueryVerifyCodeKeyInfo(ctx context.Context, param, keyWord string) (*VerifyUserCode, error) {
-	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
-	defer cancel()
-
 	val, err := Client().Get(ctx, fmt.Sprintf("%v::%v", keyWord, param)).Result()
 	if err == redis.Nil {
 		return nil, xerrors.Errorf("input code is wrong or expired")
