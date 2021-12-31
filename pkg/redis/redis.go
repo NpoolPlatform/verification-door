@@ -23,12 +23,10 @@ func Client() *redis.Client {
 func InsertKeyInfo(ctx context.Context, param, keyWord string, info interface{}, ttl time.Duration) error {
 	b, err := json.Marshal(info)
 	if err != nil {
-		fmt.Println("json error is", err)
 		return err
 	}
 	err = Client().Set(ctx, fmt.Sprintf("%v::%v", keyWord, param), string(b), ttl).Err()
 	if err != nil {
-		fmt.Println("set error is:", err)
 		return err
 	}
 	return nil
@@ -36,9 +34,6 @@ func InsertKeyInfo(ctx context.Context, param, keyWord string, info interface{},
 
 func QueryVerifyCodeKeyInfo(ctx context.Context, param, keyWord string) (*VerifyUserCode, error) {
 	val, err := Client().Get(ctx, fmt.Sprintf("%v::%v", keyWord, param)).Result()
-	if err == redis.Nil {
-		return nil, xerrors.Errorf("input code is wrong or expired")
-	}
 	if err != nil {
 		return nil, err
 	}
