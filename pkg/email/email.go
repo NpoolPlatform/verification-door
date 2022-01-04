@@ -61,7 +61,7 @@ func SendEmailByAWS(subtitle, content, from, to string, replyTo ...*string) erro
 		Source: aws.String(from),
 	}
 
-	if len(replyTo) != 0 {
+	if replyTo != nil && len(replyTo) != 0 {
 		input.ReplyToAddresses = replyTo
 	}
 
