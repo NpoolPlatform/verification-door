@@ -182,4 +182,16 @@ const (
   </body>
 </html>
 	`
+	SiteContactHTML = `
+  <html>
+  <head>
+
+  </head>
+
+  <body>
+    <div>From: %v, username is: %v</div>
+    <div>%v</div>
+  </body>
+  </html>
+  `
 )

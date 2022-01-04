@@ -7,6 +7,7 @@ import (
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -24,6 +25,6 @@ func TestEmail(t *testing.T) { // nolint
 		return
 	}
 
-	err := SendEmailByAWS("test", "test", "Procyon", "crazyzplzpl@gmail.com")
+	err := SendEmailByAWS("test", "test", "crazyzplzpl@gmail.com", "crazyzplzpl@gmail.com", aws.String("crazyzplzpl@qq.com"))
 	assert.Nil(t, err)
 }

@@ -19,7 +19,7 @@ const (
 	CharSet   = "UTF-8"
 )
 
-func SendEmailByAWS(subtitle, content, from, to string) error {
+func SendEmailByAWS(subtitle, content, from, to string, replyTo ...*string) error {
 	_, err := mail.ParseAddress(to)
 	if err != nil {
 		return xerrors.Errorf("invalid email address: %v", err)
@@ -59,6 +59,10 @@ func SendEmailByAWS(subtitle, content, from, to string) error {
 			},
 		},
 		Source: aws.String(from),
+	}
+
+	if len(replyTo) != 0 {
+		input.ReplyToAddresses = replyTo
 	}
 
 	_, err = svc.SendEmail(input)

@@ -61,7 +61,10 @@ func SendVerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.Sen
 }
 
 func SendUserSiteContactEmail(ctx context.Context, in *npool.SendUserSiteContactEmailRequest) (*npool.SendUserSiteContactEmailResponse, error) {
-	err := email.SendEmailByAWS(in.SubTitle, in.Text, in.From, in.To)
+	text := fmt.Sprintf(SiteContactHTML, in.From, in.Username, in.Text)
+	myServiceName := config.GetStringValueWithNameSpace("", config.KeyHostname)
+	sender := config.GetStringValueWithNameSpace(myServiceName, Sender)
+	err := email.SendEmailByAWS(in.SubTitle, text, sender, in.To, &in.From)
 	if err != nil {
 		return nil, err
 	}
