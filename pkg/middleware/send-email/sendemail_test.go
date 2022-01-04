@@ -37,11 +37,11 @@ func TestSendEmailMiddleware(t *testing.T) { // nolint
 	}
 
 	resp1, err := SendUserSiteContactEmail(context.Background(), &npool.SendUserSiteContactEmailRequest{
-		From:     email,
-		To:       "crazyzplzpl@163.com",
-		SubTitle: "test",
-		Text:     "dsadsajlkdjaskdlasjdkalsjdasldjasildjasdjasdadsalij",
-		AppID:    "test",
+		From:    email,
+		To:      "crazyzplzpl@163.com",
+		Subject: "test",
+		Text:    "dsadsajlkdjaskdlasjdkalsjdasldjasildjasdjasdadsalij",
+		AppID:   "test",
 	})
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp1)

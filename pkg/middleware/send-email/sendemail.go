@@ -64,7 +64,7 @@ func SendUserSiteContactEmail(ctx context.Context, in *npool.SendUserSiteContact
 	text := fmt.Sprintf(SiteContactHTML, in.From, in.Username, in.Text)
 	myServiceName := config.GetStringValueWithNameSpace("", config.KeyHostname)
 	sender := config.GetStringValueWithNameSpace(myServiceName, Sender)
-	err := email.SendEmailByAWS(in.SubTitle, text, sender, in.To, &in.From)
+	err := email.SendEmailByAWS(in.Subject, text, sender, in.To, &in.From)
 	if err != nil {
 		return nil, err
 	}

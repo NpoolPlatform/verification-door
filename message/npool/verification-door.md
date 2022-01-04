@@ -248,7 +248,7 @@
 | From | [string](#string) |  |  |
 | To | [string](#string) |  |  |
 | Text | [string](#string) |  |  |
-| SubTitle | [string](#string) |  |  |
+| Subject | [string](#string) |  |  |
 | Username | [string](#string) |  |  |
 
 
