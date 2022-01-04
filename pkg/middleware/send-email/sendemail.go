@@ -50,7 +50,7 @@ func SendVerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.Sen
 	myServiceName := config.GetStringValueWithNameSpace("", config.KeyHostname)
 	sender := config.GetStringValueWithNameSpace(myServiceName, Sender)
 
-	err = email.SendEmailByAWS(subtitle, fmt.Sprintf(html, in.Username, code), "", sender, in.Email)
+	err = email.SendEmailByAWS(subtitle, fmt.Sprintf(html, in.Username, code), sender, in.Email)
 	if err != nil {
 		return nil, xerrors.Errorf("fail to send email: %v", err)
 	}
@@ -61,7 +61,7 @@ func SendVerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.Sen
 }
 
 func SendUserSiteContactEmail(ctx context.Context, in *npool.SendUserSiteContactEmailRequest) (*npool.SendUserSiteContactEmailResponse, error) {
-	err := email.SendEmailByAWS(in.SubTitle, "", in.Text, in.From, in.To)
+	err := email.SendEmailByAWS(in.SubTitle, in.Text, in.From, in.To)
 	if err != nil {
 		return nil, err
 	}

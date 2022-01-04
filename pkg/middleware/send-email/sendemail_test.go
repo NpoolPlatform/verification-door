@@ -26,7 +26,7 @@ func TestSendEmailMiddleware(t *testing.T) { // nolint
 		return
 	}
 
-	email := "crazyzplzpl@163.com"
+	email := "crazyzplzpl@gmail.com"
 	resp, err := SendVerifyCode(context.Background(), &npool.SendEmailRequest{
 		Email:    email,
 		Lang:     En,
@@ -38,7 +38,7 @@ func TestSendEmailMiddleware(t *testing.T) { // nolint
 
 	resp1, err := SendUserSiteContactEmail(context.Background(), &npool.SendUserSiteContactEmailRequest{
 		From:     email,
-		To:       "crazyzplzpl@qq.com",
+		To:       "crazyzplzpl@163.com",
 		SubTitle: "test",
 		Text:     "dsadsajlkdjaskdlasjdkalsjdasldjasildjasdjasdadsalij",
 		AppID:    "test",
