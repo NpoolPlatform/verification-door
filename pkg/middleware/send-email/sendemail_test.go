@@ -27,18 +27,23 @@ func TestSendEmailMiddleware(t *testing.T) { // nolint
 	}
 
 	email := "crazyzplzpl@163.com"
-	resp, err := SendEmail(context.Background(), &npool.SendEmailRequest{
-		Intention: "verify",
-		Email:     email,
-		Lang:      En,
-		Username:  "Crazyzpl",
+	resp, err := SendVerifyCode(context.Background(), &npool.SendEmailRequest{
+		Email:    email,
+		Lang:     En,
+		Username: "Crazyzpl",
 	})
 	if assert.Nil(t, err) {
 		assert.NotNil(t, resp)
 	}
 
-	_, err = VerifyCode(context.Background(), &npool.SendEmailRequest{
-		Email: email,
+	resp1, err := SendUserSiteContactEmail(context.Background(), &npool.SendUserSiteContactEmailRequest{
+		From:     email,
+		To:       "crazyzplzpl@qq.com",
+		SubTitle: "test",
+		Text:     "dsadsajlkdjaskdlasjdkalsjdasldjasildjasdjasdadsalij",
+		AppID:    "test",
 	})
-	assert.NotNil(t, err)
+	if assert.Nil(t, err) {
+		assert.NotNil(t, resp1)
+	}
 }

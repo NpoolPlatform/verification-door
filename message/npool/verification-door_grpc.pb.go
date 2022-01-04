@@ -41,6 +41,8 @@ type VerificationDoorClient interface {
 	GetCaptcherImg(ctx context.Context, in *GetCaptcherImgRequest, opts ...grpc.CallOption) (*GetCaptcherImgResponse, error)
 	// verify captcher input
 	VerifyCaptcher(ctx context.Context, in *VerifyCaptcherRequest, opts ...grpc.CallOption) (*VerifyCaptcherResponse, error)
+	// Send user site contact email
+	SendUserSiteContactEmail(ctx context.Context, in *SendUserSiteContactEmailRequest, opts ...grpc.CallOption) (*SendUserSiteContactEmailResponse, error)
 }
 
 type verificationDoorClient struct {
@@ -150,6 +152,15 @@ func (c *verificationDoorClient) VerifyCaptcher(ctx context.Context, in *VerifyC
 	return out, nil
 }
 
+func (c *verificationDoorClient) SendUserSiteContactEmail(ctx context.Context, in *SendUserSiteContactEmailRequest, opts ...grpc.CallOption) (*SendUserSiteContactEmailResponse, error) {
+	out := new(SendUserSiteContactEmailResponse)
+	err := c.cc.Invoke(ctx, "/verification.door.v1.VerificationDoor/SendUserSiteContactEmail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // VerificationDoorServer is the server API for VerificationDoor service.
 // All implementations must embed UnimplementedVerificationDoorServer
 // for forward compatibility
@@ -176,6 +187,8 @@ type VerificationDoorServer interface {
 	GetCaptcherImg(context.Context, *GetCaptcherImgRequest) (*GetCaptcherImgResponse, error)
 	// verify captcher input
 	VerifyCaptcher(context.Context, *VerifyCaptcherRequest) (*VerifyCaptcherResponse, error)
+	// Send user site contact email
+	SendUserSiteContactEmail(context.Context, *SendUserSiteContactEmailRequest) (*SendUserSiteContactEmailResponse, error)
 	mustEmbedUnimplementedVerificationDoorServer()
 }
 
@@ -215,6 +228,9 @@ func (UnimplementedVerificationDoorServer) GetCaptcherImg(context.Context, *GetC
 }
 func (UnimplementedVerificationDoorServer) VerifyCaptcher(context.Context, *VerifyCaptcherRequest) (*VerifyCaptcherResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyCaptcher not implemented")
+}
+func (UnimplementedVerificationDoorServer) SendUserSiteContactEmail(context.Context, *SendUserSiteContactEmailRequest) (*SendUserSiteContactEmailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendUserSiteContactEmail not implemented")
 }
 func (UnimplementedVerificationDoorServer) mustEmbedUnimplementedVerificationDoorServer() {}
 
@@ -427,6 +443,24 @@ func _VerificationDoor_VerifyCaptcher_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _VerificationDoor_SendUserSiteContactEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendUserSiteContactEmailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VerificationDoorServer).SendUserSiteContactEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/verification.door.v1.VerificationDoor/SendUserSiteContactEmail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VerificationDoorServer).SendUserSiteContactEmail(ctx, req.(*SendUserSiteContactEmailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // VerificationDoor_ServiceDesc is the grpc.ServiceDesc for VerificationDoor service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -477,6 +511,10 @@ var VerificationDoor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VerifyCaptcher",
 			Handler:    _VerificationDoor_VerifyCaptcher_Handler,
+		},
+		{
+			MethodName: "SendUserSiteContactEmail",
+			Handler:    _VerificationDoor_SendUserSiteContactEmail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

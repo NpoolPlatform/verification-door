@@ -16,6 +16,8 @@
     - [SendEmailResponse](#verification.door.v1.SendEmailResponse)
     - [SendSmsRequest](#verification.door.v1.SendSmsRequest)
     - [SendSmsResponse](#verification.door.v1.SendSmsResponse)
+    - [SendUserSiteContactEmailRequest](#verification.door.v1.SendUserSiteContactEmailRequest)
+    - [SendUserSiteContactEmailResponse](#verification.door.v1.SendUserSiteContactEmailResponse)
     - [VerifyCaptcherRequest](#verification.door.v1.VerifyCaptcherRequest)
     - [VerifyCaptcherResponse](#verification.door.v1.VerifyCaptcherResponse)
     - [VerifyCodeRequest](#verification.door.v1.VerifyCodeRequest)
@@ -234,6 +236,41 @@
 
 
 
+<a name="verification.door.v1.SendUserSiteContactEmailRequest"></a>
+
+### SendUserSiteContactEmailRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| AppID | [string](#string) |  |  |
+| From | [string](#string) |  |  |
+| To | [string](#string) |  |  |
+| Text | [string](#string) |  |  |
+| SubTitle | [string](#string) |  |  |
+| Username | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="verification.door.v1.SendUserSiteContactEmailResponse"></a>
+
+### SendUserSiteContactEmailResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Info | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="verification.door.v1.VerifyCaptcherRequest"></a>
 
 ### VerifyCaptcherRequest
@@ -433,6 +470,7 @@ Service Name
 | VerifyGoogleRecaptcha | [VerifyGoogleRecaptchaRequest](#verification.door.v1.VerifyGoogleRecaptchaRequest) | [VerifyGoogleRecaptchaResponse](#verification.door.v1.VerifyGoogleRecaptchaResponse) | verify google recaptcha. |
 | GetCaptcherImg | [GetCaptcherImgRequest](#verification.door.v1.GetCaptcherImgRequest) | [GetCaptcherImgResponse](#verification.door.v1.GetCaptcherImgResponse) | get captcher imgine url |
 | VerifyCaptcher | [VerifyCaptcherRequest](#verification.door.v1.VerifyCaptcherRequest) | [VerifyCaptcherResponse](#verification.door.v1.VerifyCaptcherResponse) | verify captcher input |
+| SendUserSiteContactEmail | [SendUserSiteContactEmailRequest](#verification.door.v1.SendUserSiteContactEmailRequest) | [SendUserSiteContactEmailResponse](#verification.door.v1.SendUserSiteContactEmailResponse) | Send user site contact email |
 
  
 

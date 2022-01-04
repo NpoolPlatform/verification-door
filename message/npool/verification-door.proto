@@ -86,6 +86,13 @@ service VerificationDoor {
             body: "*"
         };
     };
+    // Send user site contact email
+    rpc SendUserSiteContactEmail (SendUserSiteContactEmailRequest) returns (SendUserSiteContactEmailResponse) {
+        option (google.api.http) = {
+            post: "/v1/send/user/site/contact/email"
+            body: "*"
+        };
+    };
 }
 
 // request body and response
@@ -201,5 +208,18 @@ message VerifyCaptcherRequest {
 }
 
 message VerifyCaptcherResponse {
+    string Info = 1;
+}
+
+message SendUserSiteContactEmailRequest {
+    string AppID = 1;
+    string From = 2;
+    string To = 3;
+    string Text = 4;
+    string SubTitle = 5;
+    string Username = 6;
+}
+
+message SendUserSiteContactEmailResponse {
     string Info = 1;
 }
