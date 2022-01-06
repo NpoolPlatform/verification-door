@@ -27,12 +27,12 @@ func (s *Server) SendEmail(ctx context.Context, in *npool.SendEmailRequest) (*np
 	}
 
 	resp, err := sendemail.SendVerifyCode(ctx, in)
-	if err.Error() == verifycode.WaitTimeError {
-		logger.Sugar().Errorf("SendEmail error: %v", err)
-		return nil, status.Errorf(codes.AlreadyExists, "%v", err)
-	}
-
 	if err != nil {
+		if err.Error() == verifycode.WaitTimeError {
+			logger.Sugar().Errorf("SendEmail error: %v", err)
+			return nil, status.Errorf(codes.AlreadyExists, "%v", err)
+		}
+
 		logger.Sugar().Errorf("SendEmail error: %v", err)
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
@@ -52,12 +52,12 @@ func (s *Server) SendSms(ctx context.Context, in *npool.SendSmsRequest) (*npool.
 	}
 
 	resp, err := sendsms.SendVerifyCode(ctx, in)
-	if err.Error() == verifycode.WaitTimeError {
-		logger.Sugar().Errorf("SendSms error: %v", err)
-		return nil, status.Errorf(codes.AlreadyExists, "%v", err)
-	}
-
 	if err != nil {
+		if err.Error() == verifycode.WaitTimeError {
+			logger.Sugar().Errorf("SendSms error: %v", err)
+			return nil, status.Errorf(codes.AlreadyExists, "%v", err)
+		}
+
 		logger.Sugar().Errorf("SendSms error, internal server error: %v", err)
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}

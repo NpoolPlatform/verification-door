@@ -15,7 +15,7 @@ const Sender = "email_sender"
 
 func SendVerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEmailResponse, error) {
 	var html, subtitle, user string
-	switch in.Lang {
+	switch in.GetLang() {
 	case En:
 		html = EnHTML
 		subtitle = EnSubtitle
@@ -30,18 +30,19 @@ func SendVerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.Sen
 		user = JpUser
 	}
 
-	if in.Username == "" {
-		in.Username = user
+	var username string
+	if in.GetUsername() == "" {
+		username = user
 	} else {
-		if in.Lang == En {
-			in.Username = "Dear " + in.Username + ","
+		if in.GetLang() == En {
+			username = "Dear " + in.GetUsername() + ","
 		} else {
-			in.Username += " 様、"
+			username += " 様、"
 		}
 	}
 
 	code := verifycode.GenerateVerifyCode(6)
-	err := verifycode.SaveVerifyCode(ctx, in.Email, code, time.Now().Unix())
+	err := verifycode.SaveVerifyCode(ctx, in.GetEmail(), code, time.Now().Unix())
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +50,7 @@ func SendVerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.Sen
 	myServiceName := config.GetStringValueWithNameSpace("", config.KeyHostname)
 	sender := config.GetStringValueWithNameSpace(myServiceName, Sender)
 
-	err = email.SendEmailByAWS(subtitle, fmt.Sprintf(html, in.Username, code), sender, in.Email)
+	err = email.SendEmailByAWS(subtitle, fmt.Sprintf(html, username, code), sender, in.GetEmail())
 	if err != nil {
 		return nil, err
 	}
@@ -60,10 +61,10 @@ func SendVerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.Sen
 }
 
 func SendUserSiteContactEmail(ctx context.Context, in *npool.SendUserSiteContactEmailRequest) (*npool.SendUserSiteContactEmailResponse, error) {
-	text := fmt.Sprintf(SiteContactHTML, in.From, in.Username, in.Text)
+	text := fmt.Sprintf(SiteContactHTML, in.GetFrom(), in.GetUsername(), in.GetText())
 	myServiceName := config.GetStringValueWithNameSpace("", config.KeyHostname)
 	sender := config.GetStringValueWithNameSpace(myServiceName, Sender)
-	err := email.SendEmailByAWS(in.Subject, text, sender, in.To, in.From)
+	err := email.SendEmailByAWS(in.GetSubject(), text, sender, in.GetTo(), in.GetFrom())
 	if err != nil {
 		return nil, err
 	}

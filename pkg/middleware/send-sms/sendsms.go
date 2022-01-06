@@ -19,12 +19,12 @@ const (
 )
 
 func SendVerifyCode(ctx context.Context, in *npool.SendSmsRequest) (*npool.SendSmsResponse, error) {
-	if in.Phone == "" {
+	if in.GetPhone() == "" {
 		return nil, xerrors.Errorf("please input your phone number")
 	}
 	var message string
 
-	switch in.Lang {
+	switch in.GetLang() {
 	case En:
 		message = EnMessage
 	default:
@@ -32,12 +32,12 @@ func SendVerifyCode(ctx context.Context, in *npool.SendSmsRequest) (*npool.SendS
 	}
 
 	code := verifycode.GenerateVerifyCode(6)
-	err := verifycode.SaveVerifyCode(ctx, in.Phone, code, time.Now().Unix())
+	err := verifycode.SaveVerifyCode(ctx, in.GetPhone(), code, time.Now().Unix())
 	if err != nil {
 		return nil, err
 	}
 
-	err = sms.SendSms(fmt.Sprintf(message, code), in.Phone)
+	err = sms.SendSms(fmt.Sprintf(message, code), in.GetPhone())
 	if err != nil {
 		return nil, xerrors.Errorf("fail to send sms message: %v", err)
 	}

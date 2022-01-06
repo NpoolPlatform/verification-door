@@ -54,7 +54,7 @@ func SaveVerifyCode(ctx context.Context, param, code string, sendTime int64) err
 }
 
 func VerifyCode(ctx context.Context, in *npool.VerifyCodeRequest) (*npool.VerifyCodeResponse, error) {
-	info, err := myRedis.QueryVerifyCodeKeyInfo(ctx, in.Param, VerificationCodeKeyword)
+	info, err := myRedis.QueryVerifyCodeKeyInfo(ctx, in.GetParam(), VerificationCodeKeyword)
 	if err == redis.Nil {
 		return nil, xerrors.Errorf("input code is wrong or expired")
 	}
@@ -62,10 +62,10 @@ func VerifyCode(ctx context.Context, in *npool.VerifyCodeRequest) (*npool.Verify
 		return nil, err
 	}
 
-	if in.Code != info.Code {
+	if in.GetCode() != info.Code {
 		return nil, xerrors.Errorf("input code is wrong!")
 	}
-	err = myRedis.DelKey(in.Param, VerificationCodeKeyword)
+	err = myRedis.DelKey(in.GetParam(), VerificationCodeKeyword)
 	if err != nil {
 		return nil, err
 	}

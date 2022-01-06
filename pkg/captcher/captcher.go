@@ -33,7 +33,7 @@ func GetCaptcherImg() (*npool.GetCaptcherImgResponse, error) {
 }
 
 func VerifyCaptcher(in *npool.VerifyCaptcherRequest) error {
-	pass := store.Verify(in.ID, strings.TrimSpace(in.Input), true)
+	pass := store.Verify(in.GetID(), strings.TrimSpace(in.GetInput()), true)
 	if !pass {
 		return xerrors.Errorf("input code not correct")
 	}

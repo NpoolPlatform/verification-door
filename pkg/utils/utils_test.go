@@ -39,24 +39,4 @@ func TestUtils(t *testing.T) { // nolint
 	phone = "asdadadadadas"
 	match = ValidPhoneNumber(phone)
 	assert.Equal(t, false, match)
-
-	phone = "+++++++++"
-	match = ValidPhoneNumber(phone)
-	assert.Equal(t, false, match)
-
-	phone = "+"
-	match = ValidPhoneNumber(phone)
-	assert.Equal(t, false, match)
-
-	phone = "12231"
-	match = ValidPhoneNumber(phone)
-	assert.Equal(t, false, match)
-
-	phone = "+12545456544565445624"
-	match = ValidPhoneNumber(phone)
-	assert.Equal(t, false, match)
-
-	phone = "+12"
-	match = ValidPhoneNumber(phone)
-	assert.Equal(t, false, match)
 }
