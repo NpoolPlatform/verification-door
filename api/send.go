@@ -17,12 +17,12 @@ import (
 
 func (s *Server) SendEmail(ctx context.Context, in *npool.SendEmailRequest) (*npool.SendEmailResponse, error) {
 	if in.GetEmail() == "" {
-		logger.Sugar().Error("Fail to send email: Email address cannot be null")
-		return nil, status.Error(codes.InvalidArgument, "email address cannot be null")
+		logger.Sugar().Error("SendEmail error: Email address cannot be empty")
+		return nil, status.Error(codes.InvalidArgument, "email address cannot be empty")
 	}
 
 	if _, err := mail.ParseAddress(in.GetEmail()); err != nil {
-		logger.Sugar().Errorf("Fail to send email, invalid email address: %v", err)
+		logger.Sugar().Errorf("SendEmail error, invalid email address: %v", err)
 		return nil, status.Error(codes.InvalidArgument, "Invalid email address")
 	}
 
@@ -33,8 +33,8 @@ func (s *Server) SendEmail(ctx context.Context, in *npool.SendEmailRequest) (*np
 	}
 
 	if err != nil {
-		logger.Sugar().Errorf("fail to send email: %v", err)
-		return nil, status.Errorf(codes.FailedPrecondition, "Internal server error: %v", err)
+		logger.Sugar().Errorf("SendEmail error: %v", err)
+		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 
 	return resp, nil
@@ -42,13 +42,13 @@ func (s *Server) SendEmail(ctx context.Context, in *npool.SendEmailRequest) (*np
 
 func (s *Server) SendSms(ctx context.Context, in *npool.SendSmsRequest) (*npool.SendSmsResponse, error) {
 	if in.GetPhone() == "" {
-		logger.Sugar().Error("SendSms error: phone number can not be null")
-		return nil, status.Error(codes.InvalidArgument, "phone number can not be null")
+		logger.Sugar().Error("SendSms error: phone number can not be empty")
+		return nil, status.Error(codes.InvalidArgument, "phone number can not be empty")
 	}
 
 	if match := utils.ValidPhoneNumber(in.GetPhone()); !match {
-		logger.Sugar().Error("SendSms error: phone number is not legal")
-		return nil, status.Error(codes.InvalidArgument, "phone number is not legal")
+		logger.Sugar().Error("SendSms error: phone number is not invalid")
+		return nil, status.Error(codes.InvalidArgument, "phone number is not invalid")
 	}
 
 	resp, err := sendsms.SendVerifyCode(ctx, in)
@@ -66,13 +66,13 @@ func (s *Server) SendSms(ctx context.Context, in *npool.SendSmsRequest) (*npool.
 
 func (s *Server) SendUserSiteContactEmail(ctx context.Context, in *npool.SendUserSiteContactEmailRequest) (*npool.SendUserSiteContactEmailResponse, error) {
 	if in.GetFrom() == "" {
-		logger.Sugar().Error("SendUserSiteContactEmail error: 'From' email address can not be null")
-		return nil, status.Error(codes.InvalidArgument, "'From' email address can not be null")
+		logger.Sugar().Error("SendUserSiteContactEmail error: 'From' email address can not be empty")
+		return nil, status.Error(codes.InvalidArgument, "'From' email address can not be empty")
 	}
 
 	if in.GetTo() == "" {
-		logger.Sugar().Error("SendUserSiteContactEmail error: 'To' email address can not be null")
-		return nil, status.Error(codes.InvalidArgument, "'To' email address can not be null")
+		logger.Sugar().Error("SendUserSiteContactEmail error: 'To' email address can not be empty")
+		return nil, status.Error(codes.InvalidArgument, "'To' email address can not be empty")
 	}
 
 	if _, err := mail.ParseAddress(in.GetFrom()); err != nil {
@@ -86,13 +86,13 @@ func (s *Server) SendUserSiteContactEmail(ctx context.Context, in *npool.SendUse
 	}
 
 	if in.GetText() == "" {
-		logger.Sugar().Error("SendUserSiteContactEmail error: email text cannot be null")
-		return nil, status.Error(codes.InvalidArgument, "email text can not be null")
+		logger.Sugar().Error("SendUserSiteContactEmail error: email text cannot be empty")
+		return nil, status.Error(codes.InvalidArgument, "email text can not be empty")
 	}
 
 	if in.GetSubject() == "" {
-		logger.Sugar().Error("SendUserSiteContactEmail error: email subject can not be null")
-		return nil, status.Error(codes.InvalidArgument, "email subject can not be null")
+		logger.Sugar().Error("SendUserSiteContactEmail error: email subject can not be empty")
+		return nil, status.Error(codes.InvalidArgument, "email subject can not be empty")
 	}
 
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
@@ -101,7 +101,7 @@ func (s *Server) SendUserSiteContactEmail(ctx context.Context, in *npool.SendUse
 	resp, err := sendemail.SendUserSiteContactEmail(ctx, in)
 	if err != nil {
 		logger.Sugar().Errorf("SendUserSiteContactEmail error, internal server error: %v", err)
-		return nil, status.Errorf(codes.Internal, "Internal server error: %v", err)
+		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 	return resp, nil
 }

@@ -6,6 +6,10 @@ import (
 )
 
 func ValidPhoneNumber(phone string) bool {
+	if len(phone) > 14 || len(phone) < 6 {
+		return false
+	}
+
 	start := strings.HasPrefix(phone, "+")
 	if !start {
 		return false

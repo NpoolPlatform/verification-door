@@ -17,7 +17,7 @@ const (
 	CharSet   = "UTF-8"
 )
 
-func SendEmailByAWS(subtitle, content, from, to string, replyTo ...*string) error {
+func SendEmailByAWS(subtitle, content, from, to string, replyTo ...string) error {
 	myServiceName := config.GetStringValueWithNameSpace("", config.KeyHostname)
 	region := config.GetStringValueWithNameSpace(myServiceName, Region)
 	accessKey := config.GetStringValueWithNameSpace(myServiceName, AccessKey)
@@ -55,7 +55,7 @@ func SendEmailByAWS(subtitle, content, from, to string, replyTo ...*string) erro
 	}
 
 	if len(replyTo) != 0 {
-		input.ReplyToAddresses = replyTo
+		input.ReplyToAddresses = aws.StringSlice(replyTo)
 	}
 
 	_, err = svc.SendEmail(input)
