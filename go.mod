@@ -12,7 +12,6 @@ require (
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.6.0
-	github.com/mailgun/mailgun-go/v3 v3.6.4
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.7.0

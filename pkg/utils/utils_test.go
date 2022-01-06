@@ -1,4 +1,4 @@
-package google
+package utils
 
 import (
 	"log"
@@ -7,7 +7,6 @@ import (
 	"testing"
 
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -20,27 +19,24 @@ func init() {
 	}
 }
 
-func TestGoogle(t *testing.T) { // nolint
+func TestUtils(t *testing.T) { // nolint
 	if runByGithubAction, err := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); err == nil && runByGithubAction {
 		return
 	}
 
-	secret, err := GetSecret()
-	if assert.Nil(t, err) {
-		assert.NotNil(t, secret)
-	}
+	phone := "+12312312313"
+	match := ValidPhoneNumber(phone)
+	assert.Equal(t, true, match)
 
-	userID := uuid.New().String()
-	url := GetQrcodeURL(userID, secret)
-	assert.NotNil(t, url)
+	phone = "12312313123"
+	match = ValidPhoneNumber(phone)
+	assert.Equal(t, false, match)
 
-	trueCodes, err := getTrueCode(secret)
-	if assert.Nil(t, err) {
-		assert.NotNil(t, trueCodes)
-	}
+	phone = "1312sadasdas"
+	match = ValidPhoneNumber(phone)
+	assert.Equal(t, false, match)
 
-	result, err := VerifyCode(secret, trueCodes[0])
-	if assert.Nil(t, err) {
-		assert.Equal(t, result, true)
-	}
+	phone = "asdadadadadas"
+	match = ValidPhoneNumber(phone)
+	assert.Equal(t, false, match)
 }

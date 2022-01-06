@@ -33,7 +33,7 @@ func VerifyGoogleRecaptcha(in *npool.VerifyGoogleRecaptchaRequest) (*npool.Verif
 	httpClient := &http.Client{
 		Timeout: 60 * time.Second,
 	}
-	request := url.Values{"secret": {recaptchaSecret}, "response": {in.Response}}
+	request := url.Values{"secret": {recaptchaSecret}, "response": {in.GetResponse()}}
 	resp, err := httpClient.PostForm(recaptchaURL, request)
 	if err != nil {
 		return nil, xerrors.Errorf("fail to verify: %v", err)

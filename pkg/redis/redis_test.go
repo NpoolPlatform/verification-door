@@ -2,12 +2,12 @@ package redis
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"testing"
 	"time"
 
-	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
@@ -18,7 +18,7 @@ func init() {
 		return
 	}
 	if err := testinit.Init(); err != nil {
-		logger.Sugar().Error(err)
+		log.Fatal(err)
 	}
 }
 
