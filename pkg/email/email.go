@@ -1,8 +1,6 @@
 package email
 
 import (
-	"net/mail"
-
 	"github.com/NpoolPlatform/go-service-framework/pkg/config"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
@@ -20,11 +18,6 @@ const (
 )
 
 func SendEmailByAWS(subtitle, content, from, to string, replyTo ...*string) error {
-	_, err := mail.ParseAddress(to)
-	if err != nil {
-		return xerrors.Errorf("invalid email address: %v", err)
-	}
-
 	myServiceName := config.GetStringValueWithNameSpace("", config.KeyHostname)
 	region := config.GetStringValueWithNameSpace(myServiceName, Region)
 	accessKey := config.GetStringValueWithNameSpace(myServiceName, AccessKey)

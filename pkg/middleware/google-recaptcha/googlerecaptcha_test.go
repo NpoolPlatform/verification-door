@@ -1,11 +1,11 @@
 package googlerecaptcha
 
 import (
+	"log"
 	"os"
 	"strconv"
 	"testing"
 
-	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 	"github.com/NpoolPlatform/verification-door/message/npool"
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init" //nolint
 	"github.com/stretchr/testify/assert"
@@ -16,7 +16,7 @@ func init() {
 		return
 	}
 	if err := testinit.Init(); err != nil {
-		logger.Sugar().Error(err)
+		log.Fatal(err)
 	}
 }
 

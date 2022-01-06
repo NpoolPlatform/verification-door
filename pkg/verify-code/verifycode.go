@@ -15,6 +15,7 @@ const (
 	VerifyCodeDuration      = 10 * time.Minute
 	VerificationCodeKeyword = "verify-code"
 	WaitTime                = 60
+	WaitTimeError           = "Please wait for 60 seconds to send another email"
 )
 
 func GenerateVerifyCode(length int) string {
@@ -35,7 +36,7 @@ func SaveVerifyCode(ctx context.Context, param, code string, sendTime int64) err
 
 	if err == nil {
 		if (sendTime - info.SendTime) < WaitTime {
-			return xerrors.Errorf("please wait for 60 seconds.")
+			return xerrors.Errorf(WaitTimeError)
 		}
 	}
 

@@ -1,11 +1,11 @@
 package email
 
 import (
+	"log"
 	"os"
 	"strconv"
 	"testing"
 
-	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/stretchr/testify/assert"
@@ -16,7 +16,7 @@ func init() {
 		return
 	}
 	if err := testinit.Init(); err != nil {
-		logger.Sugar().Error(err)
+		log.Fatal(err)
 	}
 }
 

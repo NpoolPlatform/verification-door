@@ -9,7 +9,6 @@ import (
 	"github.com/NpoolPlatform/verification-door/message/npool"
 	"github.com/NpoolPlatform/verification-door/pkg/email"
 	verifycode "github.com/NpoolPlatform/verification-door/pkg/verify-code"
-	"golang.org/x/xerrors"
 )
 
 const Sender = "email_sender"
@@ -44,7 +43,7 @@ func SendVerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.Sen
 	code := verifycode.GenerateVerifyCode(6)
 	err := verifycode.SaveVerifyCode(ctx, in.Email, code, time.Now().Unix())
 	if err != nil {
-		return nil, xerrors.Errorf("fail to save email verify code: %v", err)
+		return nil, err
 	}
 
 	myServiceName := config.GetStringValueWithNameSpace("", config.KeyHostname)
@@ -52,7 +51,7 @@ func SendVerifyCode(ctx context.Context, in *npool.SendEmailRequest) (*npool.Sen
 
 	err = email.SendEmailByAWS(subtitle, fmt.Sprintf(html, in.Username, code), sender, in.Email)
 	if err != nil {
-		return nil, xerrors.Errorf("fail to send email: %v", err)
+		return nil, err
 	}
 
 	return &npool.SendEmailResponse{

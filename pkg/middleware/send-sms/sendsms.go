@@ -34,7 +34,7 @@ func SendVerifyCode(ctx context.Context, in *npool.SendSmsRequest) (*npool.SendS
 	code := verifycode.GenerateVerifyCode(6)
 	err := verifycode.SaveVerifyCode(ctx, in.Phone, code, time.Now().Unix())
 	if err != nil {
-		return nil, xerrors.Errorf("fail to save email verify code: %v", err)
+		return nil, err
 	}
 
 	err = sms.SendSms(fmt.Sprintf(message, code), in.Phone)
