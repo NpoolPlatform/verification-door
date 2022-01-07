@@ -29,10 +29,6 @@ spec:
             backend:
               serviceName: verification-door
               servicePort: 50090
-          - path: /api/verification-door/v1/send/user/site/contact/email
-            backend:
-              serviceName: verification-door
-              servicePort: 50090
     - host: api.xpool.top
       http: *http_appid_userid_rules
     - host: www.npool.top
@@ -69,6 +65,10 @@ spec:
               serviceName: verification-door
               servicePort: 50090
           - path: /api/verification-door/v1/send/sms
+            backend:
+              serviceName: verification-door
+              servicePort: 50090
+          - path: /api/verification-door/v1/send/user/site/contact/email
             backend:
               serviceName: verification-door
               servicePort: 50090
