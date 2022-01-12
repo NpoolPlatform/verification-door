@@ -102,8 +102,6 @@ pipeline {
         expression { BUILD_TARGET == 'true' }
       }
       steps {
-        sh 'rm .apollo-base-config -rf'
-        sh 'git clone https://github.com/NpoolPlatform/apollo-base-config.git .apollo-base-config'
         sh (returnStdout: false, script: '''
           devboxpod=`kubectl get pods -A | grep development-box | awk '{print $2}'`
           servicename="verification-door"
