@@ -3,7 +3,7 @@ package verifycode
 import (
 	"context"
 
-	"github.com/NpoolPlatform/verification-door/message/npool"
+	npool "github.com/NpoolPlatform/message/npool/verification"
 	myGrpc "github.com/NpoolPlatform/verification-door/pkg/grpc"
 	verifycode "github.com/NpoolPlatform/verification-door/pkg/verify-code"
 	"golang.org/x/xerrors"

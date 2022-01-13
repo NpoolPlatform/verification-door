@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/NpoolPlatform/verification-door/message/npool"
+	npool "github.com/NpoolPlatform/message/npool/verification"
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init" //nolint
 	"github.com/stretchr/testify/assert"
 )
