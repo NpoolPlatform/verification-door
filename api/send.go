@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
-	"github.com/NpoolPlatform/verification-door/message/npool"
+	npool "github.com/NpoolPlatform/message/npool/verification"
 	sendemail "github.com/NpoolPlatform/verification-door/pkg/middleware/send-email"
 	sendsms "github.com/NpoolPlatform/verification-door/pkg/middleware/send-sms"
 	"github.com/NpoolPlatform/verification-door/pkg/utils"

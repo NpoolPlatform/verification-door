@@ -3,7 +3,7 @@ package googleauth
 import (
 	"context"
 
-	"github.com/NpoolPlatform/verification-door/message/npool"
+	npool "github.com/NpoolPlatform/message/npool/verification"
 	usersecret "github.com/NpoolPlatform/verification-door/pkg/crud/user-secret"
 	"github.com/NpoolPlatform/verification-door/pkg/google"
 	"golang.org/x/xerrors"

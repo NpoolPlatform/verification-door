@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/NpoolPlatform/verification-door/message/npool"
+	npool "github.com/NpoolPlatform/message/npool/verification"
 	myRedis "github.com/NpoolPlatform/verification-door/pkg/redis"
 	"github.com/go-redis/redis/v8"
 	"golang.org/x/xerrors"

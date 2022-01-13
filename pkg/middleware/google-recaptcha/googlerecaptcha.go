@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/config"
-	"github.com/NpoolPlatform/verification-door/message/npool"
+	npool "github.com/NpoolPlatform/message/npool/verification"
 	"golang.org/x/xerrors"
 )
 

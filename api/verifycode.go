@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
-	"github.com/NpoolPlatform/verification-door/message/npool"
+	npool "github.com/NpoolPlatform/message/npool/verification"
 	middleware "github.com/NpoolPlatform/verification-door/pkg/middleware/verify-code"
 	verifycode "github.com/NpoolPlatform/verification-door/pkg/verify-code"
 	"google.golang.org/grpc/codes"

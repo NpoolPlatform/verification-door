@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
-	"github.com/NpoolPlatform/verification-door/message/npool"
+	npool "github.com/NpoolPlatform/message/npool/verification"
 	testinit "github.com/NpoolPlatform/verification-door/pkg/test-init"
 	"github.com/go-resty/resty/v2"
 	"github.com/stretchr/testify/assert"

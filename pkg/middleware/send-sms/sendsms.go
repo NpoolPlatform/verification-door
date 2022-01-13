@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/NpoolPlatform/verification-door/message/npool"
+	npool "github.com/NpoolPlatform/message/npool/verification"
 	"github.com/NpoolPlatform/verification-door/pkg/sms"
 	verifycode "github.com/NpoolPlatform/verification-door/pkg/verify-code"
 	"golang.org/x/xerrors"

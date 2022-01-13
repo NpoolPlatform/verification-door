@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	pbApplication "github.com/NpoolPlatform/application-management/message/npool"
 	applicationconst "github.com/NpoolPlatform/application-management/pkg/message/const"
 	mygrpc "github.com/NpoolPlatform/go-service-framework/pkg/grpc"
-	pbuser "github.com/NpoolPlatform/user-management/message/npool"
+	pbApplication "github.com/NpoolPlatform/message/npool/application"
+	pbuser "github.com/NpoolPlatform/message/npool/user"
 	userconst "github.com/NpoolPlatform/user-management/pkg/message/const"
 )
 

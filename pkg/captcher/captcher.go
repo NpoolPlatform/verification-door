@@ -3,7 +3,7 @@ package captcher
 import (
 	"strings"
 
-	"github.com/NpoolPlatform/verification-door/message/npool"
+	npool "github.com/NpoolPlatform/message/npool/verification"
 	"github.com/mojocn/base64Captcha"
 	"golang.org/x/xerrors"
 )

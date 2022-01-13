@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
-	"github.com/NpoolPlatform/verification-door/message/npool"
+	npool "github.com/NpoolPlatform/message/npool/verification"
 	usersecret "github.com/NpoolPlatform/verification-door/pkg/crud/user-secret"
 	googleauth "github.com/NpoolPlatform/verification-door/pkg/middleware/google-auth"
 	"google.golang.org/grpc/codes"
