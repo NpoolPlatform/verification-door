@@ -6,7 +6,7 @@ require (
 	entgo.io/ent v0.9.1
 	github.com/NpoolPlatform/application-management v0.0.0-20211208081653-46e93c4154df
 	github.com/NpoolPlatform/go-service-framework v0.0.0-20211222114515-4928e6cf3f1f
-	github.com/NpoolPlatform/message v0.0.0-20220113121702-4b1c67be285b
+	github.com/NpoolPlatform/message v0.0.0-20220117140916-90f13ab36833
 	github.com/NpoolPlatform/user-management v0.0.0-20211209064002-32ab23f7777b
 	github.com/aws/aws-sdk-go v1.42.19
 	github.com/go-redis/redis/v8 v8.11.4
