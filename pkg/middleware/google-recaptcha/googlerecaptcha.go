@@ -8,6 +8,8 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/config"
+	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
+
 	npool "github.com/NpoolPlatform/message/npool/verification"
 	"golang.org/x/xerrors"
 )
@@ -33,6 +35,10 @@ func VerifyGoogleRecaptcha(in *npool.VerifyGoogleRecaptchaRequest) (*npool.Verif
 	httpClient := &http.Client{
 		Timeout: 60 * time.Second,
 	}
+
+	logger.Sugar().Infof("verify google recaptcha hostname %v url %v secret %v token %v",
+		hostname, recaptchaURL, recaptchaSecret, in.GetResponse())
+
 	request := url.Values{"secret": {recaptchaSecret}, "response": {in.GetResponse()}}
 	resp, err := httpClient.PostForm(recaptchaURL, request)
 	if err != nil {
