@@ -2,6 +2,7 @@ commonLabels:
   # app: verification-door
 
 resources:
-  - 01-verification-door.yaml
-  - 02-traefik-ingress.yaml
-  - 03-nginx-ingress.yaml
+- 01-verification-door.yaml
+- 02-strip-prefix.yaml
+- 03-traefik-ingress.yaml
+- 04-traefik-vpn-ingress.yaml
